@@ -8,6 +8,7 @@
 }
 :root:has(.dark-mode){
     --background-color: #555;
+    
     --nav-color:#333;
     --text-color:#ddd
 }
@@ -29,7 +30,7 @@ nav{
     padding: 15px;
     background-color: var(--nav-color);
     display: flex;
-    gap: 10px;
+    gap: 12px;
     text-align: center;
     height: 90px;
 }
