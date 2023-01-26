@@ -1,0 +1,50 @@
+*,*::after,*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    transition: 100ms;
+    text-align: center;
+    align-items: center;
+}
+:root:has(.dark-mode){
+    --background-color: #555;
+    --nav-color:#333;
+    --text-color:#ddd
+}
+
+:root:has(.light-mode){
+    --background-color: #fff;
+    --nav-color:#ddd;
+    --text-color:#111
+}
+
+
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+
+}
+
+nav{
+    padding: 15px;
+    background-color: var(--nav-color);
+    display: flex;
+    gap: 10px;
+    text-align: center;
+    height: 90px;
+}
+nav img {
+    width: 90px;
+    height: 60px ;
+    /* alt: "df"; */
+}
+#view-mode {
+    cursor: pointer;
+    /* padding: 10px; */
+    user-select: none;
+    height: fit-content
+}
+#view-mode span {
+    /* height: 60px; */
+    text-align: center;
+}
