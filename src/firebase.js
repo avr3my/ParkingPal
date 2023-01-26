@@ -1,4 +1,5 @@
 import { initializeApp } from 'firebase/app'
+
 import {
   getFirestore, collection, onSnapshot,
   addDoc, deleteDoc, doc,
@@ -6,13 +7,13 @@ import {
   orderBy, serverTimestamp,
   updateDoc
 } from 'firebase/firestore'
+
 import {
   getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword, signOut,
   onAuthStateChanged
 } from 'firebase/auth'
-
 
 
 const firebaseConfig = {
@@ -29,16 +30,18 @@ const firebaseConfig = {
 // // initiating firebase app and services
 // initializeApp(firebaseConfig)
 // const db = getFirestore() // my data base
-// const auth = getAuth() // user authentification
+// const auth = getAuth()    // user authentification
 
-// collection ref
+
+// // collection ref
 // const colRef = collection(db, 'parkings')
 
-// querie example
-// const q = query(colRef, where("id", "==", "current user id"), orderBy('some order(key in item)'))
+// // querie example
+// const q = query(colRef, where("id", "==", "current user id"), orderBy('some order(key in item  (optional)' ))
+
 
 // realtime collection data
-// const unsubCol = onSnapshot(q, (snapshot) => {
+// onSnapshot(q, (snapshot) => {
 //   let parkings = []
 //   snapshot.docs.forEach(doc => {
 //     parkings.push({ ...doc.data(), id: doc.id })
@@ -46,20 +49,16 @@ const firebaseConfig = {
 //   console.log(parkings)
 // })
 
-// adding docs
-// const addBookForm = document.querySelector('.add')
-// addBookForm.addEventListener('submit', (e) => {
-//   e.preventDefault()
-
+// // adding docs
 //   addDoc(colRef, {
-//     title: addBookForm.title.value,
-//     author: addBookForm.author.value,
+//     addres: "1414 president st"
+//     owner_id: user.id,
 //     createdAt: serverTimestamp()
 //   })
 //   .then(() => {
-//     addBookForm.reset()
+//     console.log("done");
 //   })
-// })
+
 
 // deleting docs
 // const deleteBookForm = document.querySelector('.delete')
