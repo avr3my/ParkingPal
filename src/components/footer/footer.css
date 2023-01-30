@@ -10,6 +10,7 @@
 
 footer{
     display: flex;
+    /* color: #fff; */
     background-color: #36899e;
     height: 250px;
     justify-content: space-evenly;

@@ -1,6 +1,7 @@
 import React from 'react'
 import "./home.css"
 import imgLogo from "../../Assets/IMG-20230126-WA0018-removebg-preview (1).png"
+import {VscLocation} from 'react-icons/vsc';
 
 export default function Home() {
   return (
@@ -18,7 +19,7 @@ export default function Home() {
       </div>
       <div className="bady">
         <div className="search">
-          <input className='font-input' type="text" placeholder={'Enter Address Here...'}/>
+          <input className='font-input' type="text" placeholder="Enter Address Here..."/>
           <button>
               <span class="material-symbols-outlined">
                   search
@@ -27,7 +28,7 @@ export default function Home() {
         </div>
         <div className="button-search">
         <button className='stail-buttom test'>search by address</button>
-        <button className='stail-buttom'>search by location</button>
+        <button className='stail-buttom'>search by location <VscLocation/></button>
         </div>
       </div>
     </div>

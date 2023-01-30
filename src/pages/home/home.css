@@ -5,6 +5,14 @@
     --main-color-1 :#36899e;
     --main-color-2: #76b5c5;
   }
+  :root:has(.dark-mode){
+    --background-color: #555;
+    --text-color:#111;
+
+    --main-color-1 :#063970;
+    --main-color-2: #265f9c;
+
+}
 
 
 
@@ -28,11 +36,9 @@
 .home-page .size-icon{
     margin-top: 50%;
     font-size: 90px;
-    color: #36899e;
 }
 .home-page .account button{
     border: none;
-    background-color: white;
 }
 .home-page .bady{
     margin-top: 10%;
@@ -44,15 +50,12 @@
     display: flex;
 }
 .home-page .search button{
-    background-color:#76b5c5 ;
-    border: 3px solid #76b5c5;
     border-radius: 10px; 
     padding: 3%;
     display: flex;
     align-items: center;
 }
 .home-page input{
-    border: 3px solid #76b5c5;
     padding: 3%;
     width: 100%;
     border-radius: 10px;
@@ -70,11 +73,37 @@
 }
 .home-page .stail-buttom{
     font-family: revert;
-    border: 3px solid #76b5c5;
     height: 50px;
     margin-right: 4.5%;
     margin-top: 20px;
     border-radius: 10px;
+    color: var(--text-color);
+}
+
+
+
+/* light-mode */
+
+.home-page .size-icon{
+    color: #36899e;
+}
+.home-page .account button{
+    background-color: white;
+}
+.home-page .search button{
+    background-color:#76b5c5 ;
+    border: 3px solid #76b5c5;
+    color: #fff;
+}
+.home-page .search button:hover{
+    background-color:#36899e ;
+    color: #000;
+}
+.home-page input{
+    border: 3px solid #76b5c5;
+}
+.home-page .stail-buttom{
+    border: 3px solid #76b5c5;
     color: var(--text-color);
 }
 .home-page .stail-buttom:hover{
@@ -84,3 +113,46 @@
 .test{
  background-color: #76b5c5;
 }
+footer{
+    color: #fff;
+}
+
+
+
+/* dark-mode */
+/* .home-page{
+    background-color: #555;
+}
+.home-page .size-icon{
+    color: #36899e;
+}
+.home-page .account button{
+    background-color: #555;
+}
+.home-page .search button{
+    background-color:#76b5c5 ;
+    border: 3px solid #76b5c5;
+    color:#000;
+}
+.home-page .search button:hover{
+    background-color:#36899e ;
+    color: #fff;
+}
+.home-page input{
+    border: 3px solid #76b5c5;
+    background-color: #555;
+    color: #fff;
+    
+}
+.home-page .stail-buttom{
+    border: 3px solid #76b5c5;
+    color: #fff;
+    background-color: #555;
+}
+.home-page .stail-buttom:hover{
+    background-color:#fff;
+    color: #76b5c5;
+}
+.test{
+ background-color: #76b5c5;
+} */
