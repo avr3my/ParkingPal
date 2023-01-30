@@ -1,0 +1,98 @@
+.login-page{
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    animation: fade-in 500ms ease-in-out;
+}
+
+.login-window{
+    width: 350px;
+    height: fit-content;
+    padding-bottom: 30px;
+    position: absolute;
+    background-color: var(--main-color-1);
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    box-shadow: 2px 2px 18px 6px rgba(0,0,0,0.4);
+    user-select: none;
+}
+
+.login-window >* {
+    color: white;
+    margin-top: 40px;
+}
+
+.login-window input {
+    /* width: 100%; */
+    width: 85%;
+    float: left;
+    border: none;
+    outline: none;
+    background: none;
+    text-align: left;
+    color: white;
+}
+.login-window input::placeholder{
+    color: #ddd;
+    text-align: left;
+}
+
+.login-window button {
+    height: 37px;
+    display: block;
+    width: 80%;
+    border: 1px solid transparent;
+    padding: 10px;
+    margin: 20px 35px;
+    background-color: var(--btn-color);
+    cursor: pointer;
+    color: white;
+}
+.login-window button:active{
+    scale: 0.98;
+    border: 1px solid var(--main-color-2);
+}
+
+.login-window > #email, .login-window > #password {
+
+    background-color: var(--main-color-2);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    margin: 20px 35px;
+    height: 37px;
+}
+.login-signup > *{
+    color: white;
+    text-decoration: underline;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+.show-password{
+    cursor: pointer;
+    font-size: 1.2rem;
+}
+
+.close-window{
+    margin: 10px;
+    width: 100%;
+    text-align: left;    
+}
+.close-window *{
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    align-self: flex-start;
+}
+@keyframes fade-in {
+    from{
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}

@@ -1,0 +1,32 @@
+.user-profile {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+}
+
+.user-profile > * {
+    min-height: 30px;
+    border: 1px solid black;
+}
+.name {
+    grid-area: 1 / 4 / 2 / 7;
+}
+
+.email {
+    grid-area: 3 / 4 / 4 / 7;
+}
+
+.image {
+    grid-area: 1 / 1 / 4 / 4;
+    height: 90px;
+}
+
+.phone {
+    grid-area: 2 / 4 / 3 / 7;
+}
+
+.desc {
+    grid-area: 4 / 1 / 6 / 7;
+}
