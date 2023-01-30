@@ -1,0 +1,86 @@
+:root:has(.light-mode){
+    --background-color: #fff;
+    --text-color:#000;
+  
+    --main-color-1 :#36899e;
+    --main-color-2: #76b5c5;
+  }
+
+
+
+
+.home-page{
+    height: 800px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.home-page .top{
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+    width: 90%;
+    height: 200px;
+}
+.home-page .logo-size{
+    height: 100%;
+}
+.home-page .size-icon{
+    margin-top: 50%;
+    font-size: 90px;
+    color: #36899e;
+}
+.home-page .account button{
+    border: none;
+    background-color: white;
+}
+.home-page .bady{
+    margin-top: 10%;
+    height: 80%;
+    width: 50%;
+}
+.home-page .search{
+    height: 10%;
+    display: flex;
+}
+.home-page .search button{
+    background-color:#76b5c5 ;
+    border: 3px solid #76b5c5;
+    border-radius: 10px; 
+    padding: 3%;
+    display: flex;
+    align-items: center;
+}
+.home-page input{
+    border: 3px solid #76b5c5;
+    padding: 3%;
+    width: 100%;
+    border-radius: 10px;
+}
+.home-page .font-input{
+    font-family: revert;
+    font-size: larger;
+}
+.home-page .button-search{
+    margin-top: 3%;
+    margin-right: 4.5%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-between;
+}
+.home-page .stail-buttom{
+    font-family: revert;
+    border: 3px solid #76b5c5;
+    height: 50px;
+    margin-right: 4.5%;
+    margin-top: 20px;
+    border-radius: 10px;
+    color: var(--text-color);
+}
+.home-page .stail-buttom:hover{
+    background-color: #76b5c5;
+    color: #fff;
+}
+.test{
+ background-color: #76b5c5;
+}
