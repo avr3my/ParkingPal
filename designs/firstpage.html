@@ -18,29 +18,18 @@
   </head>
   <body class="dark-mode">
     <nav>
-      <img src="https://picsum.photos/90/60" alt="logo" />
-      <div onclick="changeViewMode()" id="view-mode">
-        <span id="node-icon" class="material-symbols-outlined">
-          dark_mode
-        </span>
-      </div>
-      log in
-      <span id="node-icon" class="material-symbols-outlined">
-        account_circle
+      <img src="https://picsum.photos/300/300" alt="">
+      <div class="data selected">my parkings</div>
+      <div class="data">favorite parkings</div>
+      <div class="data">edit profile</div>
+      <span onclick="changeViewMode()" id="node-icon" class="material-symbols-outlined">
+        person
       </span>
     </nav>
     <main>
-      <div class="temp">
-        <h3>Symbols</h3>
-        <p>
-          <span class="material-symbols-outlined"> directions_car </span>
-          <span class="material-symbols-outlined"> local_parking </span>
-          <span class="material-symbols-outlined"> <span class="material-symbols-outlined">
-            garage_home
-            </span> </span>
-        </p>
-      </div>
+
     </main>
+    
     <script>
       let body = document.querySelector("body");
       let modeButton = document.querySelector("#node-icon");

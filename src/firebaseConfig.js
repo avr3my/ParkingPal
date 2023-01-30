@@ -28,9 +28,9 @@ const firebaseConfig = {
 
 
 // // initiating firebase app and services
-// initializeApp(firebaseConfig)
-// const db = getFirestore() // my data base
-// const auth = getAuth()    // user authentification
+initializeApp(firebaseConfig)
+const db = getFirestore() // my data base
+export const auth = getAuth()    // user authentification
 
 
 // // collection ref
@@ -109,7 +109,6 @@ const firebaseConfig = {
 //   createUserWithEmailAndPassword(auth, email, password)
 //     .then(cred => {
 //       console.log('user created:', cred.user)
-//       signupForm.reset()
 //     })
 //     .catch(err => {
 //       console.log(err.message)

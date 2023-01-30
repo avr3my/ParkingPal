@@ -1,21 +1,38 @@
 nav{
-    background-color: #dddddd;
-    opacity: 0.9;
-    position: absolute;
-    left: 0;
-    top: 0;
-    height: 100vh;
-    width: 50px;
-    transition-duration: 0.5s;
+    color: #fff;
+    background-color: var(--main-color-1);
+    height: 90px;
+    display: flex;
+    justify-content: space-around;
+
 }
 
-nav.open {
-    width: 200px;
-    z-index: 3;
+nav > div{
+    cursor: pointer;
+    height: 50px;
+    padding: 15px;
+    border-radius: 10px;
 }
 
+nav > div.selected{
+    background-color: #fff;
+    color: var(--main-color-1);
+}
 
-nav>div{
-    height: 30px;
-    padding: 25px 10px;
+nav > div:hover:not(.selected), nav #logout:hover{
+    background-color: var(--main-color-2);
+}
+
+nav .logo{
+    width: 70px;
+    border-radius: 10px;
+    margin: 10px;
+}
+
+nav #logout {
+    color: white;
+    cursor: pointer;
+    border-radius: 50%;
+    padding: 10px;
+    /* border: 1px solid; */
 }

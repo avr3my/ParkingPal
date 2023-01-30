@@ -1,0 +1,8 @@
+
+
+.account-page:has(.login-page) .user-profile, .account-page:has(.login-page) nav {
+    animation: fade-in 500ms ease-in-out forwards;
+    filter: blur(8px);
+}
+
+
