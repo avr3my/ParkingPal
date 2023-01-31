@@ -8,23 +8,30 @@ import { useEffect, useState } from "react";
 // import pages
 import Account from "./pages/account/Account";
 import Home from "./pages/home/Home";
+import Footer from "../src/components/footer/Footer";
 
 // import components
-import Nav from "./components/nav/Nav";
-
 import { auth } from "./firebaseConfig";
 
 export default function App() {
+  const [selectedAddress, setSelectedAddress] = useState({});
 
   return (
-    <div className="main-div light-mode">
+    <div className="main-div kight-mode">
       <Routes>
-        <Route path="/" element={<Home />} />
         <Route
-          path="/account"
-          element={<Account />}
+          path="/"
+          element={
+            <Home
+              selectedAddress={selectedAddress}
+              setSelectedAddress={setSelectedAddress}
+            />
+          }
         />
+        <Route path="/account" element={<Account />} />
+        <Route path="/parkings-around-me" element={null} />
       </Routes>
+      <Footer />
     </div>
   );
 }
