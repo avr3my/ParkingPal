@@ -10,6 +10,9 @@
     min-height: 30px;
     border: 1px solid black;
 }
+.user-profile input {
+    border: none;
+}
 .name {
     grid-area: 1 / 4 / 2 / 7;
 }
@@ -22,7 +25,10 @@
     grid-area: 1 / 1 / 4 / 4;
     height: 90px;
 }
-
+.image img{
+    height: 100%;
+    padding: 20px;
+}
 .phone {
     grid-area: 2 / 4 / 3 / 7;
 }

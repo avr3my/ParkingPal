@@ -1,68 +1,44 @@
 import "./userProfile.css";
 
+import Avatar from "../../Assets/defaultAvatar.png";
 import { useState, useEffect } from "react";
 import { auth } from "../../firebaseConfig";
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
 
-export default function UserProfile({setSuccses}) {
-  console.log(auth.currentUser);
-
-  // const [name, setName] = useState(user.displayName);
-  // const [email, setEmail] = useState(user.email);
-  // const [phone, setPhone] = useState(user.phoneNumber);
-  // const [image, setImage] = useState(user.photoURL);
-  // const [desc, setDesc] = useState(user.desc);
-
-  const [userData, setUserData] = useState({...auth.currentUser});
-
+export default function UserProfile({ succses }) {
+  const [userData, setUserData] = useState({ ...auth.currentUser });
   const updateUserProfile = () => {
     updateProfile(auth.currentUser, userData)
       .then((e) => console.log(e))
       .catch((err) => console.log(err));
   };
 
-
   useEffect(() => {
-    setUserData({...auth.currentUser});
-  }, [setSuccses]);
+    setUserData({ ...auth.currentUser });
+    console.log(userData);
+  }, [succses]);
 
   if (!userData) {
     return;
   }
   return (
     <div className="user-profile">
-      <div className="image">image </div>
+      <div className="image">
+        <img src={Avatar} alt="" />
+      </div>
       <div className="name">
-        <span>name</span>
-        <input
-          value={userData.displayName}
-          onChange={(e) =>
-            setUserData({ ...userData, displayName: `${e.target.value}` })
-          }
-          type="text"
-        />
+        <span>name: </span>
+        <span>{userData.displayName}</span>
       </div>
       <div className="phone">
-        <span>phone</span>
-        <input
-          type="text"
-          value={userData.phoneNumber}
-          onChange={(e) =>
-            setUserData({ ...userData, phoneNumber: `${e.target.value}` })
-          }
-        />
+        <span>phone: </span>
+        <span>{userData.phoneNumber}</span>
       </div>
       <div className="email">
-        <span>email</span>
-        <input
-          type="text"
-          value={userData.email}
-          onChange={(e) =>
-            setUserData({ ...userData, email: `${e.target.value}` })
-          }
-        />{" "}
+        <span>email: </span>
+        <span>{userData.email}</span>
       </div>
-      <div className="desc"> desc</div>
+      <div className="desc"> {userData.uid}</div>
     </div>
   );
 }

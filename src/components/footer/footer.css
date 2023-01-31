@@ -1,19 +1,11 @@
-:root:has(.light-mode){
-    --background-color: #fff;
-    --text-color:#000;
-  
-    --main-color-1 :#36899e;
-    --main-color-2: #76b5c5;
-  }
-
-
-
 footer{
     display: flex;
-    /* color: #fff; */
     background-color: #36899e;
     height: 250px;
     justify-content: space-evenly;
+}
+footer *{
+    text-align: left;    
 }
 footer .size-icon{
     color: #76b5c5;

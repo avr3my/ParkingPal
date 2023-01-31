@@ -28,7 +28,7 @@ export default function Account() {
     <div className="account-page">
       <Nav  current={current} setCurrent={setCurrent} />
       {current === 1 ? (
-        <UserProfile setSuccses={setSuccses} />
+        <UserProfile succses={succses} />
       ) : current === 2 ? (
         <SavedParkings />
       ) : (

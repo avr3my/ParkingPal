@@ -9,7 +9,7 @@
 
 :root:has(.dark-mode){
   --background-color: #555;
-  --text-color:#111;
+  --text-color:#fff;
   --btn-color:#0b2643;
   --main-color-1 :#063970;
   --main-color-2: #265f9c;
@@ -18,7 +18,7 @@
 
 :root:has(.light-mode){
   --background-color: #fff;
-  --text-color:#000;
+  --text-color:#fff;
   --btn-color:#1c5867;
   --main-color-1 :#36899e;
   --main-color-2: #76b5c5;
