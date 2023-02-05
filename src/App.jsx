@@ -1,3 +1,6 @@
+//bootsrap
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faMoon, faRocket } from "@fortawesome/free-solid-svg-icons";
 // import styles
 import "./App.css";
 
@@ -12,13 +15,17 @@ import Footer from "../src/components/footer/Footer";
 
 // import components
 import { auth } from "./firebaseConfig";
+// import {Background} from '../src/components/Background/Background'
 
 export default function App() {
   const [selectedAddress, setSelectedAddress] = useState({});
+  library.add(faMoon, faRocket);
+
 
   return (
-    <div className="main-div kight-mode">
+    <div className="main-div light-mode">
       <Routes>
+        {/* <Background/> */}
         <Route
           path="/"
           element={
