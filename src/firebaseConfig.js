@@ -29,28 +29,32 @@ const firebaseConfig = {
 
 // // initiating firebase app and services
 initializeApp(firebaseConfig)
-const db = getFirestore() // my data base
+
+export const db = getFirestore() // my data base
 export const auth = getAuth()    // user authentification
 
 
-// // collection ref
-// const colRef = collection(db, 'parkings')
+// collection ref
+const parkingsRef = collection(db, 'parkings')
+// console.log(parkingsRef);
+
 
 // // querie example
-// const q = query(colRef, where("id", "==", "current user id"), orderBy('some order(key in item  (optional)' ))
+// const q = query(parkingsRef, where("id", "==", "current user id"), orderBy('some order(key in item  (optional)' ))
 
 
 // realtime collection data
-// onSnapshot(q, (snapshot) => {
+// onSnapshot(parkingsRef, (snapshot) => {
 //   let parkings = []
 //   snapshot.docs.forEach(doc => {
 //     parkings.push({ ...doc.data(), id: doc.id })
 //   })
-//   console.log(parkings)
+//   console.log("all parkings:",parkings)
 // })
 
+
 // // adding docs
-//   addDoc(colRef, {
+//   addDoc(parkingsRef, {
 //     addres: "1414 president st"
 //     owner_id: user.id,
 //     createdAt: serverTimestamp()
@@ -69,7 +73,6 @@ export const auth = getAuth()    // user authentification
 
 //   deleteDoc(docRef)
 //     .then(() => {
-//       deleteBookForm.reset()
 //     })
 // })
 

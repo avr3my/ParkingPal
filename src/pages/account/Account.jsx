@@ -23,6 +23,8 @@ export default function Account() {
   // onAuthStateChanged(auth, e=>setUser(auth.currentUser))
 
 
+  document.title = "ParkingPal/Account"
+
   
   return (
     <div className="account-page">

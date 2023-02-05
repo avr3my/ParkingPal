@@ -12,7 +12,7 @@ export default function Nav({ current, setCurrent }) {
   return (
     <nav>
       <Link to={"/"}>
-        <img className="logo" src={logo} alt="logo" />
+        <img title="ParkingPal" className="logo" src={logo} alt="logo" />
       </Link>
       <div
         onClick={() => setCurrent(1)}
