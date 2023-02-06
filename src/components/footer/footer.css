@@ -3,6 +3,9 @@ footer{
     background-color: #36899e;
     height: 250px;
     justify-content: space-evenly;
+    color: aliceblue;
+    align-items: flex-start;
+    padding: 2%;
 }
 footer *{
     text-align: left;    

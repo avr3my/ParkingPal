@@ -1,9 +1,12 @@
+body{
+    background-image: url('../../Assets/backrund.jpeg');
+}
 .home-page {
     min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: var(--background-color);
+    /* background-color: var(--background-color); */
 }
 
 .home-page .top {
@@ -82,7 +85,7 @@
     border: none;
     text-align: left;
     background-color: transparent;
-    /* width: 80%; */
+    width: 80%;
 }
 
 .delete-search {

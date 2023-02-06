@@ -5,6 +5,9 @@ import { useState, useEffect } from "react";
 import { auth } from "../../firebaseConfig";
 import { onAuthStateChanged, updateProfile } from "firebase/auth";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAddressCard,faCamera,faPhone,faEnvelope,faAsterisk } from '@fortawesome/free-solid-svg-icons'
+
 export default function UserProfile({ succses }) {
   const [userData, setUserData] = useState({ ...auth.currentUser });
   const updateUserProfile = () => {
@@ -22,23 +25,55 @@ export default function UserProfile({ succses }) {
     return;
   }
   return (
-    <div className="user-profile">
+    <div className="user-page bg_image">
+         <div className="user-profile">
       <div className="image">
+        <FontAwesomeIcon icon={faCamera} />
         <img src={Avatar} alt="" />
+        
       </div>
       <div className="name">
-        <span>name: </span>
+      <div>
+      <FontAwesomeIcon icon={faAddressCard}/>
+        <span> name: </span>
         <span>{userData.displayName}</span>
       </div>
+      <div className="Update-div">
+        <button className="Update">Update</button>
+      </div>
+      </div>
       <div className="phone">
-        <span>phone: </span>
+        <div className="">
+      <FontAwesomeIcon icon={faPhone}/>
+        <span> phone: </span>
         <span>{userData.phoneNumber}</span>
+        </div>
+        <div className="Update-div">
+        <button className="Update">Update</button>
+      </div>
       </div>
       <div className="email">
-        <span>email: </span>
+        <div className="">
+      <FontAwesomeIcon icon={faEnvelope} />
+        <span> email: </span>
         <span>{userData.email}</span>
+        </div>
+        <div className="Update-div">
+        <button className="Update">Update</button>
       </div>
-      <div className="desc"> {userData.uid}</div>
+      </div>
+      <div className="desc">
+        <div className="">
+      <FontAwesomeIcon icon={faAsterisk} />
+      <span> Description: </span>
+         {userData.uid}
+        </div>
+        <div className="Update-div">
+        <button className="Update">Update</button>
+      </div>
+      </div>
     </div>
+    </div>
+   
   );
 }
