@@ -23,64 +23,80 @@ export default function Login({ setSuccses }) {
   const [passwordVal, setPasswordVal] = useState("");
   const [show, setShow] = useState("password");
 
+  let inputIsValid = () => {
+    let validEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+    if (!validEmail.test(email)) {
+      alert("Invalid email address");
+      return false;
+    }
+    if (password.length < 6) {
+      alert("Password must be at least 6 characters");
+      return false;
+    }
+    return true;
+  };
+
+  let registerToFirebase = () => {
+    if (password !== passwordVal) {
+      alert("You entered two different passwords");
+      return;
+    }
+    if (!(phone && name)) {
+      alert("Missing details");
+      return;
+    }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((cred) => {
+        console.log("user created:", cred.user);
+        addDetails(cred.user.auth.currentUser);
+      })
+      .catch((err) => {
+        console.log(err.message);
+      });
+  };
+
+  let loginToFirebase = () => {
+    signInWithEmailAndPassword(auth, email, password)
+      .then((cred) => {
+        console.log("user logged in:", cred.user);
+        setSuccses(true);
+      })
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/user-not-found":
+            alert("User doesnt exist");
+            break;
+          case "auth/wrong-password":
+            alert("Wrong password");
+            break;
+
+          default:
+            alert("Something went wrong");
+            console.log(err);
+            break;
+        }
+        setFailed(true);
+      });
+  };
+
   let handleOnClick = (e) => {
     e.preventDefault();
     setFailed(false);
 
-    let validEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
-    if (!validEmail.test(email)) {
-      alert("Invalid email address");
-      return;
-    }
-    if (password.length < 6) {
-      alert("Password must be at least 6 characters");
+    if (!inputIsValid()) {
       return;
     }
 
-    if (signup) {
-      if (password !== passwordVal) {
-        alert("You entered two different passwords");
-        return;
-      }
-      if (!(phone && name)) {
-        alert("Missing details");
-        return;
-      }
-      createUserWithEmailAndPassword(auth, email, password)
-        .then((cred) => {
-          console.log("user created:", cred.user);
-          addDetails(cred.user.auth.currentUser);
-        })
-        .catch((err) => {
-          console.log(err.message);
-        });
-    } else {
-      signInWithEmailAndPassword(auth, email, password)
-        .then((cred) => {
-          console.log("user logged in:", cred.user);
-          setSuccses(true);
-        })
-        .catch((err) => {
-          switch (err.code) {
-            case "auth/user-not-found":
-              alert("User doesnt exist");
-              break;
-            case "auth/wrong-password":
-              alert("Wrong password");
-              break;
-
-            default:
-              alert("Something went wrong");
-              console.log(err);
-              break;
-          }
-          setFailed(true);
-        });
-    }
+    if (signup)
+      registerToFirebase();
+    else
+      loginToFirebase();
   };
 
   let addDetails = (user) => {
-    console.log(user);
+    console.log("user:", user);
+    console.log("phone:", phone);
+    console.log("name:", name);
     updateProfile(user, {
       displayName: name,
       phoneNumber: parseInt(phone),

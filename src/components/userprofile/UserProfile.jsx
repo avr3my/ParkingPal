@@ -18,7 +18,6 @@ export default function UserProfile({ succses }) {
 
   useEffect(() => {
     setUserData({ ...auth.currentUser });
-    console.log(userData);
   }, [succses]);
 
   if (!userData) {

@@ -13,6 +13,8 @@
   --btn-color:#0b2643;
   --main-color-1 :#063970;
   --main-color-2: #265f9c;
+  --d-black-l-white:#000;
+  --d-white-l-black:#fff;
 
 }
 
@@ -22,6 +24,8 @@
   --btn-color:#1c5867;
   --main-color-1 :#36899e;
   --main-color-2: #76b5c5;
+  --d-black-l-white:#fff;
+  --d-white-l-black:#000;
 }
 
 

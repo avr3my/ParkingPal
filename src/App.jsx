@@ -15,19 +15,17 @@ import Footer from "../src/components/footer/Footer";
 
 // import components
 import { auth } from "./firebaseConfig";
-// import {Background} from '../src/components/Background/Background'
+import Results from "./pages/results/Results";
+import Error from "./pages/error/Error";
 
 export default function App() {
   const [selectedAddress, setSelectedAddress] = useState({});
-  library.add(faMoon, faRocket);
-
 
   return (
     <div className="main-div light-mode">
       <Routes>
-        {/* <Background/> */}
         <Route
-          path="/"
+          exact path="/"
           element={
             <Home
               selectedAddress={selectedAddress}
@@ -35,8 +33,9 @@ export default function App() {
             />
           }
         />
-        <Route path="/account" element={<Account />} />
-        <Route path="/parkings-around-me" element={null} />
+        <Route exact path="/account" element={<Account />} />
+        <Route exact path="/parkings-around-me" element={<Results selectedAddress={selectedAddress}/>} />
+        <Route path="/*" element={<Error/>}/>
       </Routes>
       <Footer />
     </div>
