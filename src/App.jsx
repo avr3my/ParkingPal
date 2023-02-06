@@ -1,3 +1,6 @@
+//bootsrap
+import { library } from "@fortawesome/fontawesome-svg-core";
+import { faMoon, faRocket } from "@fortawesome/free-solid-svg-icons";
 // import styles
 import "./App.css";
 

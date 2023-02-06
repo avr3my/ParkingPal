@@ -25,8 +25,19 @@
     color: white;
     margin-top: 40px;
 }
-
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+		border: none;
+		border-bottom: 1.5px solid var(--pink);
+		font-weight: bold;
+		-webkit-text-fill-color: var(--Dblue);
+		-webkit-box-shadow: 0 0 0px 1000px var(--yellow) inset;
+		transition: background-color 5000s ease-in-out 0s;
+        color: white;
+	}
 .login-window input {
+    
     /* width: 100%; */
     width: 85%;
     float: left;
