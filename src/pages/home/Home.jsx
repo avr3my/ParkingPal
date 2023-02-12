@@ -12,11 +12,6 @@ export default function Home({ selectedAddress, setSelectedAddress }) {
         <div className="top">
           <div
             className="logo"
-            onClick={(e) => {
-              let a = document.querySelector(".main-div");
-              a.classList.toggle("light-mode");
-              a.classList.toggle("dark-mode");
-            }}
           >
             <img className="logo-size" src={imgLogo} alt="logo" />
           </div>

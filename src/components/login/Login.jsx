@@ -1,27 +1,24 @@
 import "./login.css";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
-import { auth } from "../../firebaseConfig";
+import { auth, db } from "../../firebaseConfig";
 import {
-  getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  updateProfile,
-  signOut,
-  onAuthStateChanged,
 } from "firebase/auth";
+import { collection,addDoc, setDoc, doc } from "firebase/firestore";
 
 export default function Login({ setSuccses }) {
   const [signup, setSignup] = useState(false);
-  const [failed, setFailed] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordVal, setPasswordVal] = useState("");
-  const [show, setShow] = useState("password");
+  const [show, setShow] = useState(false);
+  const [show2, setShow2] = useState(false);
 
   let inputIsValid = () => {
     let validEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
@@ -47,8 +44,7 @@ export default function Login({ setSuccses }) {
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then((cred) => {
-        console.log("user created:", cred.user);
-        addDetails(cred.user.auth.currentUser);
+        addUserToCollection(cred.user.auth.currentUser);
       })
       .catch((err) => {
         console.log(err.message);
@@ -58,7 +54,6 @@ export default function Login({ setSuccses }) {
   let loginToFirebase = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((cred) => {
-        console.log("user logged in:", cred.user);
         setSuccses(true);
       })
       .catch((err) => {
@@ -75,37 +70,32 @@ export default function Login({ setSuccses }) {
             console.log(err);
             break;
         }
-        setFailed(true);
       });
   };
 
   let handleOnClick = (e) => {
     e.preventDefault();
-    setFailed(false);
-
     if (!inputIsValid()) {
       return;
     }
-
-    if (signup)
-      registerToFirebase();
-    else
-      loginToFirebase();
+    if (signup) registerToFirebase();
+    else loginToFirebase();
   };
 
-  let addDetails = (user) => {
-    console.log("user:", user);
-    console.log("phone:", phone);
-    console.log("name:", name);
-    updateProfile(user, {
-      displayName: name,
-      phoneNumber: parseInt(phone),
+  let addUserToCollection = (user) => {
+    // const usersRef = collection(db, "users");
+    setDoc(doc(db, "users", user.uid),{
+      name: name,
+      email: email,
+      phone: phone,
+      parkingOwner: false,
+      parkings: null,
+      desc: "",
+      image: false,
+      fav: null,
     })
-      .then((user) => {
-        setSuccses(true);
-        console.log("successugully updated!", user);
-      })
-      .catch((err) => console.log("failed:", err));
+      .then((e) => setSuccses(true))
+      .catch((e) => console.log(e));
   };
 
   return (
@@ -125,7 +115,7 @@ export default function Login({ setSuccses }) {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              placeholder="Full name"
+              placeholder="Name"
               required
               autoFocus
             />
@@ -137,7 +127,7 @@ export default function Login({ setSuccses }) {
               type="text"
               value={phone}
               onChange={(e) => setPhone(e.target.value)}
-              placeholder="Phone number"
+              placeholder="Phone Number"
               required
             />
           </div>
@@ -154,7 +144,7 @@ export default function Login({ setSuccses }) {
         </div>
         <div id="password">
           <input
-            type={show}
+            type={show ? "text" : "password"}
             min="6"
             placeholder="Password"
             value={password}
@@ -162,29 +152,27 @@ export default function Login({ setSuccses }) {
             required
           />
           <span
-            onMouseDown={(e) => setShow("text")}
-            onMouseUp={(e) => setShow("password")}
+            onClick={(e) => setShow(!show)}
             className="show-password material-symbols-outlined "
           >
-            visibility
+            {show ? "visibility_off" : "visibility"}
           </span>
         </div>
         {signup && (
           <div id="password2">
             <input
-              type={show}
+              type={show2 ? "text" : "password"}
               min="6"
-              placeholder="Reenter password"
+              placeholder="Re-type Password"
               value={passwordVal}
               onChange={(e) => setPasswordVal(e.target.value)}
               required
             />
             <span
-              onMouseDown={(e) => setShow("text")}
-              onMouseUp={(e) => setShow("password")}
+              onClick={(e) => setShow2(!show2)}
               className="show-password material-symbols-outlined "
             >
-              visibility
+              {show2 ? "visibility_off" : "visibility"}
             </span>
           </div>
         )}
