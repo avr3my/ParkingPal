@@ -1,21 +1,21 @@
 import "./login.css";
-
-import { useState, useEffect } from "react";
+// import {useEffect } from "react";
+import { useState} from "react";
 import { Link } from "react-router-dom";
 
 import { auth } from "../../firebaseConfig";
 import {
-  getAuth,
+  // getAuth,
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   updateProfile,
-  signOut,
-  onAuthStateChanged,
+  // signOut,
+  // onAuthStateChanged,
 } from "firebase/auth";
 
 export default function Login({ setSuccses }) {
   const [signup, setSignup] = useState(false);
-  const [failed, setFailed] = useState(false);
+  // const [failed, setFailed] = useState(false);
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");

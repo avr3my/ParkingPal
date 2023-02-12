@@ -1,12 +1,13 @@
 //bootsrap
-import { library } from "@fortawesome/fontawesome-svg-core";
-import { faMoon, faRocket } from "@fortawesome/free-solid-svg-icons";
+// import { library } from "@fortawesome/fontawesome-svg-core";
+// import { faMoon, faRocket } from "@fortawesome/free-solid-svg-icons";
 // import styles
 import "./App.css";
 
 // import libraries and react
 import { Route, Routes } from "react-router-dom";
-import { useEffect, useState } from "react";
+import {useState } from "react";
+// import { useEffect, useState } from "react";
 
 // import pages
 import Account from "./pages/account/Account";
@@ -14,7 +15,7 @@ import Home from "./pages/home/Home";
 import Footer from "../src/components/footer/Footer";
 
 // import components
-import { auth } from "./firebaseConfig";
+// import { auth } from "./firebaseConfig";
 import Results from "./pages/results/Results";
 import Error from "../src/pages/error/Error";
 import ParkingPage from "./pages/parkingPage/ParkingPage";

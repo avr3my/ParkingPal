@@ -1,20 +1,21 @@
 import { useEffect,useState } from "react";
-import { db, auth } from "../../firebaseConfig";
+import { db} from "../../firebaseConfig";
+// import { db, auth } from "../../firebaseConfig";
 import {
   collection,
-  onSnapshot,
-  addDoc,
-  deleteDoc,
-  doc,
-  query,
-  where,
-  orderBy,
-  serverTimestamp,
-  updateDoc,
-  setDoc,
+  // onSnapshot,
+  // addDoc,
+  // deleteDoc,
+  // doc,
+  // query,
+  // where,
+  // orderBy,
+  // serverTimestamp,
+  // updateDoc,
+  // setDoc,
   getDocs,
 } from "firebase/firestore";
-import tempImage from "../../Assets/logo344.png";
+// import tempImage from "../../Assets/logo344.png";
 import ParkingCard from "../../components/parkingCard/ParkingCard";
 
 export default function Results({ selectedAddress }) {
@@ -30,7 +31,7 @@ export default function Results({ selectedAddress }) {
   useEffect(() => {
     getDocs(parkingsRef).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        console.log(doc.id, ":", doc.data());
+        // console.log(doc.id, ":", doc.data());
         setParkings([...parkings, doc])
       });
     });
@@ -57,10 +58,7 @@ export default function Results({ selectedAddress }) {
   return (
     <div>
       {parkings && parkings.map((parking) => {
-        
-          console.log("h");
           return <ParkingCard details={parking} />;
-        
       })}
     </div>
   );
