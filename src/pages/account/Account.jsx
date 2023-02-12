@@ -25,7 +25,6 @@ export default function Account() {
 
   document.title = "ParkingPal/Account"
 
-  
   return (
     <div className="account-page">
       <Nav  current={current} setCurrent={setCurrent} />
@@ -36,7 +35,7 @@ export default function Account() {
       ) : (
         <UserParkings />
       )}
-
+      
       {!succses?<Login setSuccses={setSuccses}/>:null}
     </div>
   );

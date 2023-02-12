@@ -13,6 +13,7 @@ import {
   updateDoc,
   setDoc,
   getDocs,
+  getDoc,
 } from "firebase/firestore";
 import tempImage from "../../Assets/logo344.png";
 import ParkingCard from "../../components/parkingCard/ParkingCard";
@@ -26,6 +27,7 @@ export default function Results({ selectedAddress }) {
 
   const [parkings, setParkings] = useState([])
   const parkingsRef = collection(db, "parkings");
+
   // console.log(selectedAddress);
   useEffect(() => {
     getDocs(parkingsRef).then((querySnapshot) => {

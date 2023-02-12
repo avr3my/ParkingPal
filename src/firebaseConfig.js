@@ -15,6 +15,7 @@ import {
   onAuthStateChanged
 } from 'firebase/auth'
 
+import { getStorage } from "firebase/storage"
 
 const firebaseConfig = {
   apiKey: "AIzaSyBJi1LMqF2rVGHPBLstOQDos7sbbc2I-zE",
@@ -32,10 +33,10 @@ initializeApp(firebaseConfig)
 
 export const db = getFirestore() // my data base
 export const auth = getAuth()    // user authentification
-
+export const storage = getStorage()
 
 // collection ref
-const parkingsRef = collection(db, 'parkings')
+// const parkingsRef = collection(db, 'parkings')
 // console.log(parkingsRef);
 
 
