@@ -12,45 +12,51 @@
 }
 
 
-.user-profile input {
+
+.user-detail-input{
     border: none;
+    outline: none;
+    font-size: inherit;
+    text-align: left;
+    color: inherit;
 }
-.desc,
-.name,
-.email,
-.phone {
+.details>* {
     display: flex;
     justify-content: space-between;
     height: 40%;
     text-align: start;
     border-bottom: 1px solid black;
+    padding-bottom: 3px;
     margin-bottom: 15px;
-}
-
-.image {
-    width: 35%;
-    height: 250px;
-    overflow: hidden;
+    text-align: left;
     position: relative;
 }
+
 .details{
     width: 65%;
     margin-left: 15px;
     overflow: hidden;
 }
-.details * {
-    text-align: left;
 
+#file{
+    display: none;
 }
-.image img{
+.image-div {
+    width: 35%;
+    height: 250px;
+    overflow: hidden;
+    position: relative;
+}
+.image-div img{
     position: absolute;
     width: 100%;
     left: 0;
     aspect-ratio: 1;
     border-radius: 50%;
 }
-.image .set-image{
+.image-div .set-image{
     position: absolute;
+    top: 0;
     display: none;
     width: 100%;
     aspect-ratio: 1;
@@ -63,16 +69,13 @@
     z-index: 2;
     cursor: pointer;
 }
-.image:has(*:hover) .set-image{
+.image-div:has(*:hover) .set-image{
     display: block;
 }
 .Update-details{
     height: 100%;
 }
-.Update-div{
-    height: 100%;
-    width: 20%;
-}
+
 .Update{
     height: 100%;
     width: 100%;
@@ -84,4 +87,17 @@
 .Update:hover{
     background-color: var(--main-color-2);
     border-radius: 10px;
+}
+
+.update-div {
+    height: 100%;
+    overflow: hidden;
+    position: absolute;
+    right: 0;
+    top:0;
+}
+.update-div .material-symbols-outlined{
+    cursor: pointer;
+    margin-left:8px ;
+    user-select: none;
 }
