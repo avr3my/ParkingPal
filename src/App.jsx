@@ -16,7 +16,8 @@ import Footer from "../src/components/footer/Footer";
 // import components
 import { auth } from "./firebaseConfig";
 import Results from "./pages/results/Results";
-import Error from "./pages/error/Error";
+import Error from "../src/pages/error/Error";
+import ParkingPage from "./pages/parkingPage/ParkingPage";
 
 export default function App() {
   const [selectedAddress, setSelectedAddress] = useState({});
@@ -35,6 +36,7 @@ export default function App() {
         />
         <Route exact path="/account" element={<Account />} />
         <Route exact path="/parkings-around-me" element={<Results selectedAddress={selectedAddress}/>} />
+        <Route exact path="/parking/:parkingId" element={<ParkingPage/>}/>
         <Route path="/*" element={<Error/>}/>
       </Routes>
       <Footer />
