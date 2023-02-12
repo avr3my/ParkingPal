@@ -1,18 +1,19 @@
 import { initializeApp } from 'firebase/app'
 
 import {
-  getFirestore, collection, onSnapshot,
-  addDoc, deleteDoc, doc,
-  query, where,
-  orderBy, serverTimestamp,
-  updateDoc
+  getFirestore
+  // , collection, onSnapshot,
+  // addDoc, deleteDoc, doc,
+  // query, where,
+  // orderBy, serverTimestamp,
+  // updateDoc
 } from 'firebase/firestore'
 
 import {
   getAuth,
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword, signOut,
-  onAuthStateChanged
+  // createUserWithEmailAndPassword,
+  // signInWithEmailAndPassword, signOut,
+  // onAuthStateChanged
 } from 'firebase/auth'
 
 import { getStorage } from "firebase/storage"

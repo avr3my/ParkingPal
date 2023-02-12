@@ -1,6 +1,7 @@
 import "./login.css";
 
 import { useState } from "react";
+
 import { Link } from "react-router-dom";
 
 import { auth, db } from "../../firebaseConfig";
@@ -12,6 +13,7 @@ import { collection,addDoc, setDoc, doc } from "firebase/firestore";
 
 export default function Login({ setSuccses }) {
   const [signup, setSignup] = useState(false);
+
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
   const [email, setEmail] = useState("");
