@@ -1,23 +1,29 @@
 import "./userProfile.css";
 
+import Swal from "sweetalert2";
 import Avatar from "../../Assets/defaultAvatar.png";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { auth, storage, db } from "../../firebaseConfig";
 import { updateProfile } from "firebase/auth";
 import { deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faAddressCard,
-  faCamera,
   faPhone,
   faEnvelope,
   faAsterisk,
 } from "@fortawesome/free-solid-svg-icons";
-import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from "firebase/storage";
+import { deleteUser } from "firebase/auth";
 
-export default function UserProfile({ succses }) {
-  const [userData, setUserData] = useState(null);
+export default function UserProfile({ setSuccses }) {
   const [imageUpload, setImageUpload] = useState(null);
+  const [userData, setUserData] = useState(null);
   const [userImage, setUserImage] = useState(Avatar);
 
   const [editName, setEditName] = useState(false);
@@ -25,11 +31,10 @@ export default function UserProfile({ succses }) {
   const [editEmail, setEditEmail] = useState(false);
   const [editDesc, setEditDesc] = useState(false);
 
-  const [name, setName] = useState(null);
-  const [phone, setPhone] = useState(null);
-  const [email, setEmail] = useState(null);
-  const [desc, setDesc] = useState(null);
-
+  const nameRef = useRef(null);
+  const phoneRef = useRef(null);
+  const emailRef = useRef(null);
+  const descRef = useRef(null);
 
   useEffect(() => {
     if (!imageUpload) return;
@@ -47,18 +52,56 @@ export default function UserProfile({ succses }) {
         setUserData(e.data());
       })
       .catch((err) => console.log("error", err));
-  }, [editName, editPhone, editEmail, editDesc]);
+  }, [editName, editPhone, editEmail, editDesc, auth.currentUser]);
 
   const setEdit = (selection) => {
     let variables = [editName, editPhone, editEmail, editDesc];
     let functions = [setEditName, setEditPhone, setEditEmail, setEditDesc];
+    let refs = [nameRef, phoneRef, emailRef, descRef];
     functions.forEach((f) => f(false));
     functions[selection](!variables[selection]);
+    refs[selection].current.focus();
   };
 
-  const updateDocument = (selection)=> {
+  const deleteAccount = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#36899e",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const id = auth.currentUser.uid;
+        deleteDoc(doc(db, "users", id))
+          .then((e) => {
+            deleteUser(auth.currentUser)
+              .then((e) => {
+                Swal.fire("Deleted!", "Account deleted succesfully", "success");
+                setSuccses(false);
+              })
+              .catch((e) =>
+                Swal.fire({
+                  icon: "error",
+                  text: "Failed to delete account",
+                })
+              );
+            deleteObject(ref(storage, "users/" + id));
+          })
+          .catch((e) =>
+            Swal.fire({
+              icon: "error",
+              text: "Failed to delete account",
+            })
+          );
+      }
+    });
+  };
+  const updateDocument = (selection) => {
     //pass
-  }
+  };
   // const updateUserProfile = () => {
   //   updateProfile(auth.currentUser, userData)
   //     .then((e) => console.log("success", e))
@@ -71,9 +114,6 @@ export default function UserProfile({ succses }) {
   getDownloadURL(imageRef)
     .then((e) => setUserImage(e))
     .catch((e) => console.log(e));
-  if (!userData) {
-    return;
-  }
   return (
     <div className="user-page bg_image">
       <div className="user-profile">
@@ -95,16 +135,19 @@ export default function UserProfile({ succses }) {
           <div className="name">
             <div>
               <FontAwesomeIcon icon={faAddressCard} />
-              <span> name: </span>
-              <input
-                readOnly={!editName}
-                type="text"
-                value={userData.name}
-                className="user-detail-input"
-                onChange={(e) =>
-                  setUserData({ ...userData, name: e.target.value })
-                }
-              />
+              <span> Name: </span>
+              {userData && (
+                <input
+                  readOnly={!editName}
+                  ref={nameRef}
+                  type="text"
+                  value={userData.name}
+                  className="user-detail-input"
+                  onChange={(e) =>
+                    setUserData({ ...userData, name: e.target.value })
+                  }
+                />
+              )}
             </div>
             <div className="update-div">
               {editName ? (
@@ -123,7 +166,10 @@ export default function UserProfile({ succses }) {
               ) : (
                 <span
                   title="edit"
-                  onClick={(e) => setEdit(0)}
+                  onClick={(e) => {
+                    setEdit(0);
+                    nameRef.current.focus();
+                  }}
                   className="edit-btn material-symbols-outlined"
                 >
                   edit
@@ -134,21 +180,24 @@ export default function UserProfile({ succses }) {
           <div className="phone">
             <div className="">
               <FontAwesomeIcon icon={faPhone} />
-              <span> phone: </span>
-              <input
-                readOnly={!editPhone}
-                type="text"
-                value={userData.phone}
-                className="user-detail-input"
-                onChange={(e) =>
-                  setUserData({
-                    ...userData,
-                    phone: isNaN(e.target.value)
-                      ? userData.phone
-                      : e.target.value,
-                  })
-                }
-              />
+              <span> Phone: </span>
+              {userData && (
+                <input
+                  readOnly={!editPhone}
+                  type="text"
+                  ref={phoneRef}
+                  value={userData.phone}
+                  className="user-detail-input"
+                  onChange={(e) =>
+                    setUserData({
+                      ...userData,
+                      phone: isNaN(e.target.value)
+                        ? userData.phone
+                        : e.target.value,
+                    })
+                  }
+                />
+              )}
             </div>
             <div className="update-div">
               {editPhone ? (
@@ -178,16 +227,19 @@ export default function UserProfile({ succses }) {
           <div className="email">
             <div className="">
               <FontAwesomeIcon icon={faEnvelope} />
-              <span> email: </span>
-              <input
-                readOnly={!editEmail}
-                type="text"
-                value={userData.email}
-                className="user-detail-input"
-                onChange={(e) =>
-                  setUserData({ ...userData, email: e.target.value })
-                }
-              />
+              <span> Email: </span>
+              {userData && (
+                <input
+                  readOnly={!editEmail}
+                  ref={emailRef}
+                  type="text"
+                  value={userData.email}
+                  className="user-detail-input"
+                  onChange={(e) =>
+                    setUserData({ ...userData, email: e.target.value })
+                  }
+                />
+              )}
             </div>
             <div className="update-div">
               {editEmail ? (
@@ -245,6 +297,9 @@ export default function UserProfile({ succses }) {
               )}
             </div>
           </div>
+          <button className="delete-btn" onClick={deleteAccount}>
+            Delete my profile
+          </button>
         </div>
       </div>
     </div>

@@ -1,7 +1,7 @@
 import "./login.css";
 
 import { useState } from "react";
-
+import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
 
 import { auth, db } from "../../firebaseConfig";
@@ -9,7 +9,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { collection,addDoc, setDoc, doc } from "firebase/firestore";
+import { collection, addDoc, setDoc, doc } from "firebase/firestore";
 
 export default function Login({ setSuccses }) {
   const [signup, setSignup] = useState(false);
@@ -22,14 +22,37 @@ export default function Login({ setSuccses }) {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
 
+  const errorPopup = (title, message) => {
+    Swal.fire({
+      icon: "error",
+      title: title,
+      text: message,
+      confirmButtonColor: "#36899e",
+    });
+  };
+  const warningPopup = (title, message) => {
+    Swal.fire({
+      icon: "warning",
+      title: title,
+      confirmButtonColor: "#36899e",
+      timer: 2500,
+      text: message,
+      timerProgressBar: true,
+    });
+  };
+
+  // let errorMessage =
   let inputIsValid = () => {
     let validEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     if (!validEmail.test(email)) {
-      alert("Invalid email address");
+      warningPopup(null, "Invalid Email Address");
       return false;
     }
     if (password.length < 6) {
-      alert("Password must be at least 6 characters");
+      warningPopup(
+        "Invalid Password",
+        "Password must be at least 6 characters"
+      );
       return false;
     }
     return true;
@@ -37,11 +60,14 @@ export default function Login({ setSuccses }) {
 
   let registerToFirebase = () => {
     if (password !== passwordVal) {
-      alert("You entered two different passwords");
+      warningPopup("Verification Failed", "Passwords are not the same");
       return;
     }
     if (!(phone && name)) {
-      alert("Missing details");
+      warningPopup(
+        "Missing details",
+        `Please enter ${!name ? "name" : "phone number"}`
+      );
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
@@ -49,6 +75,7 @@ export default function Login({ setSuccses }) {
         addUserToCollection(cred.user.auth.currentUser);
       })
       .catch((err) => {
+        errorPopup("Failed", "Failed to create an account");
         console.log(err.message);
       });
   };
@@ -61,14 +88,14 @@ export default function Login({ setSuccses }) {
       .catch((err) => {
         switch (err.code) {
           case "auth/user-not-found":
-            alert("User doesnt exist");
+            errorPopup("Login Failed", "User does not exist");
             break;
           case "auth/wrong-password":
-            alert("Wrong password");
+            errorPopup("Login Failed", "Wrong password");
             break;
 
           default:
-            alert("Something went wrong");
+            errorPopup("Login Failed", "Something went wrong");
             console.log(err);
             break;
         }
@@ -86,7 +113,7 @@ export default function Login({ setSuccses }) {
 
   let addUserToCollection = (user) => {
     // const usersRef = collection(db, "users");
-    setDoc(doc(db, "users", user.uid),{
+    setDoc(doc(db, "users", user.uid), {
       name: name,
       email: email,
       phone: phone,

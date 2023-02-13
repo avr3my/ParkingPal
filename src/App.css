@@ -6,6 +6,9 @@
   text-align: center;
   align-items: center;
 }
+.swal2-container *{
+  align-items:baseline
+}
 
 :root:has(.dark-mode){
   --background-color: #555;
