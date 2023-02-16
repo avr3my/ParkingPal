@@ -8,7 +8,7 @@
     align-items: center;
     border: none;
     background-color: var(--main-color-2);
-    color: var(--text-color);
+    /* color: var(--text-color); */
     border: 3px solid var(--main-color-2);
 }
 .home-page .search-icon {
@@ -25,7 +25,6 @@
     width: 100%;
     height: 100%;
     padding: 5px;
-    border-radius: 10px;
     border-radius: 10px 0 0 10px;
     border: 3px solid var(--main-color-2);
     border-right: none;
@@ -52,29 +51,9 @@
     font-size: larger;
 }
 
-.home-page .button-search {
-    margin-top: 3%;
-    margin-right: 4.5%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-}
-
-.home-page .parking-search-button {
-    padding: 10px;
-    cursor: pointer;
-    font-family: revert;
-    height: 50px;
-    /* margin-right: 4.5%; */
-    margin-top: 20px;
-    border-radius: 10px;
-    color: var(--text-color);
-    border: var(--main-color-2) 3px solid;
-    background-color: var(--main-color-2);
-}
 
 .address-results {
-    visibility: hidden;
+    /* visibility: hidden; */
     border: 1px solid var(--main-color-2);
     max-height: 200px;
     overflow: hidden;
@@ -86,26 +65,28 @@
     border-radius:  0 0 10px 10px;
 }
 
-.address-results>.result:nth-child(1) {
-    background-color: var(--main-color-1);
-    color: #fff;
+.address-results a{
+    list-style: none;
+    text-decoration: none;
 }
 
-.address-results>.result {
+.address-results .result {
     padding: 10px;
     cursor: pointer;
     text-align: left;
-    /* height: 30px; */
     border-bottom: 1px solid var(--main-color-2);
-    width: 65vw;
-    min-width: 400px;
+    background-color: #fff;
+    color: #000;
 }
-.address-results>.result:hover{
+.address-results .location{
+    background-color: var(--main-color-1);
+    color: #fff;
+}
+.address-results .result:hover{
     background-color: darkgrey;
 }
 
 main:has(input:focus) .address-results {
-    /* padding: 10px 0; */
     visibility: visible;
 }
 
@@ -113,7 +94,7 @@ main ::-webkit-scrollbar {
     width: 5px;
 }
 
-/* Handle */
+
 main ::-webkit-scrollbar-thumb {
     background: var(--main-color-2);
 }
