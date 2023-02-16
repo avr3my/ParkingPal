@@ -1,18 +1,21 @@
 import "./login.css";
 
 import { useState } from "react";
-import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
 
+import { Link } from "react-router-dom";
 import { auth, db } from "../../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendPasswordResetEmail
 } from "firebase/auth";
-import { collection, addDoc, setDoc, doc } from "firebase/firestore";
+
+import { setDoc, doc } from "firebase/firestore";
+import { errorPopup, warningPopup, successPopup } from "../../popup";
 
 export default function Login({ setSuccses }) {
   const [signup, setSignup] = useState(false);
+  const [forgot, setForgot] = useState(false);
 
   const [name, setName] = useState("");
   const [phone, setPhone] = useState("");
@@ -22,27 +25,7 @@ export default function Login({ setSuccses }) {
   const [show, setShow] = useState(false);
   const [show2, setShow2] = useState(false);
 
-  const errorPopup = (title, message) => {
-    Swal.fire({
-      icon: "error",
-      title: title,
-      text: message,
-      confirmButtonColor: "#36899e",
-    });
-  };
-  const warningPopup = (title, message) => {
-    Swal.fire({
-      icon: "warning",
-      title: title,
-      confirmButtonColor: "#36899e",
-      timer: 2500,
-      text: message,
-      timerProgressBar: true,
-    });
-  };
-
-  // let errorMessage =
-  let inputIsValid = () => {
+  const inputIsValid = () => {
     let validEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
     if (!validEmail.test(email)) {
       warningPopup(null, "Invalid Email Address");
@@ -58,16 +41,17 @@ export default function Login({ setSuccses }) {
     return true;
   };
 
-  let registerToFirebase = () => {
+  const registerToFirebase = () => {
     if (password !== passwordVal) {
       warningPopup("Verification Failed", "Passwords are not the same");
       return;
     }
-    if (!(phone && name)) {
-      warningPopup(
-        "Missing details",
-        `Please enter ${!name ? "name" : "phone number"}`
-      );
+    if (!name) {
+      warningPopup("Missing details", "Please enter name");
+      return;
+    }
+    if (!phone || isNaN(phone)) {
+      warningPopup("Missing details", "Invalid phone number");
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
@@ -80,7 +64,7 @@ export default function Login({ setSuccses }) {
       });
   };
 
-  let loginToFirebase = () => {
+  const loginToFirebase = () => {
     signInWithEmailAndPassword(auth, email, password)
       .then((cred) => {
         setSuccses(true);
@@ -102,8 +86,39 @@ export default function Login({ setSuccses }) {
       });
   };
 
-  let handleOnClick = (e) => {
+  const resetPassword = () => {
+    let validEmail = new RegExp("[a-z0-9]+@[a-z]+.[a-z]{2,3}");
+    if (!validEmail.test(email)) {
+      warningPopup(null, "Invalid Email Address");
+      return false;
+    }
+    const actionCodeSettings = {
+      url: 'http://localhost:3000/account',
+      handleCodeInApp: true,
+    };
+    sendPasswordResetEmail(auth, email, actionCodeSettings)
+      .then((e) => {
+        successPopup("Successfully Reset", "Check your email and reset password");
+        setForgot(false);
+        setSignup(false);
+        setPassword("")
+      })
+      .catch((err) => {
+        if (err.code === "auth/user-not-found"){
+          warningPopup("Reset Failed", "User does not exist")
+        }
+        else{
+          warningPopup("Reset Failed", "Something went wrong")
+        }
+        console.log(err)});
+  };
+
+  const handleOnClick = (e) => {
     e.preventDefault();
+    if (forgot) {
+      resetPassword();
+      return;
+    }
     if (!inputIsValid()) {
       return;
     }
@@ -111,8 +126,7 @@ export default function Login({ setSuccses }) {
     else loginToFirebase();
   };
 
-  let addUserToCollection = (user) => {
-    // const usersRef = collection(db, "users");
+  const addUserToCollection = (user) => {
     setDoc(doc(db, "users", user.uid), {
       name: name,
       email: email,
@@ -120,7 +134,6 @@ export default function Login({ setSuccses }) {
       parkingOwner: false,
       parkings: null,
       desc: "",
-      image: false,
       fav: null,
     })
       .then((e) => setSuccses(true))
@@ -130,7 +143,7 @@ export default function Login({ setSuccses }) {
   return (
     <div
       onKeyUpCapture={(e) => {
-        if (e.key == "Enter") handleOnClick(e);
+        if (e.key === "Enter") handleOnClick(e);
       }}
       className="login-page "
     >
@@ -138,6 +151,8 @@ export default function Login({ setSuccses }) {
         <span className="close-window material-symbols-outlined">
           <Link to={"/"}>close</Link>
         </span>
+        {forgot && <span>Enter your email to reset password</span>}
+
         {signup && (
           <div id="name">
             <input
@@ -171,22 +186,24 @@ export default function Login({ setSuccses }) {
             autoFocus
           />
         </div>
-        <div id="password">
-          <input
-            type={show ? "text" : "password"}
-            min="6"
-            placeholder="Password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-          <span
-            onClick={(e) => setShow(!show)}
-            className="show-password material-symbols-outlined "
-          >
-            {show ? "visibility_off" : "visibility"}
-          </span>
-        </div>
+        {!forgot && (
+          <div id="password">
+            <input
+              type={show ? "text" : "password"}
+              min="6"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            <span
+              onClick={(e) => setShow(!show)}
+              className="show-password material-symbols-outlined "
+            >
+              {show ? "visibility_off" : "visibility"}
+            </span>
+          </div>
+        )}
         {signup && (
           <div id="password2">
             <input
@@ -205,11 +222,32 @@ export default function Login({ setSuccses }) {
             </span>
           </div>
         )}
-        <button onClick={handleOnClick}>{signup ? "Sign up" : "Login"}</button>
+        <button onClick={handleOnClick}>
+          {forgot ? "Send password" : signup ? "Sign up" : "Login"}
+        </button>
         <div className="login-signup">
-          <span onClick={() => setSignup(!signup)}>
-            {signup ? "Login" : "Create an account"}
+          <span
+            onClick={() => {
+              setSignup(forgot ? false : !signup);
+              setForgot(false);
+            }}
+          >
+            {forgot || signup ? "Login" : "Create account"}
           </span>
+
+          {!signup && !forgot && (
+            <span style={{ textDecoration: "none" }}>•</span>
+          )}
+          {!signup && !forgot && (
+            <span
+              onClick={() => {
+                setForgot(true);
+                setSignup(false);
+              }}
+            >
+              Forgot password?
+            </span>
+          )}
         </div>
       </div>
     </div>

@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import "./search.css";
 
@@ -65,6 +65,7 @@ export default function Search({ selectedAddress, setSelectedAddress }) {
             className="font-input"
             type="text"
             value={searchText}
+            autoFocus={true}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Enter Address Here..."
           />
@@ -85,12 +86,31 @@ export default function Search({ selectedAddress, setSelectedAddress }) {
           </Link>
         </button>
       </div>
+
       <div className="address-results">
-        <div className="result" onClick={getLocation}>
+        <Link to={"/parkings-around-me"}>
+        <div className="result location" onClick={getLocation}>
           My location
         </div>
+
+        </Link>
         {addressResults.map((address, i) => (
-          <div
+          <Link to={"/parkings-around-me"} key={i}><div
+          className="result"
+          onClick={() => setSelectedAddress(address)}
+        >
+          {address.properties.address_line1 +
+            ", " +
+            address.properties.address_line2}
+        </div></Link>
+        ))}
+      </div>
+      {/* <select size={3} className="address-results">
+        <option className="result" onClick={getLocation}>
+          My location
+        </option>
+        {addressResults.map((address, i) => (
+          <option
             key={i}
             className="result"
             onClick={() => setSelectedAddress(address)}
@@ -98,9 +118,9 @@ export default function Search({ selectedAddress, setSelectedAddress }) {
             {address.properties.address_line1 +
               ", " +
               address.properties.address_line2}
-          </div>
+          </option>
         ))}
-      </div>
+      </select> */}
     </main>
   );
 }
