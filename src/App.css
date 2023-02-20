@@ -1,4 +1,6 @@
-*,*::after,*::before{
+*,
+*::after,
+*::before {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -6,34 +8,50 @@
   text-align: center;
   align-items: center;
 }
-.swal2-container *{
-  align-items:baseline
+
+.swal2-container * {
+  align-items: baseline
 }
 
-:root:has(.dark-mode){
+:root:has(.dark-mode) {
   --background-color: #555;
-  --text-color:#fff;
-  --btn-color:#0b2643;
-  --main-color-1 :#063970;
+  --text-color: #fff;
+  --btn-color: #0b2643;
+  --main-color-1: #063970;
   --main-color-2: #265f9c;
-  --d-black-l-white:#000;
-  --d-white-l-black:#fff;
+  --d-black-l-white: #000;
+  --d-white-l-black: #fff;
 
 }
 
-:root:has(.light-mode){
+:root:has(.light-mode) {
   --background-color: #fff;
-  --text-color:#fff;
-  --btn-color:#1c5867;
-  --main-color-1 :#36899e;
+  --text-color: #fff;
+  --btn-color: #1c5867;
+  --main-color-1: #36899e;
   --main-color-2: #76b5c5;
-  --d-black-l-white:#fff;
-  --d-white-l-black:#000;
+  --d-black-l-white: #fff;
+  --d-white-l-black: #000;
 }
 
 
-.main-div:has(.login-page){
+.main-div:has(.login-page),
+.main-div:has(.add-parking-page) {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 5px;
+}
+
+
+::-webkit-scrollbar-thumb {
+  background: var(--main-color-2);
+}
+
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--main-color-1);
 }

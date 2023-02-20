@@ -1,19 +1,22 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import "./search.css";
-
-export default function Search({ selectedAddress, setSelectedAddress }) {
+import { auth } from "../../firebaseConfig";
+import Swal from "sweetalert2";
+export default function Search({ selectedAddress, setSelectedAddress, src }) {
   const [searchText, setSearchText] = useState("");
   const [addressResults, setAddressResults] = useState([]);
+
   useEffect(() => {
     if (searchText === "") {
       setAddressResults([]);
+      setSelectedAddress(null)
       return;
     }
+
     var requestOptions = {
       method: "GET",
     };
-
     fetch(
       `https://api.geoapify.com/v1/geocode/autocomplete?text=${searchText}&apiKey=1a18f2e34261449f9b7eeacef064fc9d`,
       requestOptions
@@ -32,6 +35,7 @@ export default function Search({ selectedAddress, setSelectedAddress }) {
     // console.log(selectedAddress);
     let address = selectedAddress.properties;
     setSearchText(address.address_line1 + ", " + address.city);
+    navigateToResults();
   }, [selectedAddress]);
 
   function getLocation() {
@@ -53,19 +57,34 @@ export default function Search({ selectedAddress, setSelectedAddress }) {
       .then((response) => response.json())
       .then((result) => {
         setSelectedAddress(result.features[0]);
+        // navigateToResults();
       })
       .catch((error) => console.log("error", error));
   }
 
+  const navigateToResults = () => {
+    if (src === "parking") return;
+    if (!auth.currentUser) {
+      Swal.fire({
+        icon: "warning",
+        title: null,
+        text: "You need to login to see parkings",
+        confirmButtonColor: "#36899e",
+        timer: 2500,
+        timerProgressBar: true,
+      }).then(() => (window.location.href = "/account"));
+    } else window.location.href = "/parkings-around-me";
+  };
+
   return (
     <main>
+      
       <div className="search">
         <div className="input">
           <input
             className="font-input"
             type="text"
             value={searchText}
-            autoFocus={true}
             onChange={(e) => setSearchText(e.target.value)}
             placeholder="Enter Address Here..."
           />
@@ -86,31 +105,12 @@ export default function Search({ selectedAddress, setSelectedAddress }) {
           </Link>
         </button>
       </div>
-
       <div className="address-results">
-        <Link to={"/parkings-around-me"}>
-        <div className="result location" onClick={getLocation}>
+        <div className="result" onClick={getLocation}>
           My location
         </div>
-
-        </Link>
         {addressResults.map((address, i) => (
-          <Link to={"/parkings-around-me"} key={i}><div
-          className="result"
-          onClick={() => setSelectedAddress(address)}
-        >
-          {address.properties.address_line1 +
-            ", " +
-            address.properties.address_line2}
-        </div></Link>
-        ))}
-      </div>
-      {/* <select size={3} className="address-results">
-        <option className="result" onClick={getLocation}>
-          My location
-        </option>
-        {addressResults.map((address, i) => (
-          <option
+          <div
             key={i}
             className="result"
             onClick={() => setSelectedAddress(address)}
@@ -118,9 +118,9 @@ export default function Search({ selectedAddress, setSelectedAddress }) {
             {address.properties.address_line1 +
               ", " +
               address.properties.address_line2}
-          </option>
+          </div>
         ))}
-      </select> */}
+      </div>
     </main>
   );
 }

@@ -1,87 +1,102 @@
+.fa-close{
+    position: absolute;
+    cursor: pointer;
+    top: 10px;
+    right: 10px;
+}
+.add-parking-page {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    animation: fade-in 500ms ease-in-out;
+    backdrop-filter: blur(8px);
+}
+.add-parking {
+    border: 1px solid black;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    
+    min-width: 70vw;
+    height: fit-content;
 
-.user-profile {
-    font-family: 'Berkshire Swash', cursive;
+    padding: 20px;
+    backdrop-filter: blur(8px);
+
+    background-image: url("../../Assets//background.jpeg");
     font-family: 'Rubik', sans-serif;
     font-size:large;
     color: var(--main-color-1);
-    width: clamp(540px, 70%, 100vh);
-    min-height: 70vh;
     display: flex;
     justify-content: space-around;
-    margin: auto;
 }
 
 
-
-.user-profile .user-detail-input{
+.add-parking .user-detail-input{
     border: none;
     outline: none;
     font-size: inherit;
     text-align: left;
     color: inherit;
 }
-.user-profile .details>* {
+.add-parking .details>* {
     display: flex;
-    justify-content: space-between;
-    height: 40%;
-    text-align: start;
+    /* justify-content: space-between; */
     border-bottom: 1px solid black;
     padding-bottom: 3px;
     margin-bottom: 15px;
-    text-align: left;
-    position: relative;
 }
 
-.user-profile .details{
+.add-parking .details{
     width: 65%;
     margin-left: 15px;
     overflow: hidden;
 }
 
-.user-profile #file{
+.add-parking #file{
     display: none;
 }
-.user-profile .image-div {
+.add-parking .image-div {
     width: 35%;
     height: 250px;
     overflow: hidden;
     position: relative;
 }
-.user-profile .image-div img{
+.add-parking .image-div img{
     position: absolute;
     width: 100%;
     left: 0;
-    aspect-ratio: 1;
-    border-radius: 50%;
+    aspect-ratio: 1920/1080;
 }
-.user-profile .image-div .set-image{
+.add-parking .image-div .set-image{
     display: none;
     position: absolute;
     top: 0;
     width: 100%;
-    aspect-ratio: 1;
-    border-radius: 50%;
+    aspect-ratio: 1920/1080;
     background-color: rgba(0,0,0,0.5);
     font-size: 30px;
     transition-duration: 100ms;
     z-index: 2;
     cursor: pointer;
 }
-.fa-camera{
-    position: absolute;
-    top: 50%;
-    left: 0;
-    right: 0;
-    transform: translateY(-50%);
-}
-.user-profile .image-div:has(*:hover) .set-image{
+
+.add-parking .image-div:has(*:hover) .set-image{
     display: block;
 }
-.user-profile .Update-details{
+.add-parking .Update-details{
     height: 100%;
 }
+.add-parking .address{
+    height: 30px;
+    align-items: baseline;
+    z-index: 2;
+}
 
-.user-profile .Update{
+.add-parking .Update{
     height: 100%;
     width: 100%;
     background-color: Transparent;
@@ -89,28 +104,28 @@
     font-size: x-large;
     border: none;
 }
-.user-profile .Update:hover{
+.add-parking .Update:hover{
     background-color: var(--main-color-2);
     border-radius: 10px;
 }
 
-.user-profile .update-div {
+.add-parking .update-div {
     height: 100%;
     overflow: hidden;
     position: absolute;
     right: 0;
     top:0;
 }
-.user-profile .update-div .material-symbols-outlined{
+.add-parking .update-div .material-symbols-outlined{
     cursor: pointer;
     margin-left:8px ;
     user-select: none;
 }
 
-.user-profile .delete-btn{
+.add-parking .add-btn{
     cursor: pointer;
     color: white;
-    background-color: #c33;
+    background-color: var(--main-color-1);
     border-radius: 10px;
     border: none;
     padding: 15px;

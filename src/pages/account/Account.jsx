@@ -1,18 +1,19 @@
-import { useState } from "react";
+import "./account.css"
+
 import Nav from "../../components/nav/Nav";
 import UserProfile from "../../components/userprofile/UserProfile";
 import SavedParkings from "../../components/parkings/SavedParkings";
 import UserParkings from "../../components/parkings/UserParkings";
 import Login from "../../components/login/Login";
-import "./account.css"
+
 import {auth} from "../../firebaseConfig"
 
+import { useState } from "react";
 
 export default function Account() {
   const [current, setCurrent] = useState(1);
   const [user, setUser] = useState(auth.currentUser)
   const [succses, setSuccses] = useState(Boolean(user))
-  // onAuthStateChanged(auth, e=>setUser(auth.currentUser))
 
 
   document.title = "ParkingPal/Account"

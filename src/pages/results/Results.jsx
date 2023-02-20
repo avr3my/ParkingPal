@@ -31,7 +31,7 @@ export default function Results({ selectedAddress }) {
         Parkings around {address.address_line1}{", " && address.city}
       </div>
       <div className="results">
-        {parkings && parkings.length == 1 && 
+        {parkings && parkings.length >= 1 && 
           parkings.map((parking,i) => (
             <ParkingCard key={i} details={parking} />
           ))}
