@@ -55,7 +55,7 @@ export default function ParkingCard({ details }) {
   const noavailable = (
     <div className="available">
       <span>
-        nut available <CgUnavailable />:{" "}
+        Not available <CgUnavailable />:{" "}
       </span>
       <div className="red"> </div>
     </div>

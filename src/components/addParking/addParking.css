@@ -131,3 +131,20 @@
     padding: 15px;
     
 }
+.open {
+    /* display: none; */
+}
+.add-parking .time{
+    display: flex;
+    flex-direction: column;
+    align-items: baseline;
+    position: relative;
+    height: 40px;
+    /* overflow: hidden; */
+}
+.add-parking .time-inner{
+    position: absolute;
+    border: 1px solid black;
+    background-color: aliceblue;
+    transform: translateY(-60%);
+}
