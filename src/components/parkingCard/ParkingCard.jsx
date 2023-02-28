@@ -37,8 +37,8 @@ export default function ParkingCard({ details }) {
   const noElectricCars = (
     <div className="electricCars">
       <span>
-        nut electricCars
-        <CgUnavailable />:{" "}
+        electricCars
+        <MdElectricalServices />:{" "}
       </span>
       <div className="red"> </div>
     </div>
@@ -46,8 +46,8 @@ export default function ParkingCard({ details }) {
   const noroofed = (
     <div className="roofed">
       <span>
-        nut roofed
-        <CgUnavailable />:{" "}
+        roofed
+        <MdRoofing />:{" "}
       </span>
       <div className="red"> </div>
     </div>
@@ -55,7 +55,7 @@ export default function ParkingCard({ details }) {
   const noavailable = (
     <div className="available">
       <span>
-        Not available <CgUnavailable />:{" "}
+        available:{" "}
       </span>
       <div className="red"> </div>
     </div>
@@ -88,7 +88,6 @@ export default function ParkingCard({ details }) {
           </div>
         </Link>
       </div>
-
     </>
   );
 }

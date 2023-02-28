@@ -19,7 +19,7 @@ export default function Footer() {
         <p className="appStor"></p>
         <p className="appStor">Address - 770 Eastern Parkway Brooklin n.y</p>
         <p className="appStor">No - +1 7707707</p>
-        <p className="appStor">Mail - Company@Company.il</p>
+        <p className="appStor">Mail - ParkingPal@Company.il</p>
         <span className="material-symbols-outlined size-icon">call</span>
         <IconContext.Provider value={{ color: "#76b5c5", size: 42 }}>
           <FaWhatsapp />
