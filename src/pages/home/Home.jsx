@@ -10,9 +10,7 @@ export default function Home({ selectedAddress, setSelectedAddress }) {
     <>
       <div className="home-page">
         <div className="top">
-          <div
-            className="logo"
-          >
+          <div className="logo">
             <img className="logo-size" src={imgLogo} alt="logo" />
           </div>
           <div title="Account" className="account">

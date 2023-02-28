@@ -1,0 +1,78 @@
+.ParkingPage {
+    display: flex;
+    flex-direction: column;
+    height: 90vh;
+}
+
+.img {
+    width: 70%;
+    height: 70%;
+    background-image: url("https://www.parking.net/Upload/AboutParking/AboutParkingNew/ParkingLotColorfulAerialView.jpg"
+    );
+}
+
+.img img {
+    width: 100%;
+    height: 100%;
+}
+
+.ParkingPage .sticky {
+    position: -webkit-sticky;
+    position: sticky;
+    bottom: 30vh;
+    mix-blend-mode:normal;
+}
+
+.ParkingPage .information {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    backdrop-filter: blur(6px);
+    border-radius: 0px 0px 10px 10px;
+    color: var(--main-color-2);
+    /* color: white; */
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.ParkingPage .Details {
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+}
+
+.right p {
+    text-align: left;
+}
+
+.green {
+    color: green;
+}
+
+.red {
+    color: red;
+}
+
+.electricCars {
+    display: flex;
+}
+
+.roofed {
+    display: flex;
+}
+
+.available {
+    display: flex;
+}
+
+.price {
+    display: flex;
+}
+.logo{
+    height: 15vh;
+    display: flex;
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    margin-left: 10vh;
+    margin-top: 1vh;
+}
