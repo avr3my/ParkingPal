@@ -132,9 +132,9 @@ export default function Login({ setSuccses }) {
       email: email,
       phone: phone,
       parkingOwner: false,
-      parkings: null,
+      parkings: [],
       desc: "",
-      fav: null,
+      fav: [],
     })
       .then((e) => setSuccses(true))
       .catch((e) => console.log(e));

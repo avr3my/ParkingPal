@@ -13,14 +13,14 @@
 
 
 
-.user-detail-input{
+.user-profile .user-detail-input{
     border: none;
     outline: none;
     font-size: inherit;
     text-align: left;
     color: inherit;
 }
-.details>* {
+.user-profile .details>* {
     display: flex;
     justify-content: space-between;
     height: 40%;
@@ -32,29 +32,29 @@
     position: relative;
 }
 
-.details{
+.user-profile .details{
     width: 65%;
     margin-left: 15px;
     overflow: hidden;
 }
 
-#file{
+.user-profile #file{
     display: none;
 }
-.image-div {
+.user-profile .image-div {
     width: 35%;
     height: 250px;
     overflow: hidden;
     position: relative;
 }
-.image-div img{
+.user-profile .image-div img{
     position: absolute;
     width: 100%;
     left: 0;
     aspect-ratio: 1;
     border-radius: 50%;
 }
-.image-div .set-image{
+.user-profile .image-div .set-image{
     display: none;
     position: absolute;
     top: 0;
@@ -62,21 +62,26 @@
     aspect-ratio: 1;
     border-radius: 50%;
     background-color: rgba(0,0,0,0.5);
-    padding: calc(50% - 15px);
-    line-height: 15px;
     font-size: 30px;
     transition-duration: 100ms;
     z-index: 2;
     cursor: pointer;
 }
-.image-div:has(*:hover) .set-image{
+.fa-camera{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translateY(-50%);
+}
+.user-profile .image-div:has(*:hover) .set-image{
     display: block;
 }
-.Update-details{
+.user-profile .Update-details{
     height: 100%;
 }
 
-.Update{
+.user-profile .Update{
     height: 100%;
     width: 100%;
     background-color: Transparent;
@@ -84,25 +89,25 @@
     font-size: x-large;
     border: none;
 }
-.Update:hover{
+.user-profile .Update:hover{
     background-color: var(--main-color-2);
     border-radius: 10px;
 }
 
-.update-div {
+.user-profile .update-div {
     height: 100%;
     overflow: hidden;
     position: absolute;
     right: 0;
     top:0;
 }
-.update-div .material-symbols-outlined{
+.user-profile .update-div .material-symbols-outlined{
     cursor: pointer;
     margin-left:8px ;
     user-select: none;
 }
 
-.delete-btn{
+.user-profile .delete-btn{
     cursor: pointer;
     color: white;
     background-color: #c33;

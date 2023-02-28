@@ -52,8 +52,8 @@
 }
 
 
-.address-results {
-    /* visibility: hidden; */
+.home-page .address-results {
+    visibility: hidden;
     border: 1px solid var(--main-color-2);
     max-height: 200px;
     overflow: hidden;
@@ -65,41 +65,97 @@
     border-radius:  0 0 10px 10px;
 }
 
-.address-results a{
-    list-style: none;
-    text-decoration: none;
-}
-
-.address-results .result {
-    padding: 10px;
-    cursor: pointer;
-    text-align: left;
-    border-bottom: 1px solid var(--main-color-2);
-    background-color: #fff;
-    color: #000;
-}
-.address-results .location{
+.home-page .address-results>.result:nth-child(1) {
     background-color: var(--main-color-1);
     color: #fff;
 }
-.address-results .result:hover{
+
+.home-page .address-results>.result {
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+    /* height: 30px; */
+    border-bottom: 1px solid var(--main-color-2);
+}
+.home-page .address-results>.result:hover{
     background-color: darkgrey;
 }
 
 main:has(input:focus) .address-results {
     visibility: visible;
-}
-
-main ::-webkit-scrollbar {
-    width: 5px;
+    display: block;
 }
 
 
-main ::-webkit-scrollbar-thumb {
-    background: var(--main-color-2);
+/*  search design for parking page  */
+
+.add-parking .search button {
+    display: none; 
+}
+
+.add-parking .input {
+    display: flex;
+    width: 80%;
+    height: 100%;
+    padding: 5px;
+    font-size: small;
+    color: #fff;
+}
+
+.add-parking .input input {
+    outline: none;
+    border: none;
+    text-align: left;
+    background-color: transparent;
+    width: 100%;
+}
+
+.delete-search {
+    cursor: pointer;
+    color: var(--d-white-l-black);
+}
+
+.add-parking .font-input {
+    font-family: revert;
+    font-size: larger;
 }
 
 
-main ::-webkit-scrollbar-thumb:hover {
-    background: var(--main-color-1);
+.add-parking .address-results {
+    font-size: small;
+    z-index: 2;
+    position: relative;
+    visibility: hidden;
+    border: 1px solid var(--main-color-2);
+    max-height: 100px;
+    overflow: hidden;
+    overflow-y: auto;
+    border-top: none;
+    width: 80%;
+    border-radius:  0 0 10px 10px;
+}
+
+.add-parking .address-results>.result:nth-child(1) {
+    background-color: var(--main-color-1);
+    color: #fff;
+}
+
+.add-parking .address-results>.result {
+    padding: 10px;
+    cursor: pointer;
+    text-align: left;
+    /* height: 30px; */
+    background-color: #fff;
+    border-bottom: 1px solid var(--main-color-2);
+}
+.add-parking .address-results>.result:hover{
+    background-color: darkgrey;
+}
+
+.add-parking main:has(input:focus) .input {
+    border-radius: 10px 10px 0 0 ;
+}
+
+.add-parking:not(:has(input:focus)) .address-results {
+    /* height: 0px; */
 }
