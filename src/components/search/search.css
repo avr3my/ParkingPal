@@ -155,7 +155,3 @@ main:has(input:focus) .address-results {
 .add-parking main:has(input:focus) .input {
     border-radius: 10px 10px 0 0 ;
 }
-
-.add-parking:not(:has(input:focus)) .address-results {
-    /* height: 0px; */
-}

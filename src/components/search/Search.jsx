@@ -1,16 +1,20 @@
-import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import "./search.css";
 import { auth } from "../../firebaseConfig";
 import Swal from "sweetalert2";
-export default function Search({ selectedAddress, setSelectedAddress, src }) {
+import { addressContext } from "../../App";
+
+export default function Search({ src }) {
   const [searchText, setSearchText] = useState("");
   const [addressResults, setAddressResults] = useState([]);
+  const [selectedAddress, setSelectedAddress] = useContext(addressContext);
 
+  const navigate = useNavigate();
   useEffect(() => {
     if (searchText === "") {
       setAddressResults([]);
-      setSelectedAddress(null)
+      setSelectedAddress(null);
       return;
     }
 
@@ -72,13 +76,12 @@ export default function Search({ selectedAddress, setSelectedAddress, src }) {
         confirmButtonColor: "#36899e",
         timer: 2500,
         timerProgressBar: true,
-      }).then(() => (window.location.href = "/account"));
-    } else window.location.href = "/parkings-around-me";
+      }).then(() => (navigate("/account")));
+    } else navigate("/parkings-around-me");
   };
 
   return (
     <main>
-      
       <div className="search">
         <div className="input">
           <input

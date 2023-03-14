@@ -4,47 +4,49 @@
     top: 10px;
     right: 10px;
 }
+
+
 .add-parking-page {
     position: absolute;
     top: 0;
     left: 0;
-    height: 100vh;
+    min-height: 100vh;
     width: 100vw;
     animation: fade-in 500ms ease-in-out;
     backdrop-filter: blur(8px);
 }
 .add-parking {
-    border: 1px solid black;
+    border-radius: 10px;
+    box-shadow: 2px 2px 18px 6px rgba(0, 0, 0, 0.4);
+    display: flex;
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
-    
-    min-width: 70vw;
     height: fit-content;
+    min-width: 540px;
+    width: 70vw;
+    max-width: 800px;
 
     padding: 20px;
-    backdrop-filter: blur(8px);
 
     background-image: url("../../Assets//background.jpeg");
     font-family: 'Rubik', sans-serif;
     font-size:large;
     color: var(--main-color-1);
-    display: flex;
-    justify-content: space-around;
 }
 
 
 .add-parking .user-detail-input{
     border: none;
-    outline: none;
+    outline:none;
     font-size: inherit;
-    text-align: left;
     color: inherit;
+    text-align: left;
+    margin-left: 5px;
 }
 .add-parking .details>* {
     display: flex;
-    /* justify-content: space-between; */
     border-bottom: 1px solid black;
     padding-bottom: 3px;
     margin-bottom: 15px;
@@ -59,67 +61,44 @@
 .add-parking #file{
     display: none;
 }
+.features label,
+.car-size label{
+    margin: 0 5px 0 8px;
+}
+
 .add-parking .image-div {
+    border-radius: 7px;
     width: 35%;
-    height: 250px;
+    aspect-ratio: 1920/1080;
     overflow: hidden;
     position: relative;
 }
-.add-parking .image-div img{
+
+.add-parking .image-div img,
+.add-parking .image-div .set-image {
     position: absolute;
-    width: 100%;
-    left: 0;
     aspect-ratio: 1920/1080;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition-duration: 100ms;
+    cursor: pointer;
 }
 .add-parking .image-div .set-image{
     display: none;
-    position: absolute;
-    top: 0;
-    width: 100%;
-    aspect-ratio: 1920/1080;
     background-color: rgba(0,0,0,0.5);
     font-size: 30px;
-    transition-duration: 100ms;
     z-index: 2;
-    cursor: pointer;
 }
 
 .add-parking .image-div:has(*:hover) .set-image{
     display: block;
 }
-.add-parking .Update-details{
-    height: 100%;
-}
+
 .add-parking .address{
     height: 30px;
     align-items: baseline;
     z-index: 2;
-}
-
-.add-parking .Update{
-    height: 100%;
-    width: 100%;
-    background-color: Transparent;
-    color: blue;
-    font-size: x-large;
-    border: none;
-}
-.add-parking .Update:hover{
-    background-color: var(--main-color-2);
-    border-radius: 10px;
-}
-
-.add-parking .update-div {
-    height: 100%;
-    overflow: hidden;
-    position: absolute;
-    right: 0;
-    top:0;
-}
-.add-parking .update-div .material-symbols-outlined{
-    cursor: pointer;
-    margin-left:8px ;
-    user-select: none;
 }
 
 .add-parking .add-btn{
@@ -131,20 +110,21 @@
     padding: 15px;
     
 }
+
+.add-parking .add-btn:hover{
+    background-color: var(--btn-color);
+}
 .open {
     /* display: none; */
 }
-.add-parking .time{
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-    position: relative;
-    height: 40px;
-    /* overflow: hidden; */
-}
-.add-parking .time-inner{
-    position: absolute;
-    border: 1px solid black;
-    background-color: aliceblue;
-    transform: translateY(-60%);
+
+@media (width<540px) {
+    .add-parking{
+        flex-direction: column;
+        min-width: 90vw;
+    }
+    .add-parking .details{
+        width: 90%;
+        margin-left:0;
+    }
 }

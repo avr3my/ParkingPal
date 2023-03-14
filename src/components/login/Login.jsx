@@ -7,11 +7,13 @@ import { auth, db } from "../../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
-  sendPasswordResetEmail
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
+
 import { setDoc, doc } from "firebase/firestore";
-import { errorPopup, warningPopup, successPopup } from "../../popup";
+import { errorPopup, warningPopup, successPopup, Toast } from "../../popup";
+import { actionCodeSettings } from "../../App";
 
 export default function Login({ setSuccses }) {
   const [signup, setSignup] = useState(false);
@@ -92,25 +94,25 @@ export default function Login({ setSuccses }) {
       warningPopup(null, "Invalid Email Address");
       return false;
     }
-    const actionCodeSettings = {
-      url: 'http://localhost:3000/account',
-      handleCodeInApp: true,
-    };
+    
     sendPasswordResetEmail(auth, email, actionCodeSettings)
       .then((e) => {
-        successPopup("Successfully Reset", "Check your email and reset password");
+        successPopup(
+          "Successfully Reset",
+          "Check your email and reset password"
+        );
         setForgot(false);
         setSignup(false);
-        setPassword("")
+        setPassword("");
       })
       .catch((err) => {
-        if (err.code === "auth/user-not-found"){
-          warningPopup("Reset Failed", "User does not exist")
+        if (err.code === "auth/user-not-found") {
+          warningPopup("Reset Failed", "User does not exist");
+        } else {
+          warningPopup("Reset Failed", "Something went wrong");
         }
-        else{
-          warningPopup("Reset Failed", "Something went wrong")
-        }
-        console.log(err)});
+        console.log(err);
+      });
   };
 
   const handleOnClick = (e) => {
@@ -136,7 +138,13 @@ export default function Login({ setSuccses }) {
       desc: "",
       fav: [],
     })
-      .then((e) => setSuccses(true))
+      .then(() => {
+        setSuccses(true);
+        Toast.fire({
+          icon: "success",
+          title: "Registered successfully",
+        });
+      })
       .catch((e) => console.log(e));
   };
 

@@ -2,14 +2,22 @@ import "./userProfile.css";
 import Swal from "sweetalert2";
 import { errorPopup, successPopup, warningPopup } from "../../popup";
 import Avatar from "../../Assets/defaultAvatar.png";
+import Input from "./Input";
 
 import { useState, useEffect, useRef } from "react";
 
+import { actionCodeSettings } from "../../App";
+
 // firebase functions
 import { auth, storage, db } from "../../firebaseConfig";
-import { updateEmail, deleteUser } from "firebase/auth";
+import { updateEmail, deleteUser, sendPasswordResetEmail } from "firebase/auth";
 import { deleteDoc, doc, updateDoc, getDoc } from "firebase/firestore";
-import { getDownloadURL, ref, uploadBytes, deleteObject } from "firebase/storage";
+import {
+  getDownloadURL,
+  ref,
+  uploadBytes,
+  deleteObject,
+} from "firebase/storage";
 
 export default function UserProfile({ setSuccses }) {
   const [imageUpload, setImageUpload] = useState(null);
@@ -41,8 +49,7 @@ export default function UserProfile({ setSuccses }) {
   useEffect(() => {
     // get user data from collection
     if (!(auth && auth.currentUser)) return;
-    const userAuth = auth.currentUser;
-    getDoc(doc(db, "users", userAuth.uid))
+    getDoc(doc(db, "users", auth.currentUser.uid))
       .then((e) => {
         setUserData(e.data());
       })
@@ -124,6 +131,32 @@ export default function UserProfile({ setSuccses }) {
     setEditName(false);
   };
 
+  const resetPassword = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      // text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#36899e",
+      focusCancel: true,
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, reset it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        sendPasswordResetEmail(auth, auth.currentUser.email, actionCodeSettings)
+          .then(() => setSuccses(false))
+          .catch((e) => console.log(e));
+      }
+    });
+    return;
+  };
+
+  const general = {
+    updateDocument: updateDocument,
+    userData: userData,
+    setUserData: setUserData,
+    setEdit: setEdit,
+  };
   return (
     <div className="user-profile">
       <div className="image-div">
@@ -141,187 +174,27 @@ export default function UserProfile({ setSuccses }) {
         />
       </div>
       <div className="details">
-        <div className="name">
-          <div>
-            <i className="fa-solid fa-address-card"></i>
-            <span> Name: </span>
-            {userData && (
-              <input
-                readOnly={!editName}
-                ref={nameRef}
-                type="text"
-                value={userData.name}
-                className="user-detail-input"
-                onChange={(e) =>
-                  setUserData({ ...userData, name: e.target.value })
-                }
-              />
-            )}
-          </div>
-          <div className="update-div">
-            {editName ? (
-              <span className="edit-menu">
-                <span
-                  onClick={() => setEdit(0)}
-                  title="cancel"
-                  className="material-symbols-outlined"
-                >
-                  cancel
-                </span>
-                <span
-                  title="save"
-                  onClick={() => updateDocument("name")}
-                  className="material-symbols-outlined"
-                >
-                  save
-                </span>
-              </span>
-            ) : (
-              <span
-                title="edit"
-                onClick={() => setEdit(0)}
-                className="edit-btn material-symbols-outlined"
-              >
-                edit
-              </span>
-            )}
-          </div>
+        <Input general={general} edit={editName} data={"name"} refr={nameRef} />
+        <Input
+          general={general}
+          edit={editPhone}
+          data={"phone"}
+          refr={phoneRef}
+        />
+        <Input
+          general={general}
+          edit={editEmail}
+          data={"email"}
+          refr={emailRef}
+        />
+        <div className="btns">
+          <button className="delete-btn" onClick={deleteAccount}>
+            Delete my profile
+          </button>
+          <button className="reset-btn" onClick={resetPassword}>
+            Reset password
+          </button>
         </div>
-        <div className="phone">
-          <div className="">
-            <i className="fa-solid fa-phone"></i>
-            <span> Phone: </span>
-            {userData && (
-              <input
-                readOnly={!editPhone}
-                type="text"
-                ref={phoneRef}
-                value={userData.phone}
-                className="user-detail-input"
-                onChange={(e) =>
-                  setUserData({
-                    ...userData,
-                    phone: isNaN(e.target.value)
-                      ? userData.phone
-                      : e.target.value,
-                  })
-                }
-              />
-            )}
-          </div>
-          <div className="update-div">
-            {editPhone ? (
-              <span className="edit-menu">
-                <span
-                  onClick={() => setEdit(1)}
-                  title="cancel"
-                  className="material-symbols-outlined"
-                >
-                  cancel
-                </span>
-                <span
-                  title="save"
-                  onClick={() => updateDocument("phone")}
-                  className="material-symbols-outlined"
-                >
-                  save
-                </span>
-              </span>
-            ) : (
-              <span
-                title="edit"
-                onClick={() => setEdit(1)}
-                className="edit-btn material-symbols-outlined"
-              >
-                edit
-              </span>
-            )}
-          </div>
-        </div>
-        <div className="email">
-          <div className="">
-            <i className="fa-solid fa-envelope"></i>
-            <span> Email: </span>
-            {userData && (
-              <input
-                readOnly={!editEmail}
-                ref={emailRef}
-                type="text"
-                value={userData.email}
-                className="user-detail-input"
-                onChange={(e) =>
-                  setUserData({ ...userData, email: e.target.value })
-                }
-              />
-            )}
-          </div>
-          <div className="update-div">
-            {editEmail ? (
-              <span className="edit-menu">
-                <span
-                  onClick={() => setEdit(2)}
-                  title="cancel"
-                  className="material-symbols-outlined"
-                >
-                  cancel
-                </span>
-                <span
-                  title="save"
-                  onClick={() => updateDocument("email")}
-                  className="material-symbols-outlined"
-                >
-                  save
-                </span>
-              </span>
-            ) : (
-              <span
-                title="edit"
-                onClick={() => setEdit(2)}
-                className="edit-btn material-symbols-outlined"
-              >
-                edit
-              </span>
-            )}
-          </div>
-        </div>
-        <div className="desc">
-          <div style={{ textAlign: "left" }} className="">
-            <i className="fa-solid fa-asterisk"></i>
-            <span> Description: </span>
-            <b>temporary! </b>
-          </div>
-          <div className="update-div">
-            {editDesc ? (
-              <span className="edit-menu">
-                <span
-                  onClick={() => setEdit(3)}
-                  title="cancel"
-                  className="material-symbols-outlined"
-                >
-                  cancel
-                </span>
-                <span
-                  title="save"
-                  onClick={() => updateDocument("desc")}
-                  className="material-symbols-outlined"
-                >
-                  save
-                </span>
-              </span>
-            ) : (
-              <span
-                title="edit"
-                onClick={() => setEdit(3)}
-                className="edit-btn material-symbols-outlined"
-              >
-                edit
-              </span>
-            )}
-          </div>
-        </div>
-        <button className="delete-btn" onClick={deleteAccount}>
-          Delete my profile
-        </button>
       </div>
     </div>
   );

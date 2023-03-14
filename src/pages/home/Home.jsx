@@ -1,10 +1,11 @@
 import "./home.css";
 
-import imgLogo from "../../Assets/logo344.png";
-import Search from "../../components/search/Search";
 import { Link } from "react-router-dom";
 
-export default function Home({ selectedAddress, setSelectedAddress }) {
+import imgLogo from "../../Assets/logo344.png";
+import Search from "../../components/search/Search";
+
+export default function Home() {
   document.title = "ParkingPal";
   return (
     <>
@@ -21,10 +22,7 @@ export default function Home({ selectedAddress, setSelectedAddress }) {
             </Link>
           </div>
         </div>
-        <Search
-          setSelectedAddress={setSelectedAddress}
-          selectedAddress={selectedAddress}
-        />
+        <Search/>
       </div>
     </>
   );

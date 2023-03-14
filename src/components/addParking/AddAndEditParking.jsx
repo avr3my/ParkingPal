@@ -1,4 +1,4 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { auth, storage, db } from "../../firebaseConfig";
 import {
@@ -20,9 +20,9 @@ import Search from "../search/Search";
 import { errorPopup, warningPopup, successPopup } from "../../popup";
 import Avatar from "../../Assets/parkingAvatar.jpg";
 import "./addParking.css";
+import { addressContext } from "../../App";
 
 export default function AddAndEditParking({ setAddParking, parkingId }) {
-  const { log } = console;
   let basicStyle = {
     margin: "20px",
     display: "flex",
@@ -35,23 +35,27 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
   const elecRef = useRef(null);
   const [user, setUser] = useState(null);
   const [carSize, setCarSize] = useState(null);
-  const [address, setAddress] = useState(null);
-  const [phone, setPhone] = useState("");
-  const [name, setName] = useState("");
-
+  const [address, setAddress] = useContext(addressContext);
   const [availability, setAvailability] = useState({});
-
   const [imageUpload, setImageUpload] = useState(null);
   const [parkingImage, setParkingImage] = useState(Avatar);
   const [renderImage, setRenderImage] = useState(false);
 
-  useEffect(() => {
-    // get curren user
+  const getUser = () => {
     if (!auth.currentUser) return;
     getDoc(doc(db, "users", auth.currentUser.uid))
       .then((e) => setUser(e.data()))
       .catch((e) => console.log(e));
-  }, []);
+  };
+  const getImage = () => {
+    if (!parkingId) return;
+    const imageRef = ref(storage, "parkings/" + parkingId);
+    getDownloadURL(imageRef)
+      .then((e) => setParkingImage(e))
+      .catch(() => {});
+  };
+  useEffect(getImage, []);
+  useEffect(getUser, []);
 
   const uploadImage = (parkingId) => {
     if (!imageUpload) return;
@@ -63,6 +67,9 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
       })
       .catch((e) => console.log("image failure", e));
   };
+  useEffect(() => {
+    // console.log(address);
+  }, [address]);
 
   useEffect(() => {
     // get image from storage
@@ -78,14 +85,6 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
     if (!user) {
       return false;
     }
-    if (!carSize) {
-      warningPopup("", "Please enter car size");
-      return false;
-    }
-    if (!address) {
-      warningPopup("", "Select the address");
-      return false;
-    }
     if (!user.name) {
       warningPopup("", "Please enter your name");
       return false;
@@ -94,8 +93,17 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
       warningPopup("", "Please enter your phone number");
       return false;
     }
+    if (!carSize) {
+      warningPopup("", "Please enter car size");
+      return false;
+    }
+    if (!address) {
+      warningPopup("", "Select the address");
+      return false;
+    }
     return true;
   };
+
   const addParking = () => {
     if (!validateParking()) return;
     addDoc(collection(db, "parkings"), {
@@ -191,15 +199,12 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
             />
           </div>
           <div className="address">
-            <span>address: </span>
-            <Search
-              selectedAddress={address}
-              setSelectedAddress={setAddress}
-              src={"parking"}
-            />
+            <span>Address: </span>
+            <Search src={"parking"} />
           </div>
           <div className="features">
             <div>
+              <span>Features: </span>
               <label htmlFor="roof">roof </label>
               <input ref={roofRef} type="checkbox" name="" id="roof" />
             </div>
@@ -209,8 +214,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
             </div>
           </div>
           <div className="time">
-            <div className="open">open</div>
-
+            <div className="availability">Availability:</div>
           </div>
           <button className="add-btn" onClick={addParking}>
             add parking

@@ -8,10 +8,8 @@
     min-height: 70vh;
     display: flex;
     justify-content: space-around;
-    margin: auto;
+    margin: 20px auto;
 }
-
-
 
 .user-profile .user-detail-input{
     border: none;
@@ -20,10 +18,8 @@
     text-align: left;
     color: inherit;
 }
-.user-profile .details>* {
+.user-profile .input {
     display: flex;
-    justify-content: space-between;
-    height: 40%;
     text-align: start;
     border-bottom: 1px solid black;
     padding-bottom: 3px;
@@ -107,12 +103,32 @@
     user-select: none;
 }
 
+.user-profile .btns{
+    display: flex;
+    justify-content: space-around;
+}
+.user-profile .btns *:active{
+    scale: 0.95;
+}
+.user-profile .delete-btn{
+    background-color: #c33;    
+}
+.user-profile .reset-btn{
+    background-color: var(--btn-color);    
+}
+.user-profile .reset-btn,
 .user-profile .delete-btn{
     cursor: pointer;
     color: white;
-    background-color: #c33;
     border-radius: 10px;
     border: none;
     padding: 15px;
-    
+
+}
+
+@media screen and (width<540px) {
+    .user-profile {
+        flex-direction: column;
+        width: 100vw;
+    }
 }
