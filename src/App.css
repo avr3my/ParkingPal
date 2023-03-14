@@ -14,6 +14,8 @@
 }
 
 :root:has(.dark-mode) {
+  background-image: url('./Assets/WhatsApp\ Image\ 2023-03-08\ at\ 14.01.43.jpeg');
+  background-size: 20%;
   --background-color: #555;
   --text-color: #fff;
   --btn-color: #0b2643;
@@ -21,12 +23,13 @@
   --main-color-2: #265f9c;
   --d-black-l-white: #000;
   --d-white-l-black: #fff;
-
 }
 
 :root:has(.light-mode) {
+  background-image: url('./Assets/background.jpeg');
+  background-size: 20%;
   --background-color: #fff;
-  --text-color: #fff;
+  --text-color: #36899e;
   --btn-color: #1c5867;
   --main-color-1: #36899e;
   --main-color-2: #76b5c5;

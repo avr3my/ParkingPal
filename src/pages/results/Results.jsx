@@ -5,6 +5,7 @@ import ParkingCard from "../../components/parkingCard/ParkingCard";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/logo344.png"
 import "./results.css"
+import DarkMood from "../../components/darkMood/DarkMood"
 
 export default function Results({ selectedAddress }) {
   if (Object.keys(selectedAddress).length !== 0) {
@@ -30,11 +31,14 @@ export default function Results({ selectedAddress }) {
 
   return (
     <>
+    <div className="top-parking-page">
     <Link className="logo" to={"/"}>
-        <img title="ParkingPal" className="logo" src={logo} alt="logo" />
+        <img title="ParkingPal" className="ParkingPage-logo" src={logo} alt="logo" />
       </Link>
+      <DarkMood />
+    </div>
     <div className="results-page">
-      <div className="address">
+      <div className="address1">
         Parkings around {address.address_line1}{", " && address.city}
       </div>
       <div className="results">

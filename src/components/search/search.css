@@ -159,3 +159,13 @@ main:has(input:focus) .address-results {
 .add-parking:not(:has(input:focus)) .address-results {
     /* height: 0px; */
 }
+
+::placeholder{
+    color: var(--text-color);
+}
+.font-input{
+    color: var(--text-color);
+}
+.result{
+    color: var(--text-color);
+}

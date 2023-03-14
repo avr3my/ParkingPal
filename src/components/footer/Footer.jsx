@@ -10,6 +10,7 @@ import { BsApple } from "react-icons/bs";
 import { RiGooglePlayFill } from "react-icons/ri";
 import { IconContext } from "react-icons";
 
+
 export default function Footer() {
   return (
     <footer>
@@ -21,11 +22,11 @@ export default function Footer() {
         <p className="appStor">No - +1 7707707</p>
         <p className="appStor">Mail - ParkingPal@Company.il</p>
         <span className="material-symbols-outlined size-icon">call</span>
-        <IconContext.Provider value={{ color: "#76b5c5", size: 42 }}>
-          <FaWhatsapp />
-          <CiTwitter />
-          <CiFacebook />
-        </IconContext.Provider>
+        {/* <IconContext.Provider value={{ color: "#76b5c5", size: 42 }}> */}
+          <FaWhatsapp className="Icons"/>
+          <CiTwitter className="Icons" />
+          <CiFacebook className="Icons" />
+        {/* </IconContext.Provider> */}
       </div>
       <div className="right">
         <h4>Our App</h4>
