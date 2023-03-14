@@ -7,6 +7,7 @@ import { MdElectricalServices, MdRoofing } from "react-icons/md";
 import { CgUnavailable } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/logo344.png";
+import DarkMood from "../../components/darkMood/DarkMood"
 
 export default function ParkingPage() {
   const { parkingId } = useParams();
@@ -18,9 +19,12 @@ export default function ParkingPage() {
 
   return (
     <>
+    <div className="top-parking-page">
       <Link className="logo" to={"/"}>
-        <img title="ParkingPal" className="logo" src={logo} alt="logo" />
+        <img title="ParkingPal" className="ParkingPage-logo" src={logo} alt="logo" />
       </Link>
+      <DarkMood />
+    </div>
       <div className="ParkingPage">
         <div className="img">
           <img

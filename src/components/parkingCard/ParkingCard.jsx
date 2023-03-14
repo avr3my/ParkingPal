@@ -64,7 +64,7 @@ export default function ParkingCard({ details }) {
   return (
     <>
       <div className="result">
-        <Link className="result-page" to={"/parking/" + details.id}>
+        <Link className="parking-card-page" to={"/parking/" + details.id}>
           {details.data().available}
           <h1 className="address">
             {details.data().address.properties.address_line1}

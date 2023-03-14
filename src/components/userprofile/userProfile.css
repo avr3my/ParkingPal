@@ -3,7 +3,7 @@
     font-family: 'Berkshire Swash', cursive;
     font-family: 'Rubik', sans-serif;
     font-size:large;
-    color: var(--main-color-1);
+    color: var(--text-color);
     width: clamp(540px, 70%, 100vh);
     min-height: 70vh;
     display: flex;
@@ -14,6 +14,7 @@
 
 
 .user-profile .user-detail-input{
+    background-color:transparent;
     border: none;
     outline: none;
     font-size: inherit;
@@ -115,4 +116,34 @@
     border: none;
     padding: 15px;
     
+}
+
+@media (max-width: 540px) {
+    .user-profile{
+        flex-direction: column;
+        font-size: small;
+    }
+    .user-profile .details{
+        width: 40%;
+    }
+    .user-profile .material-symbols-outlined{
+        font-size: small;
+    }
+    .user-profile .delete-btn{
+    font-size: small;
+    padding: 3px;
+    border-radius: 5px;
+    }
+    .user-profile .image-div{
+        /* width: 25%; */
+        height: 200px;
+        margin-top: 15px;
+    }
+    .user-profile .details{
+        /* width: 50%; */
+    }
+    .user-profile{
+        /* width: clamp(300px, 70%, 100vh); */
+        width: auto;
+    }
 }

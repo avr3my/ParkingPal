@@ -6,7 +6,7 @@ import "./App.css";
 
 // import libraries and react
 import { Route, Routes } from "react-router-dom";
-import {useState } from "react";
+import { createContext, useReducer, useState } from "react";
 // import { useEffect, useState } from "react";
 
 // import pages
@@ -19,28 +19,42 @@ import Footer from "../src/components/footer/Footer";
 import Results from "./pages/results/Results";
 import Error from "../src/pages/error/Error";
 import ParkingPage from "./pages/parkingPage/ParkingPage";
+export const addressContext = createContext();
+export const themeContext = createContext();
 
 export default function App() {
   const [selectedAddress, setSelectedAddress] = useState({});
+  const reducer = (state) => (state === "light" ? "dark" : "light");
 
+  const [theme, changeTheme] = useReducer(reducer, "light");
   return (
-    <div className="main-div light-mode">
-      <Routes>
-        <Route
-          exact path="/"
-          element={
-            <Home
-              selectedAddress={selectedAddress}
-              setSelectedAddress={setSelectedAddress}
+    <themeContext.Provider value={{ theme, changeTheme }}>
+      <addressContext.Provider value={useState({})}>
+        <div className={`main-div ${theme}-mode`}>
+          <Routes>
+            <Route
+              exact
+              path="/"
+              element={
+                <Home
+                  selectedAddress={selectedAddress}
+                  setSelectedAddress={setSelectedAddress}
+                />
+              }
             />
-          }
-        />
-        <Route exact path="/account" element={<Account />} />
-        <Route exact path="/parkings-around-me" element={<Results selectedAddress={selectedAddress}/>} />
-        <Route exact path="/parking/:parkingId" element={<ParkingPage/>}/>
-        <Route path="/*" element={<Error/>}/>
-      </Routes>
-      <Footer />
-    </div>
+            <Route exact path="/account" element={<Account />} />
+            <Route
+              exact
+              path="/parkings-around-me"
+              element={<Results selectedAddress={selectedAddress} />}
+            />
+            <Route exact path="/parking/:parkingId" element={<ParkingPage />} />
+            <Route path="/*" element={<Error />} />
+          </Routes>
+          <Footer />
+        </div>
+        {console.log(theme)};
+      </addressContext.Provider>
+    </themeContext.Provider>
   );
 }
