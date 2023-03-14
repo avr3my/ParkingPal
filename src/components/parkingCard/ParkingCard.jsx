@@ -74,8 +74,8 @@ export default function ParkingCard({ details }) {
   if (!details?.data()) return;
   return (
     <>
-      <div className="result"> 
-        <Link className="result-page" to={"/parking/" + details.id}>
+      <div className="result">
+        <Link className="parking-card-page" to={"/parking/" + details.id}>
           {details.data().available}
           <h1 className="address">
             {details.data().address.properties.address_line1}

@@ -2,10 +2,11 @@
     display: flex;
     justify-content: center;
 }
-.result-page{
+.parking-card-page{
     /* width: 100vh; */
     text-decoration: none;
-    color: var(--main-color-1);
+    background-color: rgba(255, 255,255,0.2);
+    color: var(--text-color);
     width: 60%;
     border: 5px solid var(--main-color-2);
     margin-top: 10px;
@@ -32,6 +33,7 @@ grid-row-gap: 0px;
     grid-area: 2 / 3 / 3 / 7;
     display: flex;
     justify-content: space-between;
+    font-size: small;
 }
 .result .green{
     background-color: green;
@@ -65,4 +67,17 @@ grid-row-gap: 0px;
 .result .xxx{
     display: flex;
     flex-direction: row;
+}
+
+@media (max-width: 540px) {
+    .result .address{
+        font-size: smaller;
+    }
+    .result .ditels{
+        font-size: x-small;
+    }
+    .result-page{
+        border: 2px solid var(--main-color-2);
+        margin-bottom: 5px;
+    }
 }

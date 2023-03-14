@@ -3,7 +3,7 @@
     font-family: 'Berkshire Swash', cursive;
     font-family: 'Rubik', sans-serif;
     font-size:large;
-    color: var(--main-color-1);
+    color: var(--text-color);
     width: clamp(540px, 70%, 100vh);
     min-height: 70vh;
     display: flex;
@@ -12,6 +12,7 @@
 }
 
 .user-profile .user-detail-input{
+    background-color:transparent;
     border: none;
     outline: none;
     font-size: inherit;
@@ -123,12 +124,12 @@
     border-radius: 10px;
     border: none;
     padding: 15px;
-
 }
 
 @media screen and (width<540px) {
     .user-profile {
         flex-direction: column;
         width: 100vw;
+
     }
 }

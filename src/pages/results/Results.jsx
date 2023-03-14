@@ -11,6 +11,9 @@ import logo from "../../Assets/logo344.png";
 
 import {sortByDistance} from "../../sort.js"
 import ParkingCard from "../../components/parkingCard/ParkingCard";
+import logo from "../../Assets/logo344.png"
+import "./results.css"
+import DarkMood from "../../components/darkMood/DarkMood"
 
 export default function Results() {
   const [selectedAddress, setSelectedAddress] = useContext(addressContext);
@@ -40,21 +43,22 @@ export default function Results() {
   // return;
   return (
     <>
-      <Link onClick={() => setSelectedAddress(null)} className="logo" to="/">
-        <img title="ParkingPal" className="logo" src={logo} alt="logo" />
-      </Link>
-      <div className="results-page">
-        <div className="address">
-          Parkings around {address?.address_line1}
-          {", " && address?.city}
+      <div className="top-parking-page">
+        <Link className="logo" to={"/"}>
+            <img title="ParkingPal" className="ParkingPage-logo" src={logo} alt="logo" />
+          </Link>
+          <DarkMood />
         </div>
-        <div className="results">
-          {parkings &&
-            parkings.length >= 1 &&
-            parkings.map((parking, i) => (
-              i<20 && <ParkingCard key={i} details={parking} />
+        <div className="results-page">
+          <div className="address1">
+            Parkings around {address.address_line1}{", " && address.city}
+          </div>
+          <div className="results">
+            {parkings && parkings.length >= 1 && 
+              parkings.map((parking,i) => (
+                <ParkingCard key={i} details={parking} />
             ))}
-        </div>
+
       </div>
     </>
   );

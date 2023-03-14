@@ -17,3 +17,21 @@ footer .size-icon{
 footer .appStor{
     color: #76b5c5;
 }
+.Icons{
+    font-size: 42px;
+    color:#76b5c5;
+  }
+
+@media (max-width: 540px) {
+    footer{
+        flex-direction: column;
+        height: 180px;
+        font-size: small;
+    }
+    footer .size-icon{
+        font-size: 15px;
+    }
+    .Icons {
+        font-size: 15px;
+    }
+}
