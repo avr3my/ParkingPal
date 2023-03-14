@@ -1,15 +1,27 @@
-import { from } from "form-data";
-import { useEffect } from "react";
-import { Link } from "react-router-dom";
 import "./ParkingCard.css";
+
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
 import { MdElectricalServices, MdRoofing } from "react-icons/md";
 import { CgUnavailable } from "react-icons/cg";
-import img from "../../Assets/logo344.png";
+
+import { getDownloadURL, ref } from "firebase/storage";
+import { storage } from "../../firebaseConfig";
+
+import parkingAvatar from "../../Assets/parkingAvatar.jpg";
 
 export default function ParkingCard({ details }) {
-  useEffect(() => {
-    // console.log(details.id + ":", details.data());
-  }, []);
+  const [parkingImg, setParkingImg] = useState(parkingAvatar);
+  const getImage = () =>{
+    if (!details) return;
+    const imageRef = ref(storage, "parkings/" + details.id);
+    getDownloadURL(imageRef)
+      .then((e) => setParkingImg(e))
+      .catch(() => {});
+  }
+  useEffect(getImage, [details]);
+
   const ElectricCars = (
     <div className="electricCars">
       <span>
@@ -54,13 +66,12 @@ export default function ParkingCard({ details }) {
   );
   const noavailable = (
     <div className="available">
-      <span>
-        available:{" "}
-      </span>
+      <span>available: </span>
       <div className="red"> </div>
     </div>
   );
 
+  if (!details?.data()) return;
   return (
     <>
       <div className="result">
@@ -80,11 +91,7 @@ export default function ParkingCard({ details }) {
             </div>
           </div>
           <div className="imagep">
-            <img
-              className="imagep"
-              src="https://harish24.co.il/wp-content/uploads/2019/03/%D7%97%D7%A0%D7%99%D7%94.jpeg"
-              alt="img"
-            />
+            <img className="imagep" src={parkingImg} alt="img" />
           </div>
         </Link>
       </div>

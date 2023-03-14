@@ -8,10 +8,8 @@
     min-height: 70vh;
     display: flex;
     justify-content: space-around;
-    margin: auto;
+    margin: 20px auto;
 }
-
-
 
 .user-profile .user-detail-input{
     background-color:transparent;
@@ -21,10 +19,8 @@
     text-align: left;
     color: inherit;
 }
-.user-profile .details>* {
+.user-profile .input {
     display: flex;
-    justify-content: space-between;
-    height: 40%;
     text-align: start;
     border-bottom: 1px solid black;
     padding-bottom: 3px;
@@ -108,42 +104,32 @@
     user-select: none;
 }
 
+.user-profile .btns{
+    display: flex;
+    justify-content: space-around;
+}
+.user-profile .btns *:active{
+    scale: 0.95;
+}
+.user-profile .delete-btn{
+    background-color: #c33;    
+}
+.user-profile .reset-btn{
+    background-color: var(--btn-color);    
+}
+.user-profile .reset-btn,
 .user-profile .delete-btn{
     cursor: pointer;
     color: white;
-    background-color: #c33;
     border-radius: 10px;
     border: none;
     padding: 15px;
-    
 }
 
-@media (max-width: 540px) {
-    .user-profile{
+@media screen and (width<540px) {
+    .user-profile {
         flex-direction: column;
-        font-size: small;
-    }
-    .user-profile .details{
-        width: 40%;
-    }
-    .user-profile .material-symbols-outlined{
-        font-size: small;
-    }
-    .user-profile .delete-btn{
-    font-size: small;
-    padding: 3px;
-    border-radius: 5px;
-    }
-    .user-profile .image-div{
-        /* width: 25%; */
-        height: 200px;
-        margin-top: 15px;
-    }
-    .user-profile .details{
-        /* width: 50%; */
-    }
-    .user-profile{
-        /* width: clamp(300px, 70%, 100vh); */
-        width: auto;
+        width: 100vw;
+
     }
 }

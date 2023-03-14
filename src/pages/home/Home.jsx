@@ -1,11 +1,12 @@
 import "./home.css";
 
+import { Link } from "react-router-dom";
+
+import DarkMood from "../../components/darkMood/DarkMood";
 import imgLogo from "../../Assets/logo344.png";
 import Search from "../../components/search/Search";
-import { Link } from "react-router-dom";
-import DarkMood from "../../components/darkMood/DarkMood";
 
-export default function Home({ selectedAddress, setSelectedAddress}) {
+export default function Home() {
   document.title = "ParkingPal";
   return (
     <>
@@ -25,10 +26,7 @@ export default function Home({ selectedAddress, setSelectedAddress}) {
           </div>
           <DarkMood />
         </div>
-        <Search
-          setSelectedAddress={setSelectedAddress}
-          selectedAddress={selectedAddress}
-        />
+        <Search/>
       </div>
     </>
   );
