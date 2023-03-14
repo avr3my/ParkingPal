@@ -32,15 +32,15 @@ export default function Search({ src }) {
       .catch((error) => console.log("error", error));
   }, [searchText]);
 
-  useEffect(() => {
-    if (!(selectedAddress && selectedAddress.properties)) {
+  const handleSelect = (address) => {
+    setSelectedAddress(address)
+    if (!(address?.properties)) {
       return;
     }
     // console.log(selectedAddress);
-    let address = selectedAddress.properties;
-    setSearchText(address.address_line1 + ", " + address.city);
+    setSearchText(address.properties.address_line1 + ", " + address.properties.city);
     navigateToResults();
-  }, [selectedAddress]);
+  }
 
   function getLocation() {
     if (navigator.geolocation) {
@@ -60,7 +60,7 @@ export default function Search({ src }) {
     )
       .then((response) => response.json())
       .then((result) => {
-        setSelectedAddress(result.features[0]);
+        handleSelect(result.features[0]);
         // navigateToResults();
       })
       .catch((error) => console.log("error", error));
@@ -76,7 +76,7 @@ export default function Search({ src }) {
         confirmButtonColor: "#36899e",
         timer: 2500,
         timerProgressBar: true,
-      }).then(() => (navigate("/account")));
+      }).then(() => navigate("/account"));
     } else navigate("/parkings-around-me");
   };
 
@@ -101,11 +101,7 @@ export default function Search({ src }) {
           )}
         </div>
         <button>
-          <Link to={"/parkings-around-me"}>
-            <span className="search-icon material-symbols-outlined">
-              search
-            </span>
-          </Link>
+          <span className="search-icon material-symbols-outlined">search</span>
         </button>
       </div>
       <div className="address-results">
@@ -116,7 +112,7 @@ export default function Search({ src }) {
           <div
             key={i}
             className="result"
-            onClick={() => setSelectedAddress(address)}
+            onClick={() => handleSelect(address)}
           >
             {address.properties.address_line1 +
               ", " +

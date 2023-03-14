@@ -9,15 +9,14 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { addressContext } from "../../App";
 import logo from "../../Assets/logo344.png";
 
-import {sortByDistance} from "../../sort.js"
+import { sortByDistance } from "../../sort.js";
 import ParkingCard from "../../components/parkingCard/ParkingCard";
-import logo from "../../Assets/logo344.png"
-import "./results.css"
-import DarkMood from "../../components/darkMood/DarkMood"
+import "./results.css";
+import DarkMood from "../../components/darkMood/DarkMode";
 
 export default function Results() {
   const [selectedAddress, setSelectedAddress] = useContext(addressContext);
-  
+
   if (selectedAddress && Object.keys(selectedAddress).length !== 0) {
     localStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
   } else {
@@ -45,20 +44,27 @@ export default function Results() {
     <>
       <div className="top-parking-page">
         <Link className="logo" to={"/"}>
-            <img title="ParkingPal" className="ParkingPage-logo" src={logo} alt="logo" />
-          </Link>
-          <DarkMood />
+          <img
+            title="ParkingPal"
+            className="ParkingPage-logo"
+            src={logo}
+            alt="logo"
+          />
+        </Link>
+        <DarkMood />
+      </div>
+      <div className="results-page">
+        <div className="address1">
+          Parkings around {address.address_line1}
+          {", " && address.city}
         </div>
-        <div className="results-page">
-          <div className="address1">
-            Parkings around {address.address_line1}{", " && address.city}
-          </div>
-          <div className="results">
-            {parkings && parkings.length >= 1 && 
-              parkings.map((parking,i) => (
-                <ParkingCard key={i} details={parking} />
+        <div className="results">
+          {parkings &&
+            parkings.length >= 1 &&
+            parkings.map((parking, i) => (
+              <ParkingCard key={i} details={parking} />
             ))}
-
+        </div>
       </div>
     </>
   );

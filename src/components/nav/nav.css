@@ -31,7 +31,6 @@ nav > div:hover:not(.selected), nav #logout:hover{
 }
 
 nav .logo{
-    width: 70px;
     border-radius: 10px;
     margin: 10px;
     height: 85px;

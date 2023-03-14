@@ -15,8 +15,6 @@ import Footer from "../src/components/footer/Footer";
 import Results from "./pages/results/Results";
 import Error from "../src/pages/error/Error";
 import ParkingPage from "./pages/parkingPage/ParkingPage";
-export const addressContext = createContext();
-export const themeContext = createContext();
 
 // create contexts
 export const addressContext = createContext();
@@ -28,9 +26,6 @@ export const actionCodeSettings = {
 };
 export default function App() {
   const reducer = (state) => (state === "light" ? "dark" : "light");
-
-  const [theme, changeTheme] = useReducer(reducer, "light");
-
   const [theme, changeTheme] = useReducer(reducer, "light");
   return (
     <themeContext.Provider value={{ theme, changeTheme }}>
@@ -40,7 +35,6 @@ export default function App() {
             <Route exact path="/" element={<Home />} />
             <Route exact path="/account" element={<Account />} />
             <Route exact path="/parkings-around-me" element={<Results />} />
-
             <Route exact path="/parking/:parkingId" element={<ParkingPage />} />
             <Route path="/*" element={<Error />} />
           </Routes>

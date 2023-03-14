@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import logo from "../../Assets/logo344.png";
-import DarkMood from "../../components/darkMood/DarkMood";
+import DarkMood from "../darkMood/DarkMode";
 
 export default function Nav({ current, setCurrent }) {
   const logout = () => {

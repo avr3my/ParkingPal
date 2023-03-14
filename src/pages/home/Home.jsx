@@ -2,7 +2,7 @@ import "./home.css";
 
 import { Link } from "react-router-dom";
 
-import DarkMood from "../../components/darkMood/DarkMood";
+import DarkMood from "../../components/darkMood/DarkMode";
 import imgLogo from "../../Assets/logo344.png";
 import Search from "../../components/search/Search";
 
