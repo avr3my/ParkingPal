@@ -5,7 +5,6 @@
     right: 10px;
 }
 
-
 .add-parking-page {
     position: absolute;
     top: 0;
@@ -30,12 +29,86 @@
 
     padding: 20px;
 
-    background-image: url("../../Assets//background.jpeg");
+    background-image: var(--bg-image);
     font-family: 'Rubik', sans-serif;
     font-size:large;
     color: var(--main-color-1);
 }
+.availability-window {
 
+    border-radius: 10px;
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px 10%;
+
+    background-image: var(--bg-image);
+    
+    font-size:medium;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: start;
+
+}
+.availability-window .day {
+    display: flex;
+}
+.availability-window .day h4{
+    width: 90px;
+    text-align: left;
+}
+.availability-window .time-frame,
+.availability-window .add-time-frame {
+    margin-left: 10px;
+    display: flex;
+    text-align: left;
+}
+.availability-window .time-frame *{
+    margin-left: 10px;
+    text-align: left;
+}
+.add-time-frame{
+    cursor: pointer;
+}
+@media (width<540px) {
+    .availability-window .time-frame{
+        display: block;
+    }
+    .comma{
+        display: none;
+    }
+}
+
+.add-time-slot{
+    background: var(--bg-image);
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 2px 2px 10px 3px rgba(0, 0, 0, 0.4);
+    position: absolute;
+    top: 50%;
+    right: 5%;
+    translate: 0 -50%;
+}
+.add-time-slot span{
+    cursor: pointer;
+}
+.add-time-slot>div:nth-child(1)>div {
+    width: 100%;
+    display: flex;
+}
+.add-time-slot>div:nth-child(1)>div>label {
+    padding: 5px;
+    width: 50%;
+    text-align: left;
+}
+.add-time-slot>div:nth-child(2) {
+    display: flex;
+    padding: 5px;
+    justify-content: space-evenly;
+}
 
 .add-parking .user-detail-input{
     border: none;
@@ -101,21 +174,35 @@
     z-index: 2;
 }
 
-.add-parking .add-btn{
+.add-parking .parking-btn,
+.availability-window .btns *
+{
     cursor: pointer;
     color: white;
     background-color: var(--main-color-1);
     border-radius: 10px;
     border: none;
     padding: 15px;
+   
     
 }
+.availability-window .btns{
+    display: flex;
+    margin: 0 auto;
+    gap: 20px;
+}
 
-.add-parking .add-btn:hover{
+.add-parking .parking-btn:hover,
+.availability-window .btns *:hover{
     background-color: var(--btn-color);
 }
-.open {
-    /* display: none; */
+
+
+.set-availability{
+    cursor: pointer;
+    margin-left: 5px;
+    text-decoration: solid;
+    text-decoration: underline;
 }
 
 @media (width<540px) {

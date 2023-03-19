@@ -1,13 +1,16 @@
 import "./userProfile.css";
-import Swal from "sweetalert2";
-import { errorPopup, successPopup, warningPopup } from "../../popup";
+import {
+  errorPopup,
+  successPopup,
+  warningPopup,
+  confirmPopup,
+} from "../../popup";
 import Avatar from "../../Assets/defaultAvatar.png";
 import Input from "./Input";
 
 import { useState, useEffect, useRef } from "react";
 
 import { actionCodeSettings } from "../../App";
-
 // firebase functions
 import { auth, storage, db } from "../../firebaseConfig";
 import { updateEmail, deleteUser, sendPasswordResetEmail } from "firebase/auth";
@@ -18,7 +21,7 @@ import {
   uploadBytes,
   deleteObject,
 } from "firebase/storage";
-
+import { deleteAllParkings } from "../../deleteUserParkings";
 export default function UserProfile({ setSuccses }) {
   const [imageUpload, setImageUpload] = useState(null);
   const [userData, setUserData] = useState(null);
@@ -74,34 +77,31 @@ export default function UserProfile({ setSuccses }) {
     if (!variables[selection]) refs[selection].current.focus();
   };
 
-  const deleteAccount = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#36899e",
-      focusCancel: true,
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const id = auth.currentUser.uid;
-        deleteDoc(doc(db, "users", id))
-          .then(() => {
-            deleteObject(ref(storage, "users/" + id));
-            deleteUser(auth.currentUser)
-              .then(() => {
-                successPopup("Deleted!", "Account deleted succesfully");
-                setSuccses(false);
-              })
-              .catch(() =>
-                errorPopup("Failed to delete account", "Log out and try again")
-              );
-          })
-          .catch(() => errorPopup(null, "Failed to delete account"));
-      }
-    });
+  const deleteAccount = async () => {
+    let ans = await confirmPopup(
+      "Are you sure?",
+      "You won't be able to revert this!",
+      "Yes, delete it!"
+    );
+    if (!ans) return;
+    const id = auth.currentUser.uid;
+    let parkings = userData.parkings;
+    deleteDoc(doc(db, "users", id))
+      .then(() => {
+        deleteObject(ref(storage, "users/" + id));
+
+        deleteAllParkings(parkings).finally(() => {
+          deleteUser(auth.currentUser)
+            .then(() => {
+              successPopup("Deleted!", "Account deleted succesfully");
+              setSuccses(false);
+            })
+            .catch(() =>
+              errorPopup("Failed to delete account", "Log out and try again")
+            );
+        });
+      })
+      .catch(() => errorPopup(null, "Failed to delete account"));
   };
 
   const updateDocument = (selection) => {
@@ -131,24 +131,12 @@ export default function UserProfile({ setSuccses }) {
     setEditName(false);
   };
 
-  const resetPassword = () => {
-    Swal.fire({
-      title: "Are you sure?",
-      // text: "You won't be able to revert this!",
-      icon: "warning",
-      showCancelButton: true,
-      confirmButtonColor: "#36899e",
-      focusCancel: true,
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, reset it!",
-    }).then((result) => {
-      if (result.isConfirmed) {
-        sendPasswordResetEmail(auth, auth.currentUser.email, actionCodeSettings)
-          .then(() => setSuccses(false))
-          .catch((e) => console.log(e));
-      }
-    });
-    return;
+  const resetPassword = async () => {
+    let ans = await confirmPopup("Are you sure?", "", "Yes, reset it!");
+    if (!ans) return;
+    sendPasswordResetEmail(auth, auth.currentUser.email, actionCodeSettings)
+      .then(() => setSuccses(false))
+      .catch((e) => console.log(e));
   };
 
   const general = {

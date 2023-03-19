@@ -7,7 +7,7 @@ import { MdElectricalServices, MdRoofing } from "react-icons/md";
 import { CgUnavailable } from "react-icons/cg";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/logo344.png";
-import DarkMood from "../../components/darkMood/DarkMode"
+import DarkMood from "../../components/darkMode/DarkMode"
 
 export default function ParkingPage() {
   const { parkingId } = useParams();

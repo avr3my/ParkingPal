@@ -1,27 +1,32 @@
 import "./results.css";
-
-import { useEffect, useState, useContext } from "react";
-import { Link } from "react-router-dom";
-
-import { db } from "../../firebaseConfig";
-import { collection, getDocs, query, where } from "firebase/firestore";
-
-import { addressContext } from "../../App";
 import logo from "../../Assets/logo344.png";
 
+import { useEffect, useState, useContext } from "react";
+import { Link, useNavigate } from "react-router-dom";
+
+import { db } from "../../firebaseConfig";
+import { collection, getDocs } from "firebase/firestore";
+
+import { addressContext } from "../../App";
 import { sortByDistance } from "../../sort.js";
+
 import ParkingCard from "../../components/parkingCard/ParkingCard";
-import "./results.css";
-import DarkMood from "../../components/darkMood/DarkMode";
+import DarkMood from "../../components/darkMode/DarkMode";
 
 export default function Results() {
+  const goHome = useNavigate();
   const [selectedAddress, setSelectedAddress] = useContext(addressContext);
 
-  if (selectedAddress && Object.keys(selectedAddress).length !== 0) {
-    localStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
-  } else {
-    setSelectedAddress(JSON.parse(localStorage.selectedAddress));
-  }
+  useEffect(() => {
+    if (selectedAddress && Object.keys(selectedAddress).length !== 0) {
+      sessionStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
+    }else if (sessionStorage.selectedAddress === undefined) {
+      goHome("/");
+    } else {
+      setSelectedAddress(JSON.parse(sessionStorage.selectedAddress));
+    }
+  }, [])
+  
 
   const [parkings, setParkings] = useState([]);
   const parkingsRef = collection(db, "parkings");
@@ -40,6 +45,9 @@ export default function Results() {
   }, []);
 
   // return;
+  if (!selectedAddress) {
+    return;
+  }
   return (
     <>
       <div className="top-parking-page">
@@ -59,9 +67,8 @@ export default function Results() {
           {", " && address.city}
         </div>
         <div className="results">
-          {parkings &&
-            parkings.length >= 1 &&
-            parkings.map((parking, i) => (
+          {parkings?.map((parking, i) => (
+              i < 20 &&
               <ParkingCard key={i} details={parking} />
             ))}
         </div>

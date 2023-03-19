@@ -12,7 +12,7 @@ import {
 
 
 import { setDoc, doc } from "firebase/firestore";
-import { errorPopup, warningPopup, successPopup, Toast } from "../../popup";
+import { errorPopup, warningPopup, successPopup, toastSuccess } from "../../popup";
 import { actionCodeSettings } from "../../App";
 
 export default function Login({ setSuccses }) {
@@ -140,10 +140,7 @@ export default function Login({ setSuccses }) {
     })
       .then(() => {
         setSuccses(true);
-        Toast.fire({
-          icon: "success",
-          title: "Registered successfully",
-        });
+        toastSuccess("Registered successfully")
       })
       .catch((e) => console.log(e));
   };

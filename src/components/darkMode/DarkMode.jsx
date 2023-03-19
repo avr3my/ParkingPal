@@ -1,5 +1,6 @@
-import { useContext } from "react";
 import "./darkMode.css";
+
+import { useContext } from "react";
 import { RiMoonLine } from "react-icons/ri";
 import { FiSun } from "react-icons/fi";
 
@@ -13,13 +14,13 @@ export default function DarkMood() {
         <input
           onClick={() => changeTheme()}
           type="checkbox"
-          class="checkbox"
+          className="checkbox"
           id="checkbox"
         />
-        <label for="checkbox" class="label">
+        <label htmlFor="checkbox" className="label">
           <RiMoonLine className="moon" />
           <FiSun className="sun" />
-          <div class={`ball ${theme}`} />
+          <div className={`ball ${theme}`} />
         </label>
       </div>
     </>

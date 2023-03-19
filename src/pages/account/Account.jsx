@@ -3,7 +3,7 @@ import "./account.css"
 import Nav from "../../components/nav/Nav";
 import UserProfile from "../../components/userprofile/UserProfile";
 import SavedParkings from "../../components/parkings/SavedParkings";
-import UserParkings from "../../components/parkings/UserParkings";
+import UserParkings from "../../components/userParkings/UserParkings";
 import Login from "../../components/login/Login";
 
 import {auth} from "../../firebaseConfig"

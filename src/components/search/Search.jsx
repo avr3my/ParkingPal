@@ -1,14 +1,13 @@
 import { useState, useEffect, useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./search.css";
 import { auth } from "../../firebaseConfig";
-import Swal from "sweetalert2";
-import { addressContext } from "../../App";
+import { popupWithCallback } from "../../popup.js";
 
-export default function Search({ src }) {
-  const [searchText, setSearchText] = useState("");
+export default function Search({ src, selectedAddress, setSelectedAddress }) {
+  
+  const [searchText, setSearchText] = useState(selectedAddress? selectedAddress.properties.address_line1 + ", " + selectedAddress.properties.city:"");
   const [addressResults, setAddressResults] = useState([]);
-  const [selectedAddress, setSelectedAddress] = useContext(addressContext);
 
   const navigate = useNavigate();
   useEffect(() => {
@@ -46,7 +45,7 @@ export default function Search({ src }) {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
     } else {
-      console.log("Accsess not aloud");
+      console.log("Accsess not alowed");
     }
   }
 
@@ -69,14 +68,7 @@ export default function Search({ src }) {
   const navigateToResults = () => {
     if (src === "parking") return;
     if (!auth.currentUser) {
-      Swal.fire({
-        icon: "warning",
-        title: null,
-        text: "You need to login to see parkings",
-        confirmButtonColor: "#36899e",
-        timer: 2500,
-        timerProgressBar: true,
-      }).then(() => navigate("/account"));
+      popupWithCallback("warning", null,"You need to login to see parkings", () => navigate("/account") )
     } else navigate("/parkings-around-me");
   };
 

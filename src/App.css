@@ -14,8 +14,7 @@
 }
 
 :root:has(.dark-mode) {
-  background-image: url('./Assets/WhatsApp\ Image\ 2023-03-08\ at\ 14.01.43.jpeg');
-  background-size: 20%;
+  --bg-image:url("./Assets/bg-dark.jpeg");
   --background-color: #555;
   --text-color: #fff;
   --btn-color: #0b2643;
@@ -23,11 +22,11 @@
   --main-color-2: #265f9c;
   --d-black-l-white: #000;
   --d-white-l-black: #fff;
+
 }
 
 :root:has(.light-mode) {
-  background-image: url('./Assets/background.jpeg');
-  background-size: 20%;
+  --bg-image:url("./Assets/background.jpeg");
   --background-color: #fff;
   --text-color: #36899e;
   --btn-color: #1c5867;
@@ -36,7 +35,10 @@
   --d-black-l-white: #fff;
   --d-white-l-black: #000;
 }
-
+:root{
+  background-image: var(--bg-image);
+  background-size: 20%;
+}
 
 .main-div:has(.login-page),
 .main-div:has(.add-parking-page) {
