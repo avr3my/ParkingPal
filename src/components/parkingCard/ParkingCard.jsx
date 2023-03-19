@@ -86,8 +86,8 @@ export default function ParkingCard({ details }) {
             {details.data().electricCars ? ElectricCars : noElectricCars}
             {details.data().roofed ? roofed : noroofed}
             <div className="xxx">
-              <p>text</p>
-              <CgUnavailable />
+              {/* <p>text</p>
+              <CgUnavailable /> */}
             </div>
           </div>
           <div className="imagep">
