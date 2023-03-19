@@ -1,5 +1,5 @@
+import "./userParkings.css"
 import { auth, db } from "../../firebaseConfig";
-
 import { useEffect, useState } from "react";
 import AddAndEditParking from "./addParking/AddAndEditParking";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
@@ -22,8 +22,8 @@ export default function UserParkings() {
 
   return (
     <div className="user-parkings">
-      <h2>my parkings</h2>
       <button
+      className="user-parkings-add-parking"
         onClick={() => {
           setParkingId(null);
           setAddParking(true);

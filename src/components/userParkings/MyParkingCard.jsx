@@ -1,5 +1,5 @@
-import parkingAvatar from "../../Assets/parkingAvatar.jpg";
 import "./myParkingCard.css";
+import parkingAvatar from "../../Assets/parkingAvatar.jpg";
 import { useEffect, useState } from "react";
 
 import { getDownloadURL, ref } from "firebase/storage";
@@ -71,16 +71,9 @@ export default function MyParkingCard({
     </div>
   );
   return (
-    <div
-      onClick={() => {
-        setParkingId(parkingId);
-        setAddParking(true);
-      }}
-      className={`my-parking-card ${mode}`}
-    >
+    <div className={`my-parking-card ${mode}`}>
       <div className="my-parking-card-img">
         <img
-          className="my-parking-card-img1"
           src={parkingImg}
           alt={parkingId}
         />
@@ -95,6 +88,16 @@ export default function MyParkingCard({
           <div>{roof ? roofed : ""}</div>
         </div>
       </div>
+      <span
+        class="material-symbols-outlined"
+        onClick={() => {
+          setParkingId(parkingId);
+          setAddParking(true);
+        }}
+        style={{ fontSize: "large", cursor:"pointer" }}
+      >
+        edit
+      </span>
       <label className="switch">
         <input type="checkbox" />
         <span onClick={() => change()} className={`${slider} round`}></span>
