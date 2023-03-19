@@ -1,5 +1,6 @@
-import { useContext } from "react";
 import "./darkMode.css";
+
+import { useContext } from "react";
 import { RiMoonLine } from "react-icons/ri";
 import { FiSun } from "react-icons/fi";
 

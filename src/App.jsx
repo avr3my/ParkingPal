@@ -3,7 +3,7 @@ import "./App.css";
 
 // import libraries and react
 import { Route, Routes } from "react-router-dom";
-import { useState, createContext, useReducer } from "react";
+import { useState, createContext, useReducer, useEffect } from "react";
 
 
 // import pages
@@ -24,12 +24,13 @@ export const actionCodeSettings = {
   url: "http://localhost:3000/account",
   handleCodeInApp: true,
 };
+
 export default function App() {
   const reducer = (state) => (state === "light" ? "dark" : "light");
   const [theme, changeTheme] = useReducer(reducer, "light");
   return (
     <themeContext.Provider value={{ theme, changeTheme }}>
-      <addressContext.Provider value={useState({})}>
+      <addressContext.Provider value={useState()}>
         <div className={`main-div ${theme}-mode`}>
           <Routes>
             <Route exact path="/" element={<Home />} />

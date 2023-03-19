@@ -1,5 +1,5 @@
-import parkingAvatar from "../../Assets/parkingAvatar.jpg";
 import "./myParkingCard.css";
+import parkingAvatar from "../../Assets/parkingAvatar.jpg";
 import { useEffect, useState } from "react";
 
 import { getDownloadURL, ref } from "firebase/storage";
@@ -7,7 +7,11 @@ import { db, storage } from "../../firebaseConfig";
 import { doc, getDoc } from "firebase/firestore";
 import { MdElectricalServices, MdRoofing } from "react-icons/md";
 
-export default function MyParkingCard({ parkingId }) {
+export default function MyParkingCard({
+  parkingId,
+  setParkingId,
+  setAddParking,
+}) {
   const [mode, setMode] = useState("used");
   const [parkingImg, setParkingImg] = useState(parkingAvatar);
   const [parking, setParking] = useState();
@@ -26,11 +30,13 @@ export default function MyParkingCard({ parkingId }) {
   }, []);
 
   useEffect(() => {
-    // available === "available" ? (slider = "slider") : (slider = "nut-slid");
-    change();
-  }, [available]);
+    const imageRef = ref(storage, "parkings/" + parkingId);
+    getDownloadURL(imageRef)
+      .then((e) => setParkingImg(e))
+      .catch(() => {});
+  }, [parking]);
 
-  useEffect(getImage, [parking]);
+  useEffect(change, [available]);
 
   if (!parking) return null;
 
@@ -66,10 +72,8 @@ export default function MyParkingCard({ parkingId }) {
   );
   return (
     <div className={`my-parking-card ${mode}`}>
-      {/* <div className="my-parking-card not-available"> */}
       <div className="my-parking-card-img">
         <img
-          className="my-parking-card-img1"
           src={parkingImg}
           alt={parkingId}
         />
@@ -77,13 +81,23 @@ export default function MyParkingCard({ parkingId }) {
       <div className="my-parking-card-info">
         <div className="address">
           {parking.address.properties.address_line1}{" "}
-          {parking.address.properties.address_line2}
+          {parking.address.properties.city}
         </div>
         <div className="my-parking-card-Details">
           <div>{Electric ? ElectricCars : ""}</div>
           <div>{roof ? roofed : ""}</div>
         </div>
       </div>
+      <span
+        class="material-symbols-outlined"
+        onClick={() => {
+          setParkingId(parkingId);
+          setAddParking(true);
+        }}
+        style={{ fontSize: "large", cursor:"pointer" }}
+      >
+        edit
+      </span>
       <label className="switch">
         <input type="checkbox" />
         <span onClick={() => change()} className={`${slider} round`}></span>

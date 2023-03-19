@@ -31,7 +31,31 @@ export const successPopup = (title, message) => {
   });
 };
 
-export const Toast = Swal.mixin({
+export const popupWithCallback = (type, title, message, callback) => {
+  Swal.fire({
+    icon: type,
+    title: title,
+    text: message,
+    confirmButtonColor: "#36899e",
+    timer: 2500,
+    timerProgressBar: true,
+  }).then(callback);
+};
+
+export const confirmPopup = (title, message, confirmText) => {
+  return Swal.fire({
+    title: title,
+    text: message,
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#36899e",
+    focusCancel: true,
+    cancelButtonColor: "#d33",
+    confirmButtonText: confirmText,
+  }).then((result) => result.isConfirmed)
+}
+
+const Toast = Swal.mixin({
   toast: true,
   position: "top-end",
   showConfirmButton: false,
@@ -41,4 +65,9 @@ export const Toast = Swal.mixin({
     toast.addEventListener("mouseenter", Swal.stopTimer);
     toast.addEventListener("mouseleave", Swal.resumeTimer);
   },
+});
+
+export const toastSuccess =  (title) => Toast.fire({
+  icon: "success",
+  title: title,
 });

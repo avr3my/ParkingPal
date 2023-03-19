@@ -2,12 +2,15 @@ import "./home.css";
 
 import { Link } from "react-router-dom";
 
-import DarkMood from "../../components/darkMood/DarkMode";
+import { addressContext } from "../../App";
+import DarkMood from "../../components/darkMode/DarkMode";
 import imgLogo from "../../Assets/logo344.png";
 import Search from "../../components/search/Search";
+import { useContext } from "react";
 
 export default function Home() {
   document.title = "ParkingPal";
+  const [address, setAddress] = useContext(addressContext);
   return (
     <>
       <div className="home-page">
@@ -26,7 +29,7 @@ export default function Home() {
           </div>
           <DarkMood />
         </div>
-        <Search/>
+        <Search selectedAddress={address} setSelectedAddress={setAddress} />
       </div>
     </>
   );
