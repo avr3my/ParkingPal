@@ -17,7 +17,7 @@ export default function DarkMood() {
           className="checkbox"
           id="checkbox"
         />
-        <label htmlFor="checkbox" className="label">
+        <label for="checkbox" className="label">
           <RiMoonLine className="moon" />
           <FiSun className="sun" />
           <div className={`ball ${theme}`} />

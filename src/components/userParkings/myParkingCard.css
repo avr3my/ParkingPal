@@ -1,7 +1,141 @@
+.my-parking-card {
+    display: flex;
+    width: 55vw;
+    height: 18vh;
+    /* border: 39px solid black; */
+    justify-content: space-evenly;
+    border: 4px solid var(--main-color-2);
+    margin-bottom: 3vh;
+}
 
-.my-parking-card{
-    background-color: aliceblue;
-    width: 80%;
-    border: 1px solid black;
+.my-parking-card span {
+    font-size: 1vw;
+}
 
+.not-in-use {
+    color: var(--text-color);
+}
+
+.used {
+    background-color: rgba(7, 228, 40, 0.2);
+    color: var(--text-color);
+    /* background-color: chartreuse; */
+}
+
+.not-available {
+    background-color: rgba(204, 204, 204, 0.4);
+    border: 4px solid rgb(204, 204, 204);
+    color: var(--text-not-available);
+}
+
+.my-parking-card-img {
+    width: 20%;
+    height: 80%;
+}
+
+.my-parking-card-img1 {
+    width: 100%;
+    height: 100%;
+}
+
+.my-parking-card .address {
+    /* font-size: 35px; */
+    font-size: 2vw;
+}
+
+.my-parking-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 60%;
+}
+
+.my-parking-card-Details {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-evenly;
+}
+
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 17px;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.slider {
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: var(--main-color-1);
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(13px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.nut-slid {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+}
+
+.nut-slid:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    --webkit-transition: .4s;
+}
+
+.nut-slid.round {
+    border-radius: 34px;
+}
+
+.nut-slid.round:before {
+    border-radius: 50%;
+}
+
+@media (max-width: 540px) {
+    .my-parking-card {
+        border: 3px solid var(--main-color-2);
+    }
 }
