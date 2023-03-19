@@ -8,7 +8,6 @@
     align-items: center;
     border: none;
     background-color: var(--main-color-2);
-    /* color: var(--text-color); */
     border: 3px solid var(--main-color-2);
 }
 .home-page .search-icon {
@@ -49,6 +48,10 @@
 .home-page .font-input {
     font-family: revert;
     font-size: larger;
+    color: var(--text-color);
+}
+::placeholder{
+    color: var(--text-color);
 }
 
 
@@ -63,6 +66,7 @@
     min-width: 300px;
     transform: translateX(5vw);
     border-radius:  0 0 10px 10px;
+    color: var(--text-color);
 }
 
 .home-page .address-results>.result:nth-child(1) {
@@ -112,7 +116,7 @@ main:has(input:focus) .address-results {
 
 .delete-search {
     cursor: pointer;
-    color: var(--d-white-l-black);
+    color: var(--text-color);
 }
 
 .add-parking .font-input {
@@ -154,4 +158,16 @@ main:has(input:focus) .address-results {
 
 .add-parking main:has(input:focus) .input {
     border-radius: 10px 10px 0 0 ;
+}
+@media (min-width: 1287px) {
+    .home-page .input{
+        height: 63px;
+    }
+    .home-page .search button{
+        height: 63px;
+        padding: 0%;
+        padding-right: 3%;
+        padding-left: 3%;
+    }
+
 }

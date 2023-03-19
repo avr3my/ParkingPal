@@ -5,6 +5,7 @@ import AddAndEditParking from "../../components/addParking/AddAndEditParking";
 import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
 import { successPopup } from "../../popup";
 import MyParkingCard from "../addParking/MyParkingCard";
+import "./userParkings.css";
 
 export default function UserParkings() {
   const [addParking, setAddParking] = useState(false);
@@ -36,14 +37,14 @@ export default function UserParkings() {
 
   return (
     <div className="user-parkings">
-      <h2>my parkings</h2>
-      <button onClick={() => setAddParking(true)}>add parking</button>
+      {/* <h1>my parkings</h1> */}
+      <button className="user-parkings-add-parking" onClick={() => setAddParking(true)}>add parking</button>
       {addParking && (
         <AddAndEditParking setAddParking={setAddParking} parkingId={null} />
       )}
 
       <div className="user-parkings-2">
-        {currentUser?.data().parkings.map((parking, i) => {
+        {currentUser?.data().parkings?.map((parking, i) => {
           // console.log(i);
           return (
               <MyParkingCard key={i} parkingId={parking} />

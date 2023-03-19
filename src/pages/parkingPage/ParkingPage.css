@@ -4,7 +4,8 @@
     height: 90vh;
     color: var(--text-color);
 }
-.top-parking-page{
+
+.top-parking-page {
     display: flex;
     justify-content: space-between;
     width: 95%;
@@ -13,8 +14,6 @@
 .img {
     width: 70%;
     height: 70%;
-    background-image: url("https://www.parking.net/Upload/AboutParking/AboutParkingNew/ParkingLotColorfulAerialView.jpg"
-    );
 }
 
 .img img {
@@ -26,7 +25,7 @@
     position: -webkit-sticky;
     position: sticky;
     bottom: 30vh;
-    mix-blend-mode:normal;
+    mix-blend-mode: normal;
 }
 
 .ParkingPage .information {
@@ -35,12 +34,17 @@
     flex-direction: column;
     backdrop-filter: blur(6px);
     border-radius: 0px 0px 10px 10px;
-    background-color: rgba(0, 0, 0, 0.4);
+    background-color: #cfc5c59e;
+}
+
+.ParkingPage .Details1 {
+    width: 100%;
+    display: flex;
 }
 
 .ParkingPage .Details {
     display: flex;
-    width: 100%;
+    width: 90%;
     justify-content: space-around;
 }
 
@@ -71,7 +75,8 @@
 .price {
     display: flex;
 }
-.logo{
+
+.logo {
     /* height: 15vh; */
     display: flex;
     position: -webkit-sticky;
@@ -80,28 +85,45 @@
     /* margin-left: 10vh; */
     margin-top: 1vh;
 }
-.ParkingPage-logo{
+
+.ParkingPage-logo {
     height: 15vh;
     top: 0px;
     margin-left: 10vh;
     margin-top: 1vh;
 }
+
+.saved {
+    cursor:pointer;
+    display: flex;
+    width: 5%;
+    font-size: xx-large;
+}
+
+.Like {
+    color: red;
+}
+
 @media (max-width: 540px) {
-    .ParkingPage .Details{
+    .ParkingPage .Details {
         flex-direction: column;
         align-items: start;
         padding-left: 15px;
     }
+
     .ParkingPage .information {
         width: 40%;
     }
-    .ParkingPage h1{
+
+    .ParkingPage h1 {
         font-size: large;
     }
-    .ParkingPage h3{
+
+    .ParkingPage h3 {
         font-size: medium;
     }
-    .ParkingPage p{
+
+    .ParkingPage p {
         font-size: small;
     }
 }

@@ -13,13 +13,13 @@ export default function DarkMood() {
         <input
           onClick={() => changeTheme()}
           type="checkbox"
-          class="checkbox"
+          className="checkbox"
           id="checkbox"
         />
-        <label for="checkbox" class="label">
+        <label for="checkbox" className="label">
           <RiMoonLine className="moon" />
           <FiSun className="sun" />
-          <div class={`ball ${theme}`} />
+          <div className={`ball ${theme}`} />
         </label>
       </div>
     </>

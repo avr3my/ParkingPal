@@ -1,6 +1,6 @@
 footer{
     display: flex;
-    background-color: #36899e;
+    background-color: var(--main-color-1);
     height: 250px;
     justify-content: space-evenly;
     color: aliceblue;

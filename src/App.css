@@ -23,6 +23,8 @@
   --main-color-2: #265f9c;
   --d-black-l-white: #000;
   --d-white-l-black: #fff;
+  --text-not-available:#dbd9d9;
+  --background-add-parking:#265f9c4d;
 }
 
 :root:has(.light-mode) {
@@ -35,6 +37,8 @@
   --main-color-2: #76b5c5;
   --d-black-l-white: #fff;
   --d-white-l-black: #000;
+  --text-not-available:#6f6e6e;
+  --background-add-parking:#76b5c54d;
 }
 
 
