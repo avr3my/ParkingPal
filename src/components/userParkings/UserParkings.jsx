@@ -2,23 +2,23 @@ import "./userParkings.css"
 import { auth, db } from "../../firebaseConfig";
 import { useEffect, useState } from "react";
 import AddAndEditParking from "./addParking/AddAndEditParking";
-import { deleteDoc, doc, getDoc, updateDoc } from "firebase/firestore";
-import { successPopup } from "../../popup";
+import { doc, getDoc } from "firebase/firestore";
+
 import MyParkingCard from "./MyParkingCard";
 
 export default function UserParkings() {
   const [addParking, setAddParking] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  // const [currentUser, setCurrentUser] = useState(null);
   const [parkingId, setParkingId] = useState(null);
+  const [userParkings, setUserParkings] = useState([])
 
-  // console.log(auth?.currentUser);
   useEffect(() => {
+    console.log("rendered");
     if (!auth?.currentUser) return;
-    const userAuth = auth.currentUser;
-    getDoc(doc(db, "users", userAuth.uid)).then((e) => {
-      setCurrentUser(e);
+    getDoc(doc(db, "users", auth.currentUser.uid)).then((e) => {
+      setUserParkings(e.data().parkings);
     });
-  }, [auth?.currentUser]);
+  }, [addParking]);
 
   return (
     <div className="user-parkings">
@@ -39,7 +39,7 @@ export default function UserParkings() {
       )}
 
       <div className="user-parkings-2">
-        {currentUser?.data().parkings.map((parking, i) => {
+        {userParkings.map((parking, i) => {
           return (
             <MyParkingCard
               key={i}

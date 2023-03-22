@@ -12,6 +12,7 @@ import { sortByDistance } from "../../sort.js";
 
 import ParkingCard from "../../components/parkingCard/ParkingCard";
 import DarkMood from "../../components/darkMode/DarkMode";
+import { isAvailable } from "../../otherFunctions";
 
 export default function Results() {
   const goHome = useNavigate();
@@ -19,14 +20,16 @@ export default function Results() {
 
   useEffect(() => {
     if (selectedAddress && Object.keys(selectedAddress).length !== 0) {
-      sessionStorage.setItem("selectedAddress", JSON.stringify(selectedAddress));
-    }else if (sessionStorage.selectedAddress === undefined) {
+      sessionStorage.setItem(
+        "selectedAddress",
+        JSON.stringify(selectedAddress)
+      );
+    } else if (sessionStorage.selectedAddress === undefined) {
       goHome("/");
     } else {
       setSelectedAddress(JSON.parse(sessionStorage.selectedAddress));
     }
-  }, [])
-  
+  }, []);
 
   const [parkings, setParkings] = useState([]);
   const parkingsRef = collection(db, "parkings");
@@ -36,9 +39,8 @@ export default function Results() {
     getDocs(parkingsRef).then((res) => {
       let resArr = [];
       res.forEach((doc) => {
-        resArr.push(doc);
+        if (isAvailable(doc.data())) resArr.push(doc);
       });
-      // filterResults(resArr);
       sortByDistance(selectedAddress, resArr);
       setParkings(resArr);
     });
@@ -67,10 +69,9 @@ export default function Results() {
           {", " && address.city}
         </div>
         <div className="results">
-          {parkings?.map((parking, i) => (
-              i < 20 &&
-              <ParkingCard key={i} details={parking} />
-            ))}
+          {parkings?.map(
+            (parking, i) => i < 20 && <ParkingCard key={i} details={parking} />
+          )}
         </div>
       </div>
     </>

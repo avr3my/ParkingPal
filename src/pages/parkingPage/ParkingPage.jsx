@@ -1,28 +1,58 @@
-import React, { useState } from "react";
+import "./ParkingPage.css";
+
+import { useEffect, useReducer, useState } from "react";
 import { auth, db } from "../../firebaseConfig";
 import { useParams } from "react-router";
-import { doc, getDoc } from "firebase/firestore";
-import "./ParkingPage.css";
-import { MdElectricalServices, MdRoofing } from "react-icons/md";
-import { CgUnavailable } from "react-icons/cg";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/logo344.png";
 import DarkMood from "../../components/darkMode/DarkMode";
 import img from "../../Assets/parkingImg6.png";
 import { BsHeartFill } from "react-icons/bs";
+import { isAvailable } from "../../otherFunctions";
 
 export default function ParkingPage() {
-  // let img="../../Assets/parkingImg.png";
+  const [parking, setParking] = useState(null);
   const { parkingId } = useParams();
-  let parkingRef = doc(db, "parkings", parkingId);
-  // getDoc(parkingRef).then(e=>console.table(e.data())).catch(e=>console.log(e))
-  const [heart, setheart] = useState("nut-Like");
-  const time = "9:00-20:00";
-  const Address = "משה ברזני 20 תל אביב";
-  const price = "12";
-  function save() {
-    heart === "nut-Like" ? setheart("Like") : setheart("nut-Like");
-  }
+  useEffect(() => {
+    getDoc(doc(db, "parkings", parkingId)).then((e) => setParking(e.data()));
+  }, []);
+
+  const [user, setUser] = useState(null);
+
+  useEffect(() => {
+    if (!auth.currentUser?.uid) return;
+    getDoc(doc(db, "users", auth.currentUser.uid))
+      .then((e) => setUser(e.data()))
+      .catch((e) => console.log(e));
+  }, [auth?.currentUser, user]);
+
+  const setFav = () => {
+    let finalArr = user.fav;
+    let index = finalArr.indexOf(parkingId);
+    if (index === -1) {
+      finalArr = user.fav.concat(parkingId);
+    } else {
+      finalArr.splice(index, 1);
+    }
+    updateDoc(doc(db, "users", auth.currentUser.uid), {
+      ...user,
+      fav: finalArr,
+    });
+  };
+
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+
+  if (!parking) return null;
+  let c  = parking.address.geometry.coordinates;
 
   return (
     <>
@@ -42,44 +72,56 @@ export default function ParkingPage() {
           <img src={img} alt="" />
         </div>
         <div className="information sticky text">
-          <h1>{Address}</h1>
+          {parking && (
+            <h1>
+              {parking.address.properties.address_line1}
+              {", "}
+              {parking.address.properties.city}
+            </h1>
+          )}
           <div className="Details1">
             <div className="Details">
               <div className="left">
                 <div className="electricCars">
                   <p>electricCars: </p>
-                  <span className="material-symbols-outlined green">done</span>
+                  <span className="material-symbols-outlined">
+                    {parking.electicCars ? "done" : "close"}
+                  </span>
                 </div>
                 <div className="roofed">
                   <p>roofed: </p>
-                  <span className="material-symbols-outlined green">done</span>
+                  <span className="material-symbols-outlined ">
+                    {parking.roofed ? "done" : "close"}
+                  </span>
                 </div>
                 <div className="available">
                   <p>available: </p>
-                  <span className="material-symbols-outlined red">close</span>
-                </div>
-                <div className="price">
-                  <p>price: {price} </p>
                   <span className="material-symbols-outlined">
-                    attach_money
+                    {!parking.occupied && isAvailable(parking) ? "done" : "close"}
                   </span>
                 </div>
               </div>
               <div className="right">
                 <h3>Activity time:</h3>
-                <p>Sunday: {time}</p>
-                <p>Monday: {time}</p>
-                <p>Tuesday: {time}</p>
-                <p>Wednesday: {time}</p>
-                <p>Thursday: {time}</p>
-                <p>Friday: {time}</p>
-                <p>Saturday {time}</p>
+                {weekdays.map((day, index) => {
+                  return (
+                    <p key={index}>
+                      {day}:{" "}
+                      {parking.availability[day].map((timeSlot, i) => (i==1 ? ", ":"") + timeSlot.start+"-"+timeSlot.end)}
+                    </p>
+                  );
+                })}
               </div>
             </div>
-            <div onClick={() => save()} className={`saved ${heart}`}>
+            <div
+              onClick={setFav}
+              className={`saved ${user?.fav.includes(parkingId) ? "like" : ""}`}
+            >
               <BsHeartFill />
             </div>
           </div>
+        <a target={"_blank"} href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}>waze</a>
+        <a target={"_blank"} href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}>google maps</a>
         </div>
       </div>
     </>

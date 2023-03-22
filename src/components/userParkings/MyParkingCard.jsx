@@ -4,79 +4,51 @@ import { useEffect, useState } from "react";
 
 import { getDownloadURL, ref } from "firebase/storage";
 import { db, storage } from "../../firebaseConfig";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { MdElectricalServices, MdRoofing } from "react-icons/md";
+import { isAvailable } from "../../otherFunctions";
 
 export default function MyParkingCard({
   parkingId,
   setParkingId,
   setAddParking,
 }) {
-  const [mode, setMode] = useState("used");
   const [parkingImg, setParkingImg] = useState(parkingAvatar);
-  const [parking, setParking] = useState();
-  let available = "available";
-  let slider;
-  const getImage = () => {
-    const imageRef = ref(storage, "parkings/" + parkingId);
-    getDownloadURL(imageRef)
-      .then((e) => setParkingImg(e))
-      .catch(() => {});
-  };
+  const [parking, setParking] = useState(null);
+
+  // get parking
   useEffect(() => {
     getDoc(doc(db, "parkings", parkingId))
       .then((e) => setParking(e.data()))
       .catch((e) => console.log(e));
   }, []);
 
+  // get image
   useEffect(() => {
     const imageRef = ref(storage, "parkings/" + parkingId);
     getDownloadURL(imageRef)
       .then((e) => setParkingImg(e))
       .catch(() => {});
-  }, [parking]);
+  }, []);
 
-  useEffect(change, [available]);
+  useEffect(() => {
+    if(parking) updateDoc(doc(db, "parkings", parkingId), parking)
+  }, [parking])
+  
 
   if (!parking) return null;
-
-  available === "available" ? (slider = "slider") : (slider = "nut-slid");
-
-  function change() {
-    if (available === "available") {
-      mode === "not-in-use" ? setMode("used") : setMode("not-in-use");
-    } else {
-      setMode("not-available");
-    }
-  }
-  let Electric = true;
-  let roof = true;
-
-  const ElectricCars = (
-    <div className="electricCars">
-      <span>
-        electricCars
-        <MdElectricalServices />{" "}
-      </span>
-      <div className="green"> </div>
-    </div>
-  );
-  const roofed = (
-    <div className="roofed">
-      <span>
-        roofed
-        <MdRoofing />{" "}
-      </span>
-      <div className="green"> </div>
-    </div>
-  );
   return (
-    <div className={`my-parking-card ${mode}`}>
+    <div
+      className={`my-parking-card ${
+        isAvailable(parking)
+          ? parking.occupied
+            ? "used"
+            : ""
+          : "not-available"
+      } `}
+    >
       <div className="my-parking-card-img">
-        <img
-          src={parkingImg}
-          alt={parkingId}
-        />
+        <img src={parkingImg} alt={parkingId} />
       </div>
       <div className="my-parking-card-info">
         <div className="address">
@@ -84,8 +56,22 @@ export default function MyParkingCard({
           {parking.address.properties.city}
         </div>
         <div className="my-parking-card-Details">
-          <div>{Electric ? ElectricCars : ""}</div>
-          <div>{roof ? roofed : ""}</div>
+          <div>
+            {parking.electicCars && (
+              <div className="electricCars">
+                Electric Car
+                <MdElectricalServices />
+              </div>
+            )}
+          </div>
+          <div>
+            {parking.roofed && (
+              <div className="roofed">
+                roofed
+                <MdRoofing />
+              </div>
+            )}
+          </div>
         </div>
       </div>
       <span
@@ -94,13 +80,19 @@ export default function MyParkingCard({
           setParkingId(parkingId);
           setAddParking(true);
         }}
-        style={{ fontSize: "large", cursor:"pointer" }}
+        style={{ fontSize: "large", cursor: "pointer" }}
       >
         edit
       </span>
       <label className="switch">
-        <input type="checkbox" />
-        <span onClick={() => change()} className={`${slider} round`}></span>
+        <input
+          checked={parking.occupied}
+          onChange={(e) =>
+            setParking({ ...parking, occupied: e.target.checked })
+          }
+          type="checkbox"
+        />
+        <span className={`slider round`}></span>
       </label>
     </div>
   );

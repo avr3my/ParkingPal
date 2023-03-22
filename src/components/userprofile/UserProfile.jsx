@@ -21,7 +21,7 @@ import {
   uploadBytes,
   deleteObject,
 } from "firebase/storage";
-import { deleteAllParkings } from "../../deleteUserParkings";
+import { deleteAllParkings } from "../../otherFunctions";
 export default function UserProfile({ setSuccses }) {
   const [imageUpload, setImageUpload] = useState(null);
   const [userData, setUserData] = useState(null);
