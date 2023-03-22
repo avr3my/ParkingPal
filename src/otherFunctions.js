@@ -13,3 +13,25 @@ export const deleteAllParkings = async (parkings) => {
       .catch((e) => console.log("image failed", e));
   });
 };
+
+export const isAvailable = (parking) => {
+  if(!parking.availability) return null
+  let t = new Date();
+  let weekDays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  let day = weekDays[t.getDay()];
+  let time = t.getHours() + ":" + t.getMinutes();
+  return (
+    (parking.availability[day][0]?.start < time &&
+      time < parking.availability[day][0]?.end) ||
+    (parking.availability[day][1]?.start < time &&
+      time < parking.availability[day][1]?.end)
+  );
+};

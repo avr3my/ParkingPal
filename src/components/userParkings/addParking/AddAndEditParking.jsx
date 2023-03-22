@@ -56,9 +56,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
         .then((doc) => {
           setParkingInfo(doc.data());
           setAddress(doc.data().address);
-          if (doc.data().availability) {
-            setAvailability(doc.data().availability);
-          }
+          setAvailability(doc.data().availability);
         })
         .catch((err) => console.log(err));
     }

@@ -6,17 +6,13 @@ import { popupWithCallback } from "../../popup.js";
 
 export default function Search({ src, selectedAddress, setSelectedAddress }) {
   
-  const [searchText, setSearchText] = useState(selectedAddress? selectedAddress.properties.address_line1 + ", " + selectedAddress.properties.city:"");
+  const [searchText, setSearchText] = useState("");
   const [addressResults, setAddressResults] = useState([]);
 
   const navigate = useNavigate();
-  useEffect(() => {
-    if (searchText === "") {
-      setAddressResults([]);
-      setSelectedAddress(null);
-      return;
-    }
 
+  // get auto complete from api
+  useEffect(() => {
     var requestOptions = {
       method: "GET",
     };
@@ -40,6 +36,11 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
     setSearchText(address.properties.address_line1 + ", " + address.properties.city);
     navigateToResults();
   }
+
+  useEffect(() => {
+    if(src === "parking" && selectedAddress) setSearchText(selectedAddress.properties.address_line1 + ", " + selectedAddress.properties.city)
+  }, [selectedAddress])
+  
 
   function getLocation() {
     if (navigator.geolocation) {
@@ -100,7 +101,7 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
         <div className="result" onClick={getLocation}>
           My location
         </div>
-        {addressResults.map((address, i) => (
+        {addressResults?.map((address, i) => (
           <div
             key={i}
             className="result"

@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import { MdElectricalServices, MdRoofing } from "react-icons/md";
-import { CgUnavailable } from "react-icons/cg";
 
 import { getDownloadURL, ref } from "firebase/storage";
 import { storage } from "../../firebaseConfig";
@@ -72,6 +71,7 @@ export default function ParkingCard({ details }) {
   );
 
   if (!details?.data()) return;
+
   return (
     <>
       <div className="result">
@@ -85,10 +85,6 @@ export default function ParkingCard({ details }) {
             {details.data().available ? available : noavailable}
             {details.data().electricCars ? ElectricCars : noElectricCars}
             {details.data().roofed ? roofed : noroofed}
-            <div className="xxx">
-              {/* <p>text</p>
-              <CgUnavailable /> */}
-            </div>
           </div>
           <div className="imagep">
             <img className="imagep" src={parkingImg} alt="img" />
