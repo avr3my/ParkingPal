@@ -75,7 +75,7 @@ export default function MyParkingCard({
         </div>
       </div>
       <span
-        class="material-symbols-outlined"
+        className="material-symbols-outlined"
         onClick={() => {
           setParkingId(parkingId);
           setAddParking(true);
