@@ -5,7 +5,6 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import { useState, createContext, useReducer, useEffect } from "react";
 
-
 // import pages
 import Account from "./pages/account/Account";
 import Home from "./pages/home/Home";
@@ -26,8 +25,15 @@ export const actionCodeSettings = {
 };
 
 export default function App() {
-  const reducer = (state) => (state === "light" ? "dark" : "light");
-  const [theme, changeTheme] = useReducer(reducer, "light");
+  const reducer = (state) => {
+    let n = state === "light" ? "dark" : "light";
+    localStorage.setItem("theme", n);
+    return n;
+  };
+  const [theme, changeTheme] = useReducer(
+    reducer,
+    localStorage.getItem("theme") || "light"
+  );
   return (
     <themeContext.Provider value={{ theme, changeTheme }}>
       <addressContext.Provider value={useState()}>

@@ -71,7 +71,7 @@
 
 .home-page .address-results>.result:nth-child(1) {
     background-color: var(--main-color-1);
-    color: #fff;
+    color: var(--text-color);
 }
 
 .home-page .address-results>.result {
@@ -103,13 +103,14 @@ main:has(input:focus) .address-results {
     height: 100%;
     padding: 5px;
     font-size: small;
-    color: #fff;
+    color: var(--text-color);
 }
 
 .add-parking .input input {
     outline: none;
     border: none;
     text-align: left;
+    color: var(--text-color);
     background-color: transparent;
     width: 100%;
 }
@@ -139,18 +140,21 @@ main:has(input:focus) .address-results {
     border-radius:  0 0 10px 10px;
 }
 
-.add-parking .address-results>.result:nth-child(1) {
-    background-color: var(--main-color-1);
-    color: #fff;
-}
+
 
 .add-parking .address-results>.result {
     padding: 10px;
     cursor: pointer;
     text-align: left;
     /* height: 30px; */
-    background-color: #fff;
+    background-image: var(--bg-image);
+    background-size: 30%;
     border-bottom: 1px solid var(--main-color-2);
+}
+.add-parking .address-results>.result:nth-child(1) {
+    background-image: none;
+    background-color: var(--main-color-1);
+    color: #fff;
 }
 .add-parking .address-results>.result:hover{
     background-color: darkgrey;

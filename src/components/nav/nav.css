@@ -1,44 +1,141 @@
-.nav{
-    background-color: var(--main-color-1);
-    display: flex;
-    padding-right: 3vw;
-}
 nav{
+    width: 100vw;
+    max-width: 100%;
+    display: flex;
     color: #fff;
     background-color: var(--main-color-1);
-    height: 90px;
-    width: 100%;
-    display: flex;
     justify-content: space-between;
-    margin-left: 5vw;
-    margin-right: 1vw;
 }
-
-nav > div{
+nav > a{
+    border-radius: 10px;
+    margin: 10px;
+    width: 20%;
+}
+nav a img{
+    aspect-ratio: 1;
+    width: 100px;
+}
+.nav-menu{
+    height: 90px;
+    width: 80%;
+    display: flex;
+    justify-content: space-around;
+}
+.burger{
+    display: none;
+}
+.nav-menu > div{
     cursor: pointer;
     height: 50px;
     padding: 15px;
     border-radius: 10px;
 }
 
-nav > div.selected{
+.nav-menu > div.selected, .selected .on-side{
     background-color: #fff;
     color: var(--main-color-1);
 }
 
-nav > div:hover:not(.selected), nav #logout:hover{
+.nav-menu > div:hover:not(.selected, .dark-mode-switch), .nav-menu #logout:hover{
     background-color: var(--main-color-2);
 }
 
-nav .logo{
-    border-radius: 10px;
-    margin: 10px;
-    height: 85px;
-}
 
-nav #logout {
+.nav-menu #logout {
     color: white;
     cursor: pointer;
     border-radius: 50%;
     padding: 10px;
+}
+.nav-menu a>.on-side{
+    color: white;
+    padding: 0;
+}
+a{
+    text-decoration: none;
+}
+/* .nav-menu a>.on-side {
+    color: white;
+    cursor: pointer;
+    text-decoration: none;
+    padding: 10px;
+} */
+.on-side{    
+    padding: 0px 10px;
+    display: none;
+}
+.line{
+    display: none;
+}
+
+@media (width<540px) {
+    nav{
+        background-color: transparent;
+    }
+    .nav-menu:not(.open){
+        display: none;
+    }
+    .on-side{
+        display: unset;
+    }
+    .nav-menu{
+        width: 0;
+        flex-direction: column;
+        background-color: var(--main-color-1);
+        z-index: 3;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        justify-content:flex-start;
+        align-items: flex-start;
+        padding-top: 100px;
+        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.57);;
+    }
+    .open{
+        animation: open 0.5s forwards ease;
+    }
+    
+    .nav-menu > div:not(.dark-mode-switch),.nav-menu > a{
+        height: fit-content;
+        width: 100%;
+        padding: 20px 0;
+        text-align: left;
+        border-radius: 0px;
+    }
+    .nav-menu > div, .nav-menu > a{
+        display: flex;
+        white-space: nowrap;
+    }
+    .line{
+        background-image: linear-gradient(90deg, var(--main-color-1) 10%, white 50%, var(--main-color-1) 90%);
+        height: 1px!important;
+        padding: 0px!important;
+
+    }
+    .burger{
+        color: var(--text-color);
+        display: unset;
+        padding: 15px;
+        z-index: 4;
+    }
+    nav:has(.open)> .burger{
+        color: #fff;
+        transform: translateX(-140px);
+        transition-duration: 0.5s;
+    }
+    .dark-mode-switch{
+        position: absolute;
+        top: 37px;
+        right: 0;
+    }
+}
+
+@keyframes open {
+    from{
+        width: 0;
+    }
+    to{
+        width: 200px;
+    }
 }
