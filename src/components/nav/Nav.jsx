@@ -1,5 +1,5 @@
 import "./nav.css";
-import React from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
@@ -7,33 +7,61 @@ import logo from "../../Assets/logo344.png";
 import DarkMood from "../darkMode/DarkMode";
 
 export default function Nav({ current, setCurrent }) {
+  const [open, setOpen] = useState(false);
   const logout = () => {
     signOut(auth);
   };
   return (
-    <div className="nav">
-      <nav>
-        <Link to={"/"}>
-          <img title="ParkingPal" className="logo" src={logo} alt="logo" />
-        </Link>
+    <nav>
+      <Link to={"/"}>
+        <img title="ParkingPal" className="logo" src={logo} alt="logo" />
+      </Link>
+      <span
+        class="material-symbols-outlined burger"
+        onClick={() => setOpen(!open)}
+      >
+        {open ? "close" : "menu"}
+      </span>
+      <div className={`nav-menu ${open ? "open" : ""}`}>
         <div
-          onClick={() => setCurrent(1)}
+          onClick={() => {
+            setOpen(false);
+            setCurrent(1);
+          }}
           className={current === 1 ? "selected" : ""}
         >
+          {open && (
+            <span class="material-symbols-outlined on-side">
+              account_circle
+            </span>
+          )}
           My profile
         </div>
         <div
-          onClick={() => setCurrent(2)}
+          onClick={() => {
+            setOpen(false);
+            setCurrent(2);
+          }}
           className={current === 2 ? "selected" : ""}
         >
+          {open && (
+            <span class="material-symbols-outlined on-side">Favorite</span>
+          )}
           Saved parkings
         </div>
         <div
-          onClick={() => setCurrent(3)}
+          onClick={() => {
+            setOpen(false);
+            setCurrent(3);
+          }}
           className={current === 3 ? "selected" : ""}
         >
+          {open && (
+            <span class="material-symbols-outlined on-side">local_parking</span>
+          )}
           My parkings
         </div>
+        {open && <div className="line"></div>}
         <Link to={"/"}>
           <span
             onClick={logout}
@@ -43,9 +71,10 @@ export default function Nav({ current, setCurrent }) {
           >
             logout
           </span>
+          {open && <span className="on-side logout">Log out</span>}
         </Link>
-      </nav>
-      <DarkMood />
+        <DarkMood />
       </div>
+    </nav>
   );
 }

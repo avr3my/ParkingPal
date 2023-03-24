@@ -1,6 +1,6 @@
 import "./ParkingPage.css";
 
-import { useEffect, useReducer, useState } from "react";
+import { useEffect, useState } from "react";
 import { auth, db } from "../../firebaseConfig";
 import { useParams } from "react-router";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
@@ -16,7 +16,7 @@ export default function ParkingPage() {
   const { parkingId } = useParams();
   useEffect(() => {
     getDoc(doc(db, "parkings", parkingId)).then((e) => setParking(e.data()));
-  }, []);
+  }, [parkingId]);
 
   const [user, setUser] = useState(null);
 
@@ -25,7 +25,7 @@ export default function ParkingPage() {
     getDoc(doc(db, "users", auth.currentUser.uid))
       .then((e) => setUser(e.data()))
       .catch((e) => console.log(e));
-  }, [auth?.currentUser, user]);
+  }, [user]);
 
   const setFav = () => {
     let finalArr = user.fav;
@@ -83,7 +83,7 @@ export default function ParkingPage() {
             <div className="Details">
               <div className="left">
                 <div className="electricCars">
-                  <p>electricCars: </p>
+                  <p>EV Charger: </p>
                   <span className="material-symbols-outlined">
                     {parking.electicCars ? "done" : "close"}
                   </span>
@@ -107,7 +107,7 @@ export default function ParkingPage() {
                   return (
                     <p key={index}>
                       {day}:{" "}
-                      {parking.availability[day].map((timeSlot, i) => (i==1 ? ", ":"") + timeSlot.start+"-"+timeSlot.end)}
+                      {parking.availability[day].map((timeSlot, i) => (i===1 ? ", ":"") + timeSlot.start+"-"+timeSlot.end)}
                     </p>
                   );
                 })}
@@ -120,8 +120,10 @@ export default function ParkingPage() {
               <BsHeartFill />
             </div>
           </div>
-        <a target={"_blank"} href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}>waze</a>
-        <a target={"_blank"} href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}>google maps</a>
+        <a target={"_blank"} rel={"noreferrer"} href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}>waze</a>
+        <a target={"_blank"} rel={"noreferrer"} href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}>google maps</a>
+        <a target={"_blank"} rel={"noreferrer"} href={`tel:0587708263`}>call</a>
+
         </div>
       </div>
     </>

@@ -21,7 +21,7 @@ export default function MyParkingCard({
     getDoc(doc(db, "parkings", parkingId))
       .then((e) => setParking(e.data()))
       .catch((e) => console.log(e));
-  }, []);
+  }, [parkingId]);
 
   // get image
   useEffect(() => {
@@ -29,11 +29,11 @@ export default function MyParkingCard({
     getDownloadURL(imageRef)
       .then((e) => setParkingImg(e))
       .catch(() => {});
-  }, []);
+  }, [parkingId]);
 
   useEffect(() => {
     if(parking) updateDoc(doc(db, "parkings", parkingId), parking)
-  }, [parking])
+  }, [parking,parkingId])
   
 
   if (!parking) return null;
@@ -75,7 +75,7 @@ export default function MyParkingCard({
         </div>
       </div>
       <span
-        class="material-symbols-outlined"
+        className="material-symbols-outlined"
         onClick={() => {
           setParkingId(parkingId);
           setAddParking(true);
