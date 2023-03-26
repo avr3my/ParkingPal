@@ -61,7 +61,7 @@
     background-color: rgba(0,0,0,0.5);
     font-size: 30px;
     transition-duration: 100ms;
-    /* z-index: 2; */
+    z-index: 2;
     cursor: pointer;
 }
 .fa-camera{
