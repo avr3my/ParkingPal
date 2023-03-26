@@ -49,11 +49,21 @@
   width: 100vw;
   overflow: hidden;
 }
+@media( width < 540px){
+  .main-div:has(.open) {
+    height: 100lvh;
+    width: 100vw;
+    overflow: hidden;
+  }
+}
+
+img{
+  object-fit:cover;
+}
 
 ::-webkit-scrollbar {
   width: 5px;
 }
-
 
 ::-webkit-scrollbar-thumb {
   background: var(--main-color-2);

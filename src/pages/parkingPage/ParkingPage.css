@@ -73,7 +73,7 @@
 
 .logo {
     display: flex;
-    position: -webkit-sticky;
+    /* position: -webkit-sticky; */
     position: sticky;
     top: 0px;
     margin-top: 1vh;
@@ -82,7 +82,6 @@
 .ParkingPage-logo {
     height: 15vh;
     top: 0px;
-    margin-left: 10vh;
     margin-top: 1vh;
 }
 
@@ -92,10 +91,8 @@
     width: 5%;
     font-size: xx-large;
 }
-.saved:hover{
-    color: var(--main-color-2);
-}
-.like,.red  {
+
+.like, .red  {
     color: red;
 }
 
@@ -116,13 +113,19 @@
 
 @media (max-width: 540px) {
     .ParkingPage .Details {
-        flex-direction: column;
+        /* flex-direction: column; */
         align-items: start;
         padding-left: 15px;
     }
+    .top-parking-page {
+        display: flex;
+        justify-content: space-between;
+        width: 100vw;
+        max-width: 100%;
+    }
 
     .ParkingPage .information {
-        width: 40%;
+        width: 90vw;
     }
 
     .ParkingPage h1 {
@@ -137,6 +140,6 @@
         font-size: small;
     }
     .sticky-buttom{
-        flex-direction: column;
+        /* flex-direction: column; */
     }
 }

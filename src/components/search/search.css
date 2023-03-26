@@ -72,7 +72,7 @@
 
 .home-page .address-results>.result:nth-child(1) {
     background-color: var(--main-color-1);
-    color: var(--text-color);
+    color: white
 }
 
 .home-page .address-results>.result {

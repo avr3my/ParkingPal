@@ -129,7 +129,21 @@
 @media screen and (width<540px) {
     .user-profile {
         flex-direction: column;
+        justify-content: flex-start;
         width: 100vw;
-
+        max-width: 100%;
+        margin: 0;
+        overflow: hidden;
+    }
+    .user-profile .details{
+        width: 100vw;
+        max-width: 100%;
+        padding: 20px;
+        margin: 0;
+    }
+    .user-profile .image-div{
+        height: 50vw;
+        max-width: 100%;
+        margin: 0;
     }
 }
