@@ -196,7 +196,7 @@ main:has(input:focus) .address-results {
     border-bottom: 5px solid var(--main-color-1);
   }
 
-@media (min-width: 1287px) {
+@media (min-width: 1140px) {
     .home-page .input {
         height: 63px;
     }
