@@ -1,11 +1,12 @@
-.result{
+.result {
     display: flex;
     justify-content: center;
 }
-.parking-card-page{
+
+.parking-card-page {
     /* width: 100vh; */
     text-decoration: none;
-    background-color: rgba(255, 255,255,0.2);
+    background-color: rgba(255, 255, 255, 0.2);
     color: var(--text-color);
     width: 60%;
     border: 5px solid var(--main-color-2);
@@ -13,18 +14,20 @@
     margin-bottom: 10px;
 
     display: grid;
-grid-template-columns: repeat(6, 1fr);
-grid-template-rows: repeat(2, 1fr);
-grid-column-gap: 0px;
-grid-row-gap: 0px;
+    grid-template-columns: repeat(6, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
 }
-.result .address{
+
+.result .address {
     grid-area: 1 / 3 / 2 / 7;
     display: flex;
     flex-direction: row;
-   
+
 }
-.result .imagep{
+
+.result .imagep {
     grid-area: 1 / 1 / 3 / 3;
     width: 90%;
     height: 90%;
@@ -33,54 +36,66 @@ grid-row-gap: 0px;
     min-height: 120px;
     min-width: 120px;
 }
-.result .ditels{
+
+.result .ditels {
     grid-area: 2 / 3 / 3 / 7;
     display: flex;
     justify-content: space-between;
     font-size: small;
 }
-.result .green{
+
+.result .green {
     background-color: green;
     border-radius: 50%;
     aspect-ratio: 1;
     width: 10%;
     margin-left: 5%;
 }
-.result .red{
+
+.result .red {
     background-color: red;
     border-radius: 50%;
     aspect-ratio: 1;
     width: 10%;
     margin-left: 5%;
 }
-.result.available{
+
+.result.available {
     display: flex;
     flex-direction: row;
     width: 20%;
 }
-.result .electricCars{
+
+.result .electricCars {
     display: flex;
     flex-direction: row;
     width: 20%;
 }
-.result .roofed{
+
+.result .roofed {
     display: flex;
     flex-direction: row;
     width: 20%;
 }
-.result .xxx{
+
+.result .xxx {
     display: flex;
     flex-direction: row;
 }
 
 @media (max-width: 540px) {
-    .result .address{
+    .result .address {
         font-size: smaller;
     }
-    .result .ditels{
+    .parking-card-page{
+        width: 90%;
+    }
+
+    .result .ditels {
         font-size: x-small;
     }
-    .result-page{
+
+    .result-page {
         border: 2px solid var(--main-color-2);
         margin-bottom: 5px;
     }

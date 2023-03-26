@@ -4,6 +4,7 @@ export default function Input({general, edit, data, refr}) {
     phone: "fa-solid fa-phone",
     email: "fa-solid fa-envelope",
   };
+  
   const index = ["name", "phone", "email"].indexOf(data);;
   const handleChange = (e) => {
     switch (data) {

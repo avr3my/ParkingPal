@@ -67,7 +67,9 @@ a{
 .line{
     display: none;
 }
-
+.pseudo{
+    display: none;
+}
 @media (width<540px) {
     nav{
         background-color: transparent;
@@ -86,23 +88,24 @@ a{
         position: absolute;
         top: 0;
         right: 0;
-        height: 100vh;
+        height: 100lvh;
         justify-content:flex-start;
         align-items: flex-start;
         padding-top: 100px;
-        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.57);;
+        box-shadow: 0px 0px 8px 0px rgba(0,0,0,0.57);
     }
     .open{
         animation: open 0.5s forwards ease;
     }
     
-    .nav-menu > div:not(.dark-mode-switch),.nav-menu > a{
+    .nav-menu > div:not(.dark-mode-switch), .nav-menu > a{
         height: fit-content;
         width: 100%;
         padding: 20px 0;
         text-align: left;
         border-radius: 0px;
     }
+    
     .nav-menu > div, .nav-menu > a{
         display: flex;
         white-space: nowrap;
@@ -111,7 +114,6 @@ a{
         background-image: linear-gradient(90deg, var(--main-color-1) 10%, white 50%, var(--main-color-1) 90%);
         height: 1px!important;
         padding: 0px!important;
-
     }
     .burger{
         color: var(--text-color);
@@ -126,8 +128,16 @@ a{
     }
     .dark-mode-switch{
         position: absolute;
-        top: 37px;
+        top: 38px;
         right: 0;
+    }
+    .open .pseudo, .open .pseudo:hover, .open .pseudo:active{
+        width: calc(100vw - 200px);
+        height: 100lvh!important;
+        background-color: transparent!important;
+        position: absolute;
+        right: 200px;
+        top: 0;
     }
 }
 
