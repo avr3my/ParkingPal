@@ -130,7 +130,7 @@ main:has(input:focus) .address-results {
 
 .add-parking .address-results {
     font-size: small;
-    /* z-index: 2; */
+    z-index: 2;
     position: relative;
     visibility: hidden;
     border: 1px solid var(--main-color-2);
