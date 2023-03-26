@@ -305,12 +305,14 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
             </button>
           )) || (
             <>
-              <button className="parking-btn" onClick={updateParking}>
-                Save changes
-              </button>
-              <button className="parking-btn" onClick={deleteParking}>
-                Delete parking
-              </button>
+              <div className="btns">
+                <button className="edit-btn" onClick={updateParking}>
+                  Save changes
+                </button>
+                <button className="delete-btn" onClick={deleteParking}>
+                  Delete parking
+                </button>
+              </div>
             </>
           )}
         </div>

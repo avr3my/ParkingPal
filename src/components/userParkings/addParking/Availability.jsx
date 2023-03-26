@@ -151,7 +151,11 @@ export default function Availability(props) {
             </span>
           )}
           {showTimeSlot[index] && (
-            <div className="add-time-slot">
+            <div
+            onKeyUpCapture={(e) => {
+              if (e.key === "Enter") handleAddTimeSlot(index);
+            }}
+             className="add-time-slot">
               <div>
                 <div>
                   <label htmlFor="start">Start</label>

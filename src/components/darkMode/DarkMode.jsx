@@ -9,20 +9,18 @@ import { themeContext } from "../../App";
 export default function DarkMood() {
   const { theme, changeTheme } = useContext(themeContext);
   return (
-    <>
-      <div>
-        <input
-          onClick={() => changeTheme()}
-          type="checkbox"
-          className="checkbox"
-          id="checkbox"
-        />
-        <label htmlFor="checkbox" className="label">
-          <RiMoonLine className="moon" />
-          <FiSun className="sun" />
-          <div className={`ball ${theme}`} />
-        </label>
-      </div>
-    </>
+    <div className="dark-mode-switch">
+      <input
+        onClick={() => changeTheme()}
+        type="checkbox"
+        className="checkbox"
+        id="checkbox"
+      />
+      <label htmlFor="checkbox" className="label">
+        <RiMoonLine className="moon" />
+        <FiSun className="sun" />
+        <div className={`ball ${theme}`} />
+      </label>
+    </div>
   );
 }
