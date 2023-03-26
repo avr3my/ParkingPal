@@ -31,12 +31,6 @@ export default function UserParkings() {
       >
         add parking
       </button>
-      {addParking && (
-        <AddAndEditParking
-          setAddParking={setAddParking}
-          parkingId={parkingId}
-        />
-      )}
 
       <div className="user-parkings-2">
         {userParkings.map((parking, i) => {
@@ -50,6 +44,12 @@ export default function UserParkings() {
           );
         })}
       </div>
+      {addParking && (
+        <AddAndEditParking
+          setAddParking={setAddParking}
+          parkingId={parkingId}
+        />
+      )}
     </div>
   );
 }

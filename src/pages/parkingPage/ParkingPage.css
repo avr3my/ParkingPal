@@ -24,8 +24,9 @@
 .ParkingPage .sticky {
     position: -webkit-sticky;
     position: sticky;
-    bottom: 30vh;
+    bottom: 50vh;
     mix-blend-mode: normal;
+    background-color: #cfc5c59e;
 }
 
 .ParkingPage .information {
@@ -34,18 +35,28 @@
     flex-direction: column;
     backdrop-filter: blur(6px);
     border-radius: 0px 0px 10px 10px;
-    background-color: #cfc5c59e;
+}
+
+.ParkingPage .information>h1 {
+    width: 100%;
 }
 
 .ParkingPage .Details1 {
     width: 100%;
     display: flex;
+    margin-bottom: 3vh;
 }
 
 .ParkingPage .Details {
     display: flex;
     width: 90%;
     justify-content: space-around;
+}
+
+.sticky-buttom {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
 }
 
 .right p {
@@ -56,33 +67,15 @@
     color: green;
 }
 
-.red {
-    color: red;
-}
-
-.electricCars {
-    display: flex;
-}
-
-.roofed {
-    display: flex;
-}
-
-.available {
-    display: flex;
-}
-
-.price {
+.roofed,.available,.electricCars {
     display: flex;
 }
 
 .logo {
-    /* height: 15vh; */
     display: flex;
     position: -webkit-sticky;
     position: sticky;
     top: 0px;
-    /* margin-left: 10vh; */
     margin-top: 1vh;
 }
 
@@ -94,14 +87,31 @@
 }
 
 .saved {
-    cursor:pointer;
+    cursor: pointer;
     display: flex;
     width: 5%;
     font-size: xx-large;
 }
-
-.like {
+.saved:hover{
+    color: var(--main-color-2);
+}
+.like,.red  {
     color: red;
+}
+
+.navigation-button {
+    background-color: var(--main-color-2);
+    color: white;
+    font-size: 1.5vw;
+    width: 15vw;
+    padding: 15px;
+    border-radius: 15px;
+    margin-bottom: 2vh;
+    text-decoration: none;
+}
+
+.navigation-button:hover {
+    background-color: var(--main-color-1);
 }
 
 @media (max-width: 540px) {
@@ -125,5 +135,8 @@
 
     .ParkingPage p {
         font-size: small;
+    }
+    .sticky-buttom{
+        flex-direction: column;
     }
 }

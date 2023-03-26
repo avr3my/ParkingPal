@@ -40,7 +40,7 @@
 }
 .user-profile .image-div {
     width: 35%;
-    height: 250px;
+    height: 35vh;
     overflow: hidden;
     position: relative;
 }
