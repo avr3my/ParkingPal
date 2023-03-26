@@ -1,4 +1,4 @@
-# Getting Started with Create React App
+# ParkingPal App
 
 Welcome to [ParkinPal](https://parking-pal.netlify.app) app.
 
