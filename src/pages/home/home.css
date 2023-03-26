@@ -43,8 +43,11 @@
     display: flex;
 }
 
-@media (max-width: 540px) {
+@media (width < 540px) {
     .home-page .top{
         width: 100%;
+    }
+    .home-page main{
+        padding-top: 20%;
     }
 }

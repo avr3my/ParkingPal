@@ -163,7 +163,7 @@ main:has(input:focus) .address-results {
 .add-parking main:has(input:focus) .input {
     border-radius: 10px 10px 0 0 ;
 }
-@media (min-width: 1287px) {
+@media (min-width: 1140px) {
     .home-page .input{
         height: 63px;
     }
