@@ -10,6 +10,7 @@ import DarkMood from "../../components/darkMode/DarkMode";
 import img from "../../Assets/parkingImg6.png";
 import { BsHeartFill } from "react-icons/bs";
 import { isAvailable } from "../../otherFunctions";
+import {SiWaze, SiGooglemaps} from "react-icons/si"
 
 export default function ParkingPage() {
   const [parking, setParking] = useState(null);
@@ -120,8 +121,10 @@ export default function ParkingPage() {
               <BsHeartFill />
             </div>
           </div>
-        <a target={"_blank"} href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}>waze</a>
-        <a target={"_blank"} href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}>google maps</a>
+        <div className="sticky-buttom">
+           <a className="navigation-button" target={"_blank"} href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}>waze <SiWaze/></a>
+           <a className="navigation-button" target={"_blank"} href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}>google maps <SiGooglemaps/></a>
+        </div>
         </div>
       </div>
     </>

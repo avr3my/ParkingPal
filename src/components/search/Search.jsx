@@ -5,7 +5,6 @@ import { auth } from "../../firebaseConfig";
 import { popupWithCallback } from "../../popup.js";
 
 export default function Search({ src, selectedAddress, setSelectedAddress }) {
-  
   const [searchText, setSearchText] = useState("");
   const [addressResults, setAddressResults] = useState([]);
 
@@ -28,19 +27,25 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
   }, [searchText]);
 
   const handleSelect = (address) => {
-    setSelectedAddress(address)
-    if (!(address?.properties)) {
+    setSelectedAddress(address);
+    if (!address?.properties) {
       return;
     }
     // console.log(selectedAddress);
-    setSearchText(address.properties.address_line1 + ", " + address.properties.city);
+    setSearchText(
+      address.properties.address_line1 + ", " + address.properties.city
+    );
     navigateToResults();
-  }
+  };
 
   useEffect(() => {
-    if(src === "parking" && selectedAddress) setSearchText(selectedAddress.properties.address_line1 + ", " + selectedAddress.properties.city)
-  }, [selectedAddress])
-  
+    if (src === "parking" && selectedAddress)
+      setSearchText(
+        selectedAddress.properties.address_line1 +
+          ", " +
+          selectedAddress.properties.city
+      );
+  }, [selectedAddress]);
 
   function getLocation() {
     if (navigator.geolocation) {
@@ -69,10 +74,22 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
   const navigateToResults = () => {
     if (src === "parking") return;
     if (!auth.currentUser) {
-      popupWithCallback("warning", null,"You need to login to see parkings", () => navigate("/account") )
+      popupWithCallback(
+        "warning",
+        null,
+        "You need to login to see parkings",
+        () => navigate("/account")
+      );
     } else navigate("/parkings-around-me");
   };
 
+  function popup() {
+    setTimeout(() => {
+      popup.classList.toggle("show");
+    }, 1000);
+    var popup = document.getElementById("myPopup");
+    popup.classList.toggle("show");
+  }
   return (
     <main>
       <div className="search">
@@ -87,14 +104,14 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
           {searchText !== "" && (
             <span
               onClick={(e) => setSearchText("")}
-              className="delete-search material-symbols-outlined"
-            >
-              close
-            </span>
+              className="delete-search material-symbols-outlined">close</span>
           )}
         </div>
-        <button>
+        <button className="popup" onClick={popup}>
           <span className="search-icon material-symbols-outlined">search</span>
+          <span className="popuptext" id="myPopup">
+            Select address from the list
+          </span>
         </button>
       </div>
       <div className="address-results">
@@ -102,11 +119,7 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
           My location
         </div>
         {addressResults?.map((address, i) => (
-          <div
-            key={i}
-            className="result"
-            onClick={() => handleSelect(address)}
-          >
+          <div key={i} className="result" onClick={() => handleSelect(address)}>
             {address.properties.address_line1 +
               ", " +
               address.properties.address_line2}
