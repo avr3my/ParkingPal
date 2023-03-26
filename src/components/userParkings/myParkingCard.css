@@ -57,9 +57,9 @@
     margin-right: 8px;
 }
 
-input[type="checkbox" i] {
+/*input[type="checkbox" i] {
     appearance:none;
-}
+}*/
 .slider {
     cursor: pointer;
     position: absolute;
