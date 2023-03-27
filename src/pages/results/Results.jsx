@@ -9,10 +9,10 @@ import { collection, getDocs } from "firebase/firestore";
 
 import { addressContext } from "../../App";
 import { sortByDistance } from "../../sort.js";
+import { isAvailable } from "../../otherFunctions";
 
 import ParkingCard from "../../components/parkingCard/ParkingCard";
 import DarkMood from "../../components/darkMode/DarkMode";
-import { isAvailable } from "../../otherFunctions";
 
 export default function Results() {
   const goHome = useNavigate();
