@@ -3,7 +3,6 @@ import { deleteObject, ref } from "firebase/storage";
 import { auth, db, storage } from "./firebaseConfig";
 
 export const deleteAllParkings = async (parkings) => {
-  console.log(auth.currentUser.uid);
   parkings.forEach((parking) => {
     deleteDoc(doc(db, "parkings", parking))
       .then((e) => console.log("file success", e))
@@ -15,7 +14,8 @@ export const deleteAllParkings = async (parkings) => {
 };
 
 export const isAvailable = (parking) => {
-  if(!parking.availability) return null
+  if (!parking.availability) return null;
+  console.log(parking.availability.monday);
   let t = new Date();
   let weekDays = [
     "Sunday",
@@ -27,7 +27,11 @@ export const isAvailable = (parking) => {
     "Saturday",
   ];
   let day = weekDays[t.getDay()];
-  let time = t.getHours() + ":" + t.getMinutes();
+  let time =
+    String(t.getHours()).padStart(2, "0") +
+    ":" +
+    String(t.getMinutes()).padStart(2, "0");
+  console.log(day, time);
   return (
     (parking.availability[day][0]?.start < time &&
       time < parking.availability[day][0]?.end) ||
