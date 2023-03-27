@@ -8,6 +8,7 @@
 
 .results-page {
     color: var(--text-color);
+    min-height: 90lvh;
 }
 
 @media (max-width: 850px) {

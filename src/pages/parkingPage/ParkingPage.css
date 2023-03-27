@@ -91,9 +91,15 @@
     width: 5%;
     font-size: xx-large;
 }
+.saved:hover{
+    scale: 1.2;
+}
 
 .like, .red  {
     color: red;
+}
+.ParkingPage .fa-phone{
+    color: white;
 }
 
 .navigation-button {
@@ -139,7 +145,7 @@
     .ParkingPage p {
         font-size: small;
     }
-    .sticky-buttom{
-        /* flex-direction: column; */
+    .ParkingPage .information {
+        border-radius: 10px 10px 10px 10px;
     }
 }

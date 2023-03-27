@@ -24,6 +24,9 @@
   --d-white-l-black: #fff;
   --text-not-available:#dbd9d9;
   --background-add-parking:#265f9c4d;
+
+  --moon-size:0px;
+  --sun-size:20px;
 }
 
 :root:has(.light-mode) {
@@ -37,6 +40,10 @@
   --d-white-l-black: #000;
   --text-not-available:#6f6e6e;
   --background-add-parking:#76b5c54d;
+
+
+  --moon-size:20px;
+  --sun-size:0px;
 }
 :root{
   background-image: var(--bg-image);

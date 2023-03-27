@@ -1,6 +1,7 @@
 .user-parkings {
     display: flex;
     flex-direction: column;
+    min-height: 90lvh;
 }
 
 .user-parkings h1 {
@@ -26,5 +27,8 @@
     .user-parkings-add-parking {
         border: 2px solid var(--main-color-2);
         font-size: 3vw;
+    }
+    .user-parkings-add-parking {
+        width: 60vw;
     }
 }
