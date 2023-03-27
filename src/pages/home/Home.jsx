@@ -19,7 +19,6 @@ export default function Home() {
             <div className="logo">
               <img className="logo-size" src={imgLogo} alt="logo" />
             </div>
-          <DarkMood />
             <div title="Account" className="account">
               <Link to={"/account"}>
                 <span className="material-symbols-outlined size-icon">
@@ -28,6 +27,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
+          <DarkMood />
         </div>
         <Search selectedAddress={address} setSelectedAddress={setAddress} />
       </div>

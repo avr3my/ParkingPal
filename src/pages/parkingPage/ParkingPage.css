@@ -2,7 +2,8 @@
     display: flex;
     flex-direction: column;
     height: 90vh;
-    color: var(--text-color);
+    color: white;
+    min-height: 100lvh;
 }
 
 .top-parking-page {
@@ -12,6 +13,10 @@
 }
 
 .img {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0px;
+    /* bottom: 50vh; */
     width: 70%;
     height: 70%;
 }
@@ -22,11 +27,8 @@
 }
 
 .ParkingPage .sticky {
-    position: -webkit-sticky;
-    position: sticky;
-    bottom: 50vh;
     mix-blend-mode: normal;
-    background-color: #cfc5c59e;
+    background-color: #404c9a9e;
 }
 
 .ParkingPage .information {
@@ -115,6 +117,9 @@
 
 .navigation-button:hover {
     background-color: var(--main-color-1);
+}
+footer{
+    margin-top: 7lvh;
 }
 
 @media (max-width: 540px) {
