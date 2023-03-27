@@ -42,3 +42,36 @@
   .sun {
     color: orange;
   }
+
+
+
+
+
+
+
+
+
+  @media (width < 540px) {
+    .home-page .label {
+      margin-right: 3vw;
+      width: 35px;
+      height: 35px;
+      border-radius:5px;
+      justify-content: center;
+      padding: 0px;
+    }
+    
+    .home-page .ball {
+      width: 0px;
+      height: 0px;
+    }
+    .home-page .moon {
+      width: var(--moon-size);
+      height: var(--moon-size);
+    }
+    
+    .home-page .sun {
+      width: var(--sun-size);
+      height: var(--sun-size);
+    }
+  }

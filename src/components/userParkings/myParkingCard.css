@@ -56,10 +56,6 @@
     margin-left: 8px;
     margin-right: 8px;
 }
-
-/*input[type="checkbox" i] {
-    appearance:none;
-}*/
 .slider {
     cursor: pointer;
     position: absolute;
@@ -104,5 +100,6 @@ input:checked+.slider:before {
 @media (max-width: 540px) {
     .my-parking-card {
         border: 3px solid var(--main-color-2);
+        width: 95vw;
     }
 }

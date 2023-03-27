@@ -39,12 +39,6 @@ export default function ParkingCard({ details }) {
       <div className="green"> </div>
     </div>
   );
-  const available = (
-    <div className="available">
-      <span>available: </span>
-      <div className="green"> </div>
-    </div>
-  );
   const noElectricCars = (
     <div className="electricCars">
       <span>
@@ -63,12 +57,6 @@ export default function ParkingCard({ details }) {
       <div className="red"> </div>
     </div>
   );
-  const noavailable = (
-    <div className="available">
-      <span>available: </span>
-      <div className="red"> </div>
-    </div>
-  );
 
   if (!details?.data()) return;
 
@@ -82,7 +70,6 @@ export default function ParkingCard({ details }) {
             {details.data().address.properties.city}
           </h1>
           <div className="ditels">
-            {details.data().available ? available : noavailable}
             {details.data().electricCars ? ElectricCars : noElectricCars}
             {details.data().roofed ? roofed : noroofed}
           </div>
