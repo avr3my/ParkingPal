@@ -1,3 +1,8 @@
+.home-page .search{
+    max-width: 90vw;
+    margin: auto;
+}
+
 .home-page .search button {
     cursor: pointer;
     border-radius: 0 10px 10px 0;
@@ -196,7 +201,7 @@ main:has(input:focus) .address-results {
     border-bottom: 5px solid var(--main-color-1);
   }
 
-@media (min-width: 1140px) {
+@media (width> 1140px) {
     .home-page .input {
         height: 63px;
     }
@@ -208,7 +213,7 @@ main:has(input:focus) .address-results {
         padding-left: 3%;
     }
 }
-@media (max-width: 540px) {
+@media (width< 540px) {
     .popup .popuptext {
         left: -100%;
     }
