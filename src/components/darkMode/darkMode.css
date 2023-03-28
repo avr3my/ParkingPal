@@ -1,77 +1,71 @@
  .checkbox {
-    opacity: 0;
-    position: absolute;
-  }
-  
-  .label {
-    background-color: var(--main-color-2);
-    width: 50px;
-    height: 26px;
-    display: flex;
-    border-radius:50px;
-    align-items: center;
-    justify-content: space-between;
-    padding: 5px;
-    position: relative;
-    transform: scale(1.0);
-    cursor:pointer;
-  }
-  
-  .ball {
-    width: 20px;
-    height: 20px;
-    background-color: white;
-    position: absolute;
-    top: 3px;
-    left: 3px;
-    border-radius: 50%;
-    transition: transform 0.2s linear;
-  }
-  
-  .dark{
-    transform: translateX(24px);
-  }
-  .light{
-    transform: translateX(0px);
-  }
-  
-  .moon {
-    color: black;
-  }
-  
-  .sun {
-    color: orange;
-  }
+   opacity: 0;
+   position: absolute;
+ }
 
+ .label {
+   background-color: var(--main-color-2);
+   width: 50px;
+   height: 26px;
+   display: flex;
+   border-radius: 50px;
+   align-items: center;
+   justify-content: space-between;
+   padding: 5px;
+   position: relative;
+   transform: scale(1.0);
+   cursor: pointer;
+ }
 
+ .ball {
+   width: 20px;
+   height: 20px;
+   background-color: white;
+   position: absolute;
+   top: 3px;
+   left: 3px;
+   border-radius: 50%;
+   transition: transform 0.2s linear;
+ }
 
+ .dark {
+   transform: translateX(24px);
+ }
 
+ .light {
+   transform: translateX(0px);
+ }
 
+ .moon {
+   color: black;
+ }
 
+ .sun {
+   color: orange;
+ }
 
+ @media (width < 540px) {
+   .home-page .label {
+     margin-right: 3vw;
+     width: 35px;
+     height: 35px;
+     border-radius: 5px;
+     justify-content: center;
+     padding: 0px;
+   }
 
+   .home-page .ball {
+     width: 0px;
+     height: 0px;
+   }
 
-  @media (width < 540px) {
-    .home-page .label {
-      margin-right: 3vw;
-      width: 35px;
-      height: 35px;
-      border-radius:5px;
-      justify-content: center;
-      padding: 0px;
-    }
-    
-    .home-page .ball {
-      width: 0px;
-      height: 0px;
-    }
-    .home-page .moon {
-      width: var(--moon-size);
-      height: var(--moon-size);
-    }
-    
-    .home-page .sun {
-      width: var(--sun-size);
-      height: var(--sun-size);
-    }
-  }
+   .home-page .moon {
+     width: var(--moon-size);
+     height: var(--moon-size);
+   }
+
+   .home-page .sun {
+     width: var(--sun-size);
+     height: var(--sun-size);
+   }
+ }

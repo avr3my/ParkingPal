@@ -19,7 +19,7 @@ export default function Home() {
             <div className="logo">
               <img className="logo-size" src={imgLogo} alt="logo" />
             </div>
-          <DarkMode />
+            <DarkMode />
             <div title="Account" className="account">
               <Link to={"/account"}>
                 <span className="material-symbols-outlined size-icon">
