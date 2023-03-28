@@ -55,7 +55,13 @@
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+
 }
+.main-div:has(.login-page) .burger,
+.main-div:has(.add-parking-page) .burger{
+  display: none;
+}
+/* burger */
 @media( width < 540px){
   .main-div:has(.open) {
     height: 100lvh;

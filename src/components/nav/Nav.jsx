@@ -62,19 +62,18 @@ export default function Nav({ current, setCurrent }) {
           My parkings
         </div>
         {open && <div className="line"></div>}
-        <Link to={"/"}>
+        <Link className="logout" onClick={logout} to={"/"}>
           <span
             onClick={logout}
             title="log out"
-            id="logout"
-            className="material-symbols-outlined"
+            className="material-symbols-outlined logout"
           >
             logout
           </span>
-          {open && <span className="on-side logout">Log out</span>}
+          {open && <span onClick={logout} className="on-side logout">Log out</span>}
         </Link>
         <DarkMode />
-        <div className="pseudo" onClick={()=>setOpen(false)}></div>
+        <div className="pseudo" ></div>
       </div>
     </nav>
   );
