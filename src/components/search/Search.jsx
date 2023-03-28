@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./search.css";
 import { auth } from "../../firebaseConfig";
 import { popupWithCallback } from "../../popup.js";
+import { logError } from "../../otherFunctions";
 
 export default function Search({ src, selectedAddress, setSelectedAddress }) {
   const [searchText, setSearchText] = useState("");
@@ -23,15 +24,12 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
       .then((result) => {
         setAddressResults(result.features);
       })
-      .catch((error) => console.log("error", error));
+      .catch((e) => logError(e));
   }, [searchText]);
-
+  
   const handleSelect = (address) => {
     setSelectedAddress(address);
-    if (!address?.properties) {
-      return;
-    }
-    // console.log(selectedAddress);
+    if (!address?.properties) return;
     setSearchText(
       address.properties.address_line1 + ", " + address.properties.city
     );
@@ -50,8 +48,6 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
   function getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(showPosition);
-    } else {
-      console.log("Accsess not alowed");
     }
   }
 
@@ -68,9 +64,9 @@ export default function Search({ src, selectedAddress, setSelectedAddress }) {
         handleSelect(result.features[0]);
         // navigateToResults();
       })
-      .catch((error) => console.log("error", error));
+      .catch((e) => logError(e));
   }
-
+  
   const navigateToResults = () => {
     if (src === "parking") return;
     if (!auth.currentUser) {

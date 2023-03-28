@@ -1,6 +1,10 @@
-import { getDoc, doc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+
+import { logError } from "../../otherFunctions";
+
 import { auth, db } from "../../firebaseConfig";
+import { getDoc, doc } from "firebase/firestore";
+
 import ParkingCard from "../parkingCard/ParkingCard";
 
 export default function SavedParkings() {
@@ -11,9 +15,9 @@ export default function SavedParkings() {
       .then((e) => {
         setParkings(e.data().fav);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => logError(e));
   }, []);
-
+  
   return (
     <div>
       {parkings.map((parking, index) => (

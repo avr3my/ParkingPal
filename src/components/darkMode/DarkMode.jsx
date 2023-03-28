@@ -6,7 +6,7 @@ import { FiSun } from "react-icons/fi";
 
 import { themeContext } from "../../App";
 
-export default function DarkMood() {
+export default function DarkMode() {
   const { theme, changeTheme } = useContext(themeContext);
   return (
     <div className="dark-mode-switch">

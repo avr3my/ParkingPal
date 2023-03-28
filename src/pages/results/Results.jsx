@@ -12,7 +12,7 @@ import { sortByDistance } from "../../sort.js";
 import { isAvailable } from "../../otherFunctions";
 
 import ParkingCard from "../../components/parkingCard/ParkingCard";
-import DarkMood from "../../components/darkMode/DarkMode";
+import DarkMode from "../../components/darkMode/DarkMode";
 
 export default function Results() {
   const goHome = useNavigate();
@@ -61,7 +61,7 @@ export default function Results() {
             alt="logo"
           />
         </Link>
-        <DarkMood />
+        <DarkMode />
       </div>
       <div className="results-page">
         <div className="address1">

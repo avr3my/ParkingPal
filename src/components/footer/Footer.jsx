@@ -3,12 +3,10 @@ import "./footer.css";
 
 // libraries
 import React from "react";
-// import { Link } from "react-router-dom";
 import { FaWhatsapp } from "react-icons/fa";
 import { CiFacebook, CiTwitter } from "react-icons/ci";
 import { BsApple } from "react-icons/bs";
 import { RiGooglePlayFill } from "react-icons/ri";
-import { IconContext } from "react-icons";
 
 
 export default function Footer() {
