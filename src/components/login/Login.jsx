@@ -1,8 +1,8 @@
 import "./login.css";
 
 import { useState } from "react";
-
 import { Link } from "react-router-dom";
+
 import { auth, db } from "../../firebaseConfig";
 import {
   createUserWithEmailAndPassword,
@@ -10,10 +10,15 @@ import {
   sendPasswordResetEmail,
 } from "firebase/auth";
 
-
 import { setDoc, doc } from "firebase/firestore";
-import { errorPopup, warningPopup, successPopup, toastSuccess } from "../../popup";
+import {
+  errorPopup,
+  warningPopup,
+  successPopup,
+  toastSuccess,
+} from "../../popup";
 import { actionCodeSettings } from "../../App";
+import { logError } from "../../otherFunctions";
 
 export default function Login({ setSuccses }) {
   const [signup, setSignup] = useState(false);
@@ -61,8 +66,14 @@ export default function Login({ setSuccses }) {
         addUserToCollection(cred.user.auth.currentUser);
       })
       .catch((err) => {
-        errorPopup("Failed", "Failed to create an account");
-        console.log(err.message);
+        switch (err.code) {
+          case "auth/email-already-in-use":
+            errorPopup("Failed", "Account already in use");
+            break;
+          default:
+            errorPopup("Failed", "Failed to create an account");
+            logError(err.message);
+        }
       });
   };
 
@@ -79,10 +90,13 @@ export default function Login({ setSuccses }) {
           case "auth/wrong-password":
             errorPopup("Login Failed", "Wrong password");
             break;
+          case "auth/too-many-requests":
+            errorPopup("Login Failed", "Too many requests. Try waiting or reset password");
+            break;
 
           default:
             errorPopup("Login Failed", "Something went wrong");
-            console.log(err);
+            logError(err);
             break;
         }
       });
@@ -94,7 +108,7 @@ export default function Login({ setSuccses }) {
       warningPopup(null, "Invalid Email Address");
       return false;
     }
-    
+
     sendPasswordResetEmail(auth, email, actionCodeSettings)
       .then((e) => {
         successPopup(
@@ -110,8 +124,8 @@ export default function Login({ setSuccses }) {
           warningPopup("Reset Failed", "User does not exist");
         } else {
           warningPopup("Reset Failed", "Something went wrong");
+          logError(err);
         }
-        console.log(err);
       });
   };
 
@@ -140,9 +154,9 @@ export default function Login({ setSuccses }) {
     })
       .then(() => {
         setSuccses(true);
-        toastSuccess("Registered successfully")
+        toastSuccess("Registered successfully");
       })
-      .catch((e) => console.log(e));
+      .catch((e) => logError(e));
   };
 
   return (

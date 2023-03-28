@@ -15,7 +15,7 @@ export const warningPopup = (title, message) => {
     title: title,
     text: message,
     confirmButtonColor: "#36899e",
-    timer: 2500,
+    timer: 3000,
     timerProgressBar: true,
   });
 };

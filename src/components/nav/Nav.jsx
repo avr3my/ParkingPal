@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../../firebaseConfig";
 import logo from "../../Assets/logo344.png";
-import DarkMood from "../darkMode/DarkMode";
+import DarkMode from "../darkMode/DarkMode";
 
 export default function Nav({ current, setCurrent }) {
   const [open, setOpen] = useState(false);
@@ -17,7 +17,7 @@ export default function Nav({ current, setCurrent }) {
         <img title="ParkingPal" className="logo" src={logo} alt="logo" />
       </Link>
       <span
-        class="material-symbols-outlined burger"
+        className="material-symbols-outlined burger"
         onClick={() => setOpen(!open)}
       >
         {open ? "close" : "menu"}
@@ -31,7 +31,7 @@ export default function Nav({ current, setCurrent }) {
           className={current === 1 ? "selected" : ""}
         >
           {open && (
-            <span class="material-symbols-outlined on-side">
+            <span className="material-symbols-outlined on-side">
               account_circle
             </span>
           )}
@@ -45,7 +45,7 @@ export default function Nav({ current, setCurrent }) {
           className={current === 2 ? "selected" : ""}
         >
           {open && (
-            <span class="material-symbols-outlined on-side">Favorite</span>
+            <span className="material-symbols-outlined on-side">Favorite</span>
           )}
           Saved parkings
         </div>
@@ -57,7 +57,7 @@ export default function Nav({ current, setCurrent }) {
           className={current === 3 ? "selected" : ""}
         >
           {open && (
-            <span class="material-symbols-outlined on-side">local_parking</span>
+            <span className="material-symbols-outlined on-side">local_parking</span>
           )}
           My parkings
         </div>
@@ -73,7 +73,7 @@ export default function Nav({ current, setCurrent }) {
           </span>
           {open && <span className="on-side logout">Log out</span>}
         </Link>
-        <DarkMood />
+        <DarkMode />
         <div className="pseudo" onClick={()=>setOpen(false)}></div>
       </div>
     </nav>

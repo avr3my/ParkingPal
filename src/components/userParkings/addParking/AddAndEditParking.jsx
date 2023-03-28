@@ -19,6 +19,7 @@ import { doc, updateDoc, getDoc } from "firebase/firestore";
 import { deleteDoc, addDoc, collection } from "firebase/firestore";
 import { getDownloadURL, ref } from "firebase/storage";
 import { uploadBytes, deleteObject } from "firebase/storage";
+import { logError } from "../../../otherFunctions";
 
 export default function AddAndEditParking({ setAddParking, parkingId }) {
   const [user, setUser] = useState(null);
@@ -58,7 +59,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
           setAddress(doc.data().address);
           setAvailability(doc.data().availability);
         })
-        .catch((err) => console.log(err));
+        .catch((err) => logError(err));
     }
   }, [user]);
 
@@ -67,7 +68,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
     // get user
     getDoc(doc(db, "users", auth.currentUser.uid))
       .then((e) => setUser(e.data()))
-      .catch((e) => console.log(e));
+      .catch((e) => logError(e));
 
     // get parking image
     if (!parkingId) return;
@@ -117,7 +118,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
     if (!imageUpload) return;
     const imageRef = ref(storage, "parkings/" + parkingId);
     uploadBytes(imageRef, imageUpload).catch((e) =>
-      console.log("image failure", e)
+      logError(e)
     );
   };
 
@@ -133,7 +134,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
         successPopup("", "Parking added successufully");
         setAddParking(false);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => logError(e));
   };
 
   const updateParking = () => {
@@ -144,7 +145,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
         successPopup("", "Parking updated successufully");
         setAddParking(false);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => logError(e));
   };
 
   const deleteParking = async () => {
@@ -161,7 +162,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
       })
       .catch((e) => {
         errorPopup("", "Failed to delete parking");
-        console.log(e);
+        logError(e);
       });
     deleteObject(ref(storage, "parkings" + parkingId)).catch(() => {});
     updateDoc(doc(db, "users", auth.currentUser.uid), {

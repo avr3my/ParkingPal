@@ -8,12 +8,10 @@ import MyParkingCard from "./MyParkingCard";
 
 export default function UserParkings() {
   const [addParking, setAddParking] = useState(false);
-  // const [currentUser, setCurrentUser] = useState(null);
   const [parkingId, setParkingId] = useState(null);
   const [userParkings, setUserParkings] = useState([])
 
   useEffect(() => {
-    console.log("rendered");
     if (!auth?.currentUser) return;
     getDoc(doc(db, "users", auth.currentUser.uid)).then((e) => {
       setUserParkings(e.data().parkings);

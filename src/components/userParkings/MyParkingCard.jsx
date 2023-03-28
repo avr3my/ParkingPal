@@ -6,7 +6,7 @@ import { getDownloadURL, ref } from "firebase/storage";
 import { db, storage } from "../../firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { MdElectricalServices, MdRoofing } from "react-icons/md";
-import { isAvailable } from "../../otherFunctions";
+import { isAvailable, logError } from "../../otherFunctions";
 
 export default function MyParkingCard({
   parkingId,
@@ -20,9 +20,9 @@ export default function MyParkingCard({
   useEffect(() => {
     getDoc(doc(db, "parkings", parkingId))
       .then((e) => setParking(e.data()))
-      .catch((e) => console.log(e));
+      .catch((e) => logError(e));
   }, [parkingId]);
-
+  
   // get image
   useEffect(() => {
     const imageRef = ref(storage, "parkings/" + parkingId);

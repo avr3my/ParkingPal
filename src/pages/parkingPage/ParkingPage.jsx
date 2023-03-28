@@ -1,31 +1,39 @@
 import "./ParkingPage.css";
 
 import { useEffect, useState } from "react";
-import { auth, db } from "../../firebaseConfig";
+import { auth, db, storage } from "../../firebaseConfig";
 import { useParams } from "react-router";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
 import { Link } from "react-router-dom";
 import logo from "../../Assets/logo344.png";
-import DarkMood from "../../components/darkMode/DarkMode";
+import DarkMode from "../../components/darkMode/DarkMode";
 import img from "../../Assets/parkingImg6.png";
 import { BsHeartFill } from "react-icons/bs";
-import { isAvailable } from "../../otherFunctions";
-import {SiWaze, SiGooglemaps} from "react-icons/si"
+import { isAvailable, logError } from "../../otherFunctions";
+import { SiWaze, SiGooglemaps } from "react-icons/si";
+import { getDownloadURL, ref } from "firebase/storage";
 
 export default function ParkingPage() {
   const [parking, setParking] = useState(null);
-  const { parkingId } = useParams();
-  useEffect(() => {
-    getDoc(doc(db, "parkings", parkingId)).then((e) => setParking(e.data()));
-  }, [parkingId]);
-
+  const [image, setImage] = useState(img);
   const [user, setUser] = useState(null);
+
+  const { parkingId } = useParams();
+
+  useEffect(() => {
+    getDoc(doc(db, "parkings", parkingId))
+    .then((e) => setParking(e.data()));
+    getDownloadURL(ref(storage, "parkings/" + parkingId))
+      .then((e) => setImage(e))
+      .catch((e) => logError(e));
+  }, [parkingId]);
+  
 
   useEffect(() => {
     if (!auth.currentUser?.uid) return;
     getDoc(doc(db, "users", auth.currentUser.uid))
       .then((e) => setUser(e.data()))
-      .catch((e) => console.log(e));
+      .catch((e) => logError(e));
   }, [user]);
 
   const setFav = () => {
@@ -53,7 +61,7 @@ export default function ParkingPage() {
   ];
 
   if (!parking) return null;
-  let c  = parking.address.geometry.coordinates;
+  let c = parking.address.geometry.coordinates;
 
   return (
     <>
@@ -66,11 +74,11 @@ export default function ParkingPage() {
             alt="logo"
           />
         </Link>
-        <DarkMood />
+        <DarkMode />
       </div>
       <div className="ParkingPage">
         <div className="img">
-          <img src={img} alt="" />
+          <img src={image} alt="" />
         </div>
         <div className="information sticky text">
           {parking && (
@@ -98,7 +106,9 @@ export default function ParkingPage() {
                 <div className="available">
                   <p>available: </p>
                   <span className="material-symbols-outlined">
-                    {!parking.occupied && isAvailable(parking) ? "done" : "close"}
+                    {!parking.occupied && isAvailable(parking)
+                      ? "done"
+                      : "close"}
                   </span>
                 </div>
               </div>
@@ -108,7 +118,13 @@ export default function ParkingPage() {
                   return (
                     <p key={index}>
                       {day}:{" "}
-                      {parking.availability[day].map((timeSlot, i) => (i===1 ? ", ":"") + timeSlot.start+"-"+timeSlot.end)}
+                      {parking.availability[day].map(
+                        (timeSlot, i) =>
+                          (i === 1 ? ", " : "") +
+                          timeSlot.start +
+                          "-" +
+                          timeSlot.end
+                      )}
                     </p>
                   );
                 })}
@@ -122,10 +138,31 @@ export default function ParkingPage() {
             </div>
           </div>
           <div className="sticky-buttom">
-           <a className="navigation-button" target={"_blank"} href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}>waze <SiWaze/></a>
-           <a className="navigation-button" target={"_blank"} href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}>google maps <SiGooglemaps/></a>
-           <a className="navigation-button" color="white" target={"_blank"} href={`tel:${parking.ownerPhone}`}>col <i className="fa-solid fa-phone"></i> </a>
-        </div>
+            <a
+              className="navigation-button"
+              target={"_blank"}
+              rel="noreferrer"
+              href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}
+            >
+              waze <SiWaze />
+            </a>
+            <a
+              className="navigation-button"
+              target={"_blank"}
+              rel="noreferrer"
+              href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}
+            >
+              google maps <SiGooglemaps />
+            </a>
+            <a
+              className="navigation-button"
+              target={"_blank"}
+              rel="noreferrer"
+              href={`tel:${parking.ownerPhone}`}
+            >
+              call <i className="fa-solid fa-phone"></i>{" "}
+            </a>
+          </div>
         </div>
       </div>
     </>

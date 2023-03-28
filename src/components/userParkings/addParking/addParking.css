@@ -76,14 +76,6 @@
 .add-time-frame{
     cursor: pointer;
 }
-@media (width<540px) {
-    .availability-window .time-frame{
-        display: block;
-    }
-    .comma{
-        display: none;
-    }
-}
 
 .add-time-slot{
     background: var(--bg-image);
@@ -217,9 +209,19 @@
     .add-parking{
         flex-direction: column;
         min-width: 90vw;
+        padding: 5px;
     }
     .add-parking .details{
         width: 90%;
         margin-left:0;
+    }
+    .add-parking .image-div {
+        margin: 25px 10px;
+    }
+    .availability-window .time-frame{
+        display: block;
+    }
+    .comma{
+        display: none;
     }
 }

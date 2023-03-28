@@ -21,12 +21,11 @@ import {
   uploadBytes,
   deleteObject,
 } from "firebase/storage";
-import { deleteAllParkings } from "../../otherFunctions";
+import { deleteAllParkings, logError } from "../../otherFunctions";
 export default function UserProfile({ setSuccses }) {
   const [imageUpload, setImageUpload] = useState(null);
   const [userData, setUserData] = useState(null);
   const [userImage, setUserImage] = useState(Avatar);
-  const [renderImage, setRenderImage] = useState(false);
 
   const [editName, setEditName] = useState(false);
   const [editPhone, setEditPhone] = useState(false);
@@ -43,10 +42,8 @@ export default function UserProfile({ setSuccses }) {
     if (!imageUpload) return;
     const imageRef = ref(storage, "users/" + auth.currentUser.uid);
     uploadBytes(imageRef, imageUpload)
-      .then(() => {
-        setRenderImage(!renderImage);
-      })
-      .catch((e) => console.log(e));
+      .then(() => getImage())
+      .catch((e) => logError(e));
   }, [imageUpload]);
 
   useEffect(() => {
@@ -56,18 +53,18 @@ export default function UserProfile({ setSuccses }) {
       .then((e) => {
         setUserData(e.data());
       })
-      .catch((err) => console.log("error", err));
+      .catch((err) => logError("error", err));
   }, [editName, editPhone, editEmail, editDesc, auth.currentUser]);
 
-  useEffect(() => {
-    // get image from torage
+  const getImage = () => {
     if (!(auth && auth.currentUser)) return;
     const imageRef = ref(storage, "users/" + auth.currentUser.uid);
     getDownloadURL(imageRef)
       .then((e) => setUserImage(e))
       .catch(() => {});
-  }, [auth, auth.currentUser, renderImage]);
+  };
 
+  useEffect(getImage, [auth.currentUser]);
   const setEdit = (selection) => {
     let variables = [editName, editPhone, editEmail, editDesc];
     let functions = [setEditName, setEditPhone, setEditEmail, setEditDesc];
@@ -85,7 +82,7 @@ export default function UserProfile({ setSuccses }) {
     );
     if (!ans) return;
     const id = auth.currentUser.uid;
-    let parkings = userData.parkings;
+    let parkings = userData?.parkings;
     deleteDoc(doc(db, "users", id))
       .then(() => {
         deleteObject(ref(storage, "users/" + id));
@@ -120,7 +117,7 @@ export default function UserProfile({ setSuccses }) {
             warningPopup("Invalid Email", "Please enter valid email address");
           } else {
             alert("Failed");
-            console.log(err);
+            logError(err);
           }
         });
 
@@ -136,9 +133,10 @@ export default function UserProfile({ setSuccses }) {
     if (!ans) return;
     sendPasswordResetEmail(auth, auth.currentUser.email, actionCodeSettings)
       .then(() => setSuccses(false))
-      .catch((e) => console.log(e));
+      .catch((e) => logError(e));
   };
 
+  
   const general = {
     updateDocument: updateDocument,
     userData: userData,
