@@ -11,6 +11,7 @@
 .used {
     background-color: rgba(7, 228, 40, 0.2);
     color: var(--text-color);
+    box-shadow: 1px 1px 10px 10px;
 }
 
 .not-available {

@@ -138,31 +138,11 @@ export default function ParkingPage() {
             </div>
           </div>
           <div className="sticky-buttom">
-            <a
-              className="navigation-button"
-              target={"_blank"}
-              rel="noreferrer"
-              href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}
-            >
-              waze <SiWaze />
-            </a>
-            <a
-              className="navigation-button"
-              target={"_blank"}
-              rel="noreferrer"
-              href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}
-            >
-              google maps <SiGooglemaps />
-            </a>
-            <a
-              className="navigation-button"
-              target={"_blank"}
-              rel="noreferrer"
-              href={`tel:${parking.ownerPhone}`}
-            >
-              call <i className="fa-solid fa-phone"></i>{" "}
-            </a>
-          </div>
+           <a className="navigation-button" rel="noreferrer" target={"_blank"} href={`https://www.waze.com/ul?ll=${c[1]}%2C${c[0]}&navigate=yes&zoom=17`}>waze <SiWaze/></a>
+           <a className="navigation-button" rel="noreferrer" target={"_blank"} href={`https://www.google.com/maps/search/?api=1&query=${c[1]}%2C${c[0]}`}>google maps <SiGooglemaps/></a>
+           <a className="navigation-button" rel="noreferrer" target={"_blank"} href={`tel:${parking.ownerPhone}`}>call <i className="fa-solid fa-phone"></i> </a>
+        </div>
+
         </div>
       </div>
     </>
