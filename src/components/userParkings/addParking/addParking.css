@@ -41,6 +41,7 @@
     border-radius: 10px;
     display: flex;
     position: absolute;
+    background-color: var(--d-black-l-white);
     background-image: var(--bg-image);
     background-size: 20%;
     color: var(--text-color);
@@ -78,7 +79,8 @@
 }
 
 .add-time-slot{
-    background: var(--bg-image);
+    background-color: var(--d-black-l-white);
+    background-image: var(--bg-image);
     background-size: 60%;
     border-radius: 5px;
     padding: 10px;

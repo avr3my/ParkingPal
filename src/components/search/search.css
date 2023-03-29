@@ -154,6 +154,7 @@ main:has(input:focus) .address-results {
     cursor: pointer;
     text-align: left;
     /* height: 30px; */
+    background-color: var(--d-black-l-white);
     background-image: var(--bg-image);
     background-size: 30%;
     border-bottom: 1px solid var(--main-color-2);
