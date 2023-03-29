@@ -39,7 +39,7 @@ export default function Results() {
     getDocs(parkingsRef).then((res) => {
       let resArr = [];
       res.forEach((doc) => {
-        if (isAvailable(doc.data())) resArr.push(doc);
+        if (doc.data().occupied === false && isAvailable(doc.data())) resArr.push(doc);
       });
       sortByDistance(selectedAddress, resArr);
       setParkings(resArr);

@@ -22,7 +22,7 @@ export default function MyParkingCard({
       .then((e) => setParking(e.data()))
       .catch((e) => logError(e));
   }, [parkingId]);
-  
+
   // get image
   useEffect(() => {
     const imageRef = ref(storage, "parkings/" + parkingId);
@@ -32,9 +32,8 @@ export default function MyParkingCard({
   }, [parkingId]);
 
   useEffect(() => {
-    if(parking) updateDoc(doc(db, "parkings", parkingId), parking)
-  }, [parking,parkingId])
-  
+    if (parking) updateDoc(doc(db, "parkings", parkingId), parking);
+  }, [parking, parkingId]);
 
   if (!parking) return null;
   return (
@@ -42,36 +41,25 @@ export default function MyParkingCard({
       className={`my-parking-card ${
         isAvailable(parking)
           ? parking.occupied
-            ? "used"
+            ? "occupied"
             : ""
           : "not-available"
       } `}
     >
-      <div className="my-parking-card-img">
+      <div className="image-div">
         <img src={parkingImg} alt={parkingId} />
       </div>
       <div className="my-parking-card-info">
         <div className="address">
-          {parking.address.properties.address_line1}{" "}
-          {parking.address.properties.city}
+          {(
+            parking.address.properties.address_line1 +
+            " " +
+            parking.address.properties.city
+          ).substring(0, 45)}
         </div>
-        <div className="my-parking-card-Details">
-          <div>
-            {parking.electicCars && (
-              <div className="electricCars">
-                Electric Car
-                <MdElectricalServices />
-              </div>
-            )}
-          </div>
-          <div>
-            {parking.roofed && (
-              <div className="roofed">
-                roofed
-                <MdRoofing />
-              </div>
-            )}
-          </div>
+        <div className="tags">
+          {parking.electicCars && <div>EV Charger</div>}
+          {parking.roofed && <div>Roofed</div>}
         </div>
       </div>
       <span
@@ -80,7 +68,6 @@ export default function MyParkingCard({
           setParkingId(parkingId);
           setAddParking(true);
         }}
-        style={{ fontSize: "large", cursor: "pointer" }}
       >
         edit
       </span>
