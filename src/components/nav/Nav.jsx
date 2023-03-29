@@ -73,7 +73,7 @@ export default function Nav({ current, setCurrent }) {
           {open && <span onClick={logout} className="on-side logout">Log out</span>}
         </Link>
         <DarkMode />
-        <div className="pseudo" ></div>
+        <div className="pseudo" onClick={()=>setOpen(false)} ></div>
       </div>
     </nav>
   );
