@@ -14,9 +14,10 @@
     color: var(--text-color);
     border: 3px solid var(--main-color-2);
     border-radius: 10px;
-    font-size: 2vw;
+    font-size: clamp(20px, 3vw, 25px);
     height: 8vh;
     width: 25vw;
+    min-width: 320px;
     margin-bottom: 3vh;
     margin-top: 5vh;
     background-color: var(--background-add-parking);
@@ -26,9 +27,8 @@
 @media (max-width: 540px) {
     .user-parkings-add-parking {
         border: 2px solid var(--main-color-2);
-        font-size: 3vw;
     }
     .user-parkings-add-parking {
-        width: 60vw;
+        min-width: 60vw;
     }
 }

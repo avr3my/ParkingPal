@@ -38,7 +38,7 @@
     min-width: 120px;
 }
 
-.result .ditels {
+.result .details {
     grid-area: 2 / 3 / 3 / 7;
     display: flex;
     justify-content: space-between;
@@ -80,7 +80,7 @@
         min-width: 90%;
     }
 
-    .result .ditels {
+    .result .details {
         font-size: x-small;
     }
 

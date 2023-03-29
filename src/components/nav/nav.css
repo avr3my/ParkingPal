@@ -70,6 +70,14 @@ a{
 .pseudo{
     display: none;
 }
+
+@media (width>540px) and (width<630px){
+    .nav-menu > div{
+        font-size: 13px;
+        padding: 12px;
+        height: 40px;
+    }
+}
 @media (width<540px) {
     nav{
         background-color: transparent;

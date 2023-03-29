@@ -12,56 +12,16 @@ import parkingAvatar from "../../Assets/parkingAvatar.jpg";
 
 export default function ParkingCard({ details }) {
   const [parkingImg, setParkingImg] = useState(parkingAvatar);
-  const getImage = () =>{
+
+  // get image
+  useEffect(() => {
     if (!details) return;
-    const imageRef = ref(storage, "parkings/" + details.id);
-    getDownloadURL(imageRef)
+    getDownloadURL(ref(storage, "parkings/" + details.id))
       .then((e) => setParkingImg(e))
       .catch(() => {});
-  }
-  useEffect(getImage, [details]);
-
-  const ElectricCars = (
-    <div className="electricCars">
-      <span>
-        electricCars
-        <MdElectricalServices />:{" "}
-      </span>
-      <div className="green"> </div>
-    </div>
-  );
-  const roofed = (
-    <div className="roofed">
-      <span>
-        roofed
-        <MdRoofing />:{" "}
-      </span>
-      <div className="green"> </div>
-    </div>
-  );
-  const noElectricCars = (
-    <div className="electricCars">
-      <span>
-        electricCars
-        <MdElectricalServices />:{" "}
-      </span>
-      <div className="red"> </div>
-    </div>
-  );
-  const noroofed = (
-    <div className="roofed">
-      <span>
-        roofed
-        <MdRoofing />:{" "}
-      </span>
-      <div className="red"> </div>
-    </div>
-  );
-
+  }, [details]);
   if (!details?.data()) return;
-
   return (
-    <>
       <div className="result">
         <Link className="parking-card-page" to={"/parking/" + details.id}>
           {details.data().available}
@@ -69,15 +29,27 @@ export default function ParkingCard({ details }) {
             {details.data().address.properties.address_line1}
             {details.data().address.properties.city}
           </h1>
-          <div className="ditels">
-            {details.data().electricCars ? ElectricCars : noElectricCars}
-            {details.data().roofed ? roofed : noroofed}
+          <div className="details">
+            <div className="electricCars">
+              <span>
+                EV Charger
+                <MdElectricalServices />:{" "}
+              </span>
+              <div className={details.data().electicCars ? "green" : "red"}> </div>
+            </div>
+            <div className="roofed">
+              <span>
+                Roofed
+                <MdRoofing />:{" "}
+              </span>
+              <div className={details.data().roofed ? "green" : "red"}> </div>
+            </div>
           </div>
           <div className="imagep">
             <img className="imagep" src={parkingImg} alt="img" />
           </div>
         </Link>
       </div>
-    </>
+
   );
 }

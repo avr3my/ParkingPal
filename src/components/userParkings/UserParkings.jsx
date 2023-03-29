@@ -27,7 +27,7 @@ export default function UserParkings() {
           setAddParking(true);
         }}
       >
-        add parking
+        Add Parking
       </button>
 
       <div className="user-parkings-2">

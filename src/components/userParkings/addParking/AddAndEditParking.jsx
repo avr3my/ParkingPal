@@ -45,7 +45,6 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
         ownerId: auth.currentUser?.uid,
         ownerName: user?.name,
         ownerPhone: user?.phone,
-        size: null,
         address: null,
         electicCars: false,
         roofed: false,
@@ -101,10 +100,6 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
     }
     if (!parkingInfo.ownerPhone) {
       warningPopup("", "Please enter your phone number");
-      return false;
-    }
-    if (!parkingInfo.size) {
-      warningPopup("", "Please enter car size");
       return false;
     }
     if (!parkingInfo.address) {
@@ -216,33 +211,7 @@ export default function AddAndEditParking({ setAddParking, parkingId }) {
               className="user-detail-input"
             />
           </div>
-          <div className="car-size">
-            <span> Car size: </span>
-            <label htmlFor="1"> van </label>
-            <input
-              type="radio"
-              onChange={() => setParkingInfo({ ...parkingInfo, size: 1 })}
-              name="parkSize"
-              id="1"
-              checked={parkingInfo?.size === 1}
-            />
-            <label htmlFor="2"> minivan </label>
-            <input
-              type="radio"
-              onChange={() => setParkingInfo({ ...parkingInfo, size: 2 })}
-              name="parkSize"
-              id="2"
-              checked={parkingInfo?.size === 2}
-            />
-            <label htmlFor="3"> full-size </label>
-            <input
-              type="radio"
-              onChange={() => setParkingInfo({ ...parkingInfo, size: 3 })}
-              name="parkSize"
-              id="3"
-              checked={parkingInfo?.size === 3}
-            />
-          </div>
+
           <div className="address">
             <span>Address: </span>
             <Search
