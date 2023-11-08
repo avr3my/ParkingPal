@@ -82,7 +82,7 @@ export default function Nav({ current, setCurrent }) {
         </div>
         {user && user.role === 'admin' && (
         <div onClick={() => {setOpen(false);setCurrent(4);}}className={current === 4 ? "selected" : ""}>
-          {open && (<span className="material-symbols-outlined on-side">local_parking</span>)}
+          {open && (<span className="material-symbols-outlined on-side">shield_person</span>)}
           Admin
         </div>
       )}
