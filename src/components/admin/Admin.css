@@ -1,0 +1,24 @@
+.Admin-page {
+    display: flex;
+    justify-content: space-around;
+    padding: 30px;
+    height: 70vh;
+  }
+  
+.table {
+    color: var(--text-color);
+    font-size: large;
+    height: 400px;
+    overflow-y: hidden; 
+  }
+.table-button{
+    color: var(--text-color);
+    background-color: transparent;
+    border: 1px solid var(--text-color);
+}
+  
+.scroll-container {
+    max-height: 100%;
+    overflow-y: scroll; 
+  }
+  

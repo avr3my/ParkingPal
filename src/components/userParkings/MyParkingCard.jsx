@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { getDownloadURL, ref } from "firebase/storage";
 import { db, storage } from "../../firebaseConfig";
 import { doc, getDoc, updateDoc } from "firebase/firestore";
-import { MdElectricalServices, MdRoofing } from "react-icons/md";
 import { isAvailable, logError } from "../../otherFunctions";
 
 export default function MyParkingCard({

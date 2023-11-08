@@ -27,6 +27,7 @@ export default function ParkingCard({ details }) {
           {details.data().available}
           <h1 className="address">
             {details.data().address.properties.address_line1}
+            {" "}
             {details.data().address.properties.city}
           </h1>
           <div className="details">

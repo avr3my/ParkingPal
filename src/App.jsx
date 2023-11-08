@@ -14,6 +14,7 @@ import Footer from "../src/components/footer/Footer";
 import Results from "./pages/results/Results";
 import Error from "../src/pages/error/Error";
 import ParkingPage from "./pages/parkingPage/ParkingPage";
+import Admin from "./components/admin/Admin";
 
 // create contexts
 export const addressContext = createContext();
@@ -44,6 +45,7 @@ export default function App() {
             <Route exact path="/parkings-around-me" element={<Results />} />
             <Route exact path="/parking/:parkingId" element={<ParkingPage />} />
             <Route path="/*" element={<Error />} />
+            <Route exact path="/admin" element={<Admin />} />
           </Routes>
           <Footer />
         </div>
